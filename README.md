@@ -5,3 +5,9 @@ Este juego serio tiene como propósito enseñar tópicos sobre computación y l�
 
 Proyecto desarrollado para Ingeniería de Software I de la Lic. en Ciencias de la Computación de la Universidad de Sonora.
 lmao
+
+Para ejecutar el juego es necesario:
+<ul>
+  <li>Processing <b>3.x</b>.</li>
+  <li>Descargar todos los archivos fuente así como archivos auxiliares.</li>
+</ul>
