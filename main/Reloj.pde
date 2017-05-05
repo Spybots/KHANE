@@ -5,6 +5,7 @@ float hoursRadius;
 float clockDiameter;
 int sec, min, start, timer;
 
+/*
 void setup() {
   size(640, 360);
   stroke(255);
@@ -70,3 +71,4 @@ if(timer > 999){
   endShape();
   start=millis();
 }
+*/
