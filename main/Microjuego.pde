@@ -1,5 +1,5 @@
 abstract class Microjuego {
-    int ID;
+    int ID, fallos;
     String nombre;
     boolean termino;
     boolean fallo;

@@ -223,6 +223,8 @@ class PaseoEuler extends Microjuego{
 
 PaseoEuler paseo = null;
 boolean someKey = false;
+
+/*
 void setup(){
      size(800, 800);
      
@@ -265,3 +267,4 @@ void draw(){
          }
      }
 }
+*/
