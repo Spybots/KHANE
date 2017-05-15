@@ -6,25 +6,23 @@
  */
  
 class Grafica{
-    private Punto[] punto;
-    private Recta[] recta;    
-    private int nPuntos;
-    private int nRectas;
+    private Set<Punto> conjPuntos;
+    private Set<Recta> conjRectas;
     
-    Grafica(Punto[] punto, Recta[] recta, int nPuntos, int nRectas){
-        this.punto = punto;
-        this.recta = recta;
-        this.nPuntos = nPuntos;
-        this.nRectas = nRectas;
+    Grafica(Set<Punto> conjPuntos, Set<Recta> conjRectas){
+        this.conjPuntos = conjPuntos;
+        this.conjRectas = conjRectas;
     }
 
     void dibujar(){
-        for(int i = 0; i < nRectas; ++i){
-            recta[i].dibujar();
+        Iterator<Punto> iteradorPunto = this.conjPuntos.iterator();
+        while(iteradorPunto.hasNext()){
+           iteradorPunto.next().dibujar(); 
         }
-
-        for(int i = 0; i < nPuntos; ++i){
-            punto[i].dibujar();
+        
+        Iterator<Recta> iteradorRecta = this.conjRectas.iterator();
+        while(iteradorRecta.hasNext()){
+           iteradorRecta.next().dibujar(); 
         }
     }
 }

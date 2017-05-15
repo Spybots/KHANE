@@ -13,6 +13,14 @@ class Recta{
         this.punto1 = punto1;
         this.punto2 = punto2;
     }
+    
+    Punto obtenerPunto1(){
+        return this.punto1; 
+    }
+    
+     Punto obtenerPunto2(){
+        return this.punto2; 
+    }
 
     void dibujar(){
         line(punto1.obtenerX(), punto1.obtenerY(), punto2.obtenerX(), punto2.obtenerY());
