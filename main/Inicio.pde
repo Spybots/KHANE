@@ -14,7 +14,7 @@
 
 private final int VALOR_MAX_COLOR = 255;
 private PGraphics maletin, bomba, nombre, fondo;
-private boolean mostrarMenu = false;
+private boolean mostrarAnimacionMenu = false;
 private final float ROTACION_ESCENA_X = -PI/8.0;
 
 /*****************************************************/
@@ -96,18 +96,6 @@ void crearModelos() {
     
     for (int i = 0; i < 10; i++) {
         mitad[i] = 0;
-    }
-}
-
-/*****************************************************/
-
-/**
- * @brief Espera el click de un ratón para iniciar la animación para desplegar el menú principal.
- */
-void mouseClicked()
-{
-    if (!mostrarMenu) {
-        mostrarMenu = true;
     }
 }
 
@@ -433,7 +421,7 @@ void dibujarBomba()
     bomba.clear();
 
     // Empieza la animacion para desplegar el menu principal.
-    if (mostrarMenu) {
+    if (mostrarAnimacionMenu) {
         // Reduce la mecha.
         if (alturaMecha > 0) {
             alturaMecha -= B_MECHA_VEL;
@@ -481,7 +469,7 @@ void dibujarNombre()
     nombre.textMode(SHAPE);
 
     // Deja de renderizar el texto durante la animación para mostrar el menú principal.
-    if (mostrarMenu) {
+    if (mostrarAnimacionMenu) {
         nombre.background(0);
         nombre.endDraw();
 

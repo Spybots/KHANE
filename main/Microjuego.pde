@@ -1,5 +1,5 @@
 abstract class Microjuego {
-    int ID, fallos;
+    int ID;
     String nombre;
     boolean termino;
     boolean fallo;
@@ -24,4 +24,5 @@ abstract class Microjuego {
     abstract boolean obtenerTermino();
     abstract void calcularPuntaje();
     abstract void actualizar();
+    abstract void procesarClick();
 }

@@ -1,10 +1,12 @@
 /*
  * Este archivo contiene las funciones principales de KHANE.
  *
- * Ultima modificacion: 01/Mayo/2017.
+ * Ultima modificacion: 15/Mayo/2017.
  */
 
-PFont fuenteTextoDefault; //defaultTextFont
+Microjuego juego;
+
+PFont fuenteTextoDefault;
 
 final int FPS_CAP = 60;
 
@@ -30,6 +32,8 @@ void setup()
     
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos(); //<>//
+    
+    juego = new Discos();
 }
 
 /**
@@ -37,11 +41,42 @@ void setup()
  */
 void draw()
 {
-    background(0, 0, 0); //Bien negro.
+    background(0, 0, 0); // Bien negro.
+    
     
     if (muestraInicio) {
         desplegarVentanaComienzo();
     } else if (muestraMenu) {
         desplegarMenu();
+    } else if (muestraJuego) {
+        juego.actualizar();
+    } else if (muestraPuntaje) {
+        // Desplegar puntajes.
+    } else if (muestraOpciones) {
+        // Desplegar opciones.
+    }
+    
+    // REMOVER DESPUES DE DEBUGUEAR.
+    textSize(16);
+    text("FPS: " + int(frameRate), 40, 20);
+}
+
+/*****************************************************/
+
+/**
+ * @brief Espera el click de un ratón para interactuar con el usuario..
+ */
+void mouseClicked()
+{   
+    if (muestraInicio) {
+        mostrarAnimacionMenu = true;
+    } else if (muestraMenu) {
+        // Hacer algo con el menu.
+    } else if (muestraJuego) {
+        juego.procesarClick();
+    } else if (muestraPuntaje) {
+        // Hacer algo con puntajes.
+    } else if (muestraOpciones) {
+        // Hacer algo con opciones.
     }
 }
