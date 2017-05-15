@@ -3,17 +3,23 @@
  * de discos.
  *
  * Autor: Iván A. Moreno Soto.
- * Última modificación: 01/Mayo/2017.
+ * Última modificación: 06/Mayo/2017.
  */
+
+/*****************************************************/
 
 /**
  * Esta clase define un número entero de longitud arbitraria y que está representado
  * con dígitos bajo un módulo arbitrario.
  */
 class Numero {
+    // Atributos de la clase.
+    
     int modulo;
     int numeroDigitos;
     int[] digitos;
+    
+    /*****************************************************/
     
     /**
      * @brief Construye un Numero 0 con la cantidad de dígitos y el módulo indicados.
@@ -31,6 +37,8 @@ class Numero {
             this.digitos[d] = 0;
         }
     }
+    
+    /*****************************************************/
     
     /**
      * @brief Construye un Numero con los dígitos y el módulo indicados. Se toma el módulo de
@@ -51,6 +59,8 @@ class Numero {
         }
     }
     
+    /*****************************************************/
+    
     /**
      * @brief Suma el Numero que llama a la función con otro Numero dado. Si el resultado de la suma da lugar a
      * un dígito extra, éste se ignora.
@@ -65,21 +75,23 @@ class Numero {
         int residuo; // Residuo que se lleva a la siguiente posición de la suma.
         
         resultado = new Numero(this.modulo, this.numeroDigitos);
-        residuo = 0; //<>//
+        residuo = 0; //<>// //<>// //<>// //<>//
         
         for (int d = 0; d < resultado.numeroDigitos; d++) {
-            resultado.digitos[d] = (this.digitos[d] + a.digitos[d] + residuo) % resultado.modulo; //<>//
+            resultado.digitos[d] = (this.digitos[d] + a.digitos[d] + residuo) % resultado.modulo; //<>// //<>// //<>// //<>//
             
             // Revisa si hubo residuo en la última suma.
-            if (this.digitos[d] + a.digitos[d] + residuo >= resultado.modulo) { //<>//
+            if (this.digitos[d] + a.digitos[d] + residuo >= resultado.modulo) { //<>// //<>// //<>// //<>//
                 residuo = 1;
             } else {
                 residuo = 0;
             }
-        } //<>//
+        } //<>// //<>// //<>// //<>//
         
         return resultado;
     }
+    
+    /*****************************************************/
     
     /**
      * @brief Incrementa en una unidad la posición indicada de este Numero. Si hay un residuo,
@@ -99,6 +111,8 @@ class Numero {
         }
     }
     
+    /*****************************************************/
+    
     /**
      * @brief Revisa si este Numero es 0.
      *
@@ -117,4 +131,6 @@ class Numero {
         
         return esCero;
     }
-}
+} // Fin de la clase Numero.
+
+/*****************************************************/

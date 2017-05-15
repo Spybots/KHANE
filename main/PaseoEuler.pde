@@ -159,7 +159,7 @@ class PaseoEuler extends Microjuego{
                 }else{
                     this.fallos += 1;
                     //si el usuario falla, termina el juego
-                    (obtenerFallo()){
+                    if (obtenerFallo()){
                         obtenerTermino();
                     }
                 }
