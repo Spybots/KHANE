@@ -40,7 +40,6 @@ private float alturaMecha;
 /*****************************************************/
 
 // Variables goblales para el texto.
-private final int MAGNITUD_TEXTO = 32;
 private float intensidadAlphaNombre = 255;
 private float cambioAlpha = 5;
 private boolean estaDesapareciendo = true;
@@ -460,6 +459,7 @@ void dibujarNombre()
     nombre.lights();
 
     nombre.textAlign(CENTER);
+    nombre.textFont(fuenteTextoDefault);
     nombre.textSize(MAGNITUD_TEXTO);
     // Dibuja el texto como gráficos de vector.
     nombre.textMode(SHAPE);
@@ -472,7 +472,7 @@ void dibujarNombre()
         estaDesapareciendo = false;
     } else {
         nombre.text("Keep Hacking and Nobody Explodes", T_POS_X, height - 1.5*T_Y_OFFSET);
-        nombre.text("Presiona cualquier boton del raton para comenzar", T_POS_X, height - T_Y_OFFSET);
+        nombre.text("Presiona cualquier botón del raton para comenzar", T_POS_X, height - T_Y_OFFSET);
         nombre.endDraw();
 
         // Crea la animación de aparición del texto.

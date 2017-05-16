@@ -22,11 +22,6 @@ void actualizarJuego()
     if (mostrarMicrojuego) {
         microjuegos.get(microjuegoActual).actualizar();
         
-        // No permite que el usuario visualice un microjuego ya terminado.
-        if (microjuegos.get(microjuegoActual).obtenerTermino()) {
-            mostrarMicrojuego = false;
-        }
-        
         if (microjuegos.get(microjuegoActual).obtenerFallo()) {
             errores++;
         }
@@ -77,20 +72,25 @@ void procesarClickBomba()
         microjuegos.get(microjuegoActual).procesarClick();
     } else {
         if (mouseX >= 0 && mouseX < width/2) {
-            if (mouseY >= 0 && mouseY < height/2) {
+            // No permite que el usuario visualice un microjuego que ya fue completado.
+            if (mouseY >= 0 && mouseY < height/2 && !microjuegos.get(0).obtenerTermino()) {
                 microjuegoActual = 0;
-            } else {
+                mostrarMicrojuego = true;
+            }
+            if (mouseY >= height/2 && mouseY < height && !microjuegos.get(1).obtenerTermino()) {
                 microjuegoActual = 1;
+                mostrarMicrojuego = true;
             }
         } else {
-            if (mouseY >= 0 && mouseY < height/2) {
+            if (mouseY >= 0 && mouseY < height/2 && !microjuegos.get(2).obtenerTermino()) {
                 microjuegoActual = 2;  // CAMBIAR YA QUE MÉTODOS DE CONTEO ESTÉ LISTO.
-            } else {
+                mostrarMicrojuego = true;
+            }
+            if (mouseY >= height/2 && mouseY < height && !microjuegos.get(2).obtenerTermino()) {
                 microjuegoActual = 2;
+                mostrarMicrojuego = true;
             }
         }
-        
-        mostrarMicrojuego = true;
     }
 }
 

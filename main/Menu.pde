@@ -8,7 +8,7 @@
 
 /*****************************************************/
 
-PImage botonIniciar, botonAjustes, botonPuntuaciones, botonSalir;
+PImage botonIniciar, botonAcerca, botonPuntuaciones, botonSalir;
 int anchoBoton, alturaBoton, padding;
 
 /*****************************************************/
@@ -18,12 +18,12 @@ int anchoBoton, alturaBoton, padding;
  */
 void crearBotones()
 {
-    botonAjustes = loadImage("./img/ajustes.png");
+    botonAcerca = loadImage("./img/acercade.png");
     botonPuntuaciones = loadImage("./img/puntuaciones.png");
     botonSalir = loadImage("./img/salir.png");
     botonIniciar = loadImage("./img/iniciar.png");
 
-    anchoBoton = width/4;
+    anchoBoton = width/3;
     alturaBoton = height/8;
     padding = alturaBoton/10;
 }
@@ -40,7 +40,7 @@ void desplegarMenu()
     text("Keep Hacking and Nobody Explodes", width/2, height/4);
 
     image(botonIniciar, width/2 - anchoBoton/2, height/2 - alturaBoton/2, anchoBoton, alturaBoton);
-    image(botonAjustes, width/2 - anchoBoton/2, height/2 + alturaBoton/2 + padding, anchoBoton, alturaBoton);
+    image(botonAcerca, width/2 - anchoBoton/2, height/2 + alturaBoton/2 + padding, anchoBoton, alturaBoton);
     image(botonPuntuaciones, width/2 - anchoBoton/2, height/2 + 3*alturaBoton/2 + padding, anchoBoton, alturaBoton);
     image(botonSalir, width/2 - anchoBoton/2, height/2 + 5*alturaBoton/2 + padding, anchoBoton, alturaBoton);
 }

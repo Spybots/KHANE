@@ -6,6 +6,7 @@
  */
 
 PFont fuenteTextoDefault;
+private final int MAGNITUD_TEXTO = 48;
 
 final int FPS_CAP = 60;
 
@@ -30,11 +31,11 @@ void setup()
     background(0, 0, 0);
     
     //Carga el texto usado por la interfaz del juego.
-    fuenteTextoDefault = createFont("Georgia", 32);
-    textFont(fuenteTextoDefault);
-     //<>// //<>//
+    fuenteTextoDefault = loadFont("./data/SertoKharput-48.vlw");
+    textFont(fuenteTextoDefault, 48); //<>//
+    
     //Crea los modelos que seran usados en la pantalla de inicio.
-    crearModelos(); //<>//
+    crearModelos();
     
     crearBotones();
 }
