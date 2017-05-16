@@ -104,10 +104,7 @@ class PaseoEuler extends Microjuego{
         this.listaGraf.get(this.indiceGraf).dibujarRectas();
 
         stroke(255);
-        Iterator<Recta> iterador = this.rectasUsuario.iterator();
-        while(iterador.hasNext()){
-            iterador.next().dibujar();    
-        }
+        this.rectasUsuario.dibujar();
 
         stroke(0);
         this.listaGraf.get(this.indiceGraf).dibujarPuntos();
@@ -117,7 +114,7 @@ class PaseoEuler extends Microjuego{
      * @brief Dice si el juego ha fallado o no.
      */
 
-    boolean obtenerFallo()
+    boolean revisarFallo()
     {
         if(this.fallos >= 3){
             this.fallo = true;
@@ -125,13 +122,17 @@ class PaseoEuler extends Microjuego{
         
         return this.fallo;
     }
+
+    boolean obtenerFallo(){
+        return this.fallo;
+    }
     
-    boolean obtenerTermino()
+    boolean revisarTermino()
     {   
          //revisa que el juego no haya terminado y que el usuario todavia puede fallar
 
-        if(!this.fallo){
-            this.fallo = false;
+        if(this.fallo){
+            this.termino = true;
         }
         if(!this.termino){
             //revisa si el juego no ha terminado
@@ -145,6 +146,10 @@ class PaseoEuler extends Microjuego{
         
         return this.termino;
     }
+
+    boolean obtenerTermino(){
+        return this.termino;
+    }
     
     void calcularPuntaje()
     {
@@ -154,7 +159,19 @@ class PaseoEuler extends Microjuego{
     void actualizar()
     {
         background(127);
-        this.dibujar();
+        this.revisarFallo();
+        this.revisarTermino();
+        if(!this.termino){
+            this.dibujar();
+            this.procesarArrastre();
+        }else{
+            text("El juego termino", width/2, 10);
+            if(!this.fallo){
+                text("Ganaste!", width/2, 20);
+            }else{
+                text("Perdiste...", width/2, 20);
+            }
+        }
     }
     
     void procesarClick(){
@@ -193,19 +210,10 @@ class PaseoEuler extends Microjuego{
                 if(!rectasUsuario.contains(nuevaRecta1)){
                     rectasUsuario.add(nuevaRecta1);
                     puntoActual = aux;
-
                 }else{
                     this.fallos += 1;
-                    //si el usuario falla, termina el juego
-                    if(obtenerFallo()){
-                        obtenerTermino();
-                    }
                 }
             }
-        }
-
-        if(obtenerTermino()){ //revisa si el juego termino
-            puntoActual = null;
         }
     }
     
