@@ -4,8 +4,6 @@
  * Ultima modificacion: 15/Mayo/2017.
  */
 
-Microjuego juego;
-
 PFont fuenteTextoDefault;
 
 final int FPS_CAP = 60;
@@ -17,12 +15,15 @@ boolean muestraJuego = false;
 boolean muestraPuntaje = false;
 boolean muestraOpciones = false;
 
+final int NUMERO_MICROJUEGOS = 4; 
+ArrayList<Microjuego> microjuegos;
+
 /**
  *
  */
 void setup()
 {
-    size(1366, 768, P3D);
+    fullScreen(P3D);
     frameRate(FPS_CAP);
     background(0, 0, 0);
     
@@ -33,7 +34,7 @@ void setup()
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos(); //<>//
     
-    juego = new Discos();
+    crearBotones();
 }
 
 /**
@@ -49,7 +50,7 @@ void draw()
     } else if (muestraMenu) {
         desplegarMenu();
     } else if (muestraJuego) {
-        juego.actualizar();
+        actualizarJuego();
     } else if (muestraPuntaje) {
         // Desplegar puntajes.
     } else if (muestraOpciones) {
@@ -71,9 +72,9 @@ void mouseClicked()
     if (muestraInicio) {
         mostrarAnimacionMenu = true;
     } else if (muestraMenu) {
-        // Hacer algo con el menu.
+        procesarClickMenu();
     } else if (muestraJuego) {
-        juego.procesarClick();
+        procesarClickBomba();
     } else if (muestraPuntaje) {
         // Hacer algo con puntajes.
     } else if (muestraOpciones) {
