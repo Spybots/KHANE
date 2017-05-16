@@ -1,42 +1,51 @@
-PImage logo;
-PGraphics botonIniciar, botonAjustes, botonPuntuaciones, botonSalir;
-int anchoBoton, alturaBoton;
+PImage botonIniciar, botonAjustes, botonPuntuaciones, botonSalir;
+int anchoBoton, alturaBoton, padding;
 
 void crearBotones()
 {
-    botonIniciar = createGraphics(width, height, P2D);
-    botonAjustes = createGraphics(width, height, P2D);
-    botonPuntuaciones = createGraphics(width, height, P2D);
-    botonSalir = createGraphics(width, height, P2D);
-    //logo = loadImage("./img/sanic.png");
-    
-    anchoBoton = width/8;
+    botonAjustes = loadImage("./img/ajustes.png");
+    botonPuntuaciones = loadImage("./img/puntuaciones.png");
+    botonSalir = loadImage("./img/salir.png");
+    botonIniciar = loadImage("./img/iniciar.png");
+
+    anchoBoton = width/4;
     alturaBoton = height/8;
+    padding = alturaBoton/10;
 }
 
 void desplegarMenu()
 {
     textAlign(CENTER);
-
+    textSize(MAGNITUD_TEXTO);
     text("Keep Hacking and Nobody Explodes", width/2, height/4);
-    imageMode(CENTER);
-    //image(logo, width/2, height/4 + 120, 200, 200);
-    
-    rect(width/2 - 100, height/2 + 100, 200, 50);
-    //text("Iniciar", width/2, height/2 + 100);
-    //text("Ajustes", width/2, height/2 + 150);
-    //text("Puntuaciones", width/2, height/2 + 200);
-    //text("Salir", width/2, height/2 + 250);
-    
-    //image(botonIniciar, 0, 0);
+
+    image(botonIniciar, width/2 - anchoBoton/2, height/2 - alturaBoton/2, anchoBoton, alturaBoton);
+    image(botonAjustes, width/2 - anchoBoton/2, height/2 + alturaBoton/2 + padding, anchoBoton, alturaBoton);
+    image(botonPuntuaciones, width/2 - anchoBoton/2, height/2 + 3*alturaBoton/2 + padding, anchoBoton, alturaBoton);
+    image(botonSalir, width/2 - anchoBoton/2, height/2 + 5*alturaBoton/2 + padding, anchoBoton, alturaBoton);
 }
 
 void procesarClickMenu()
 {
-    if (mouseX >= width/2 - 100 &&
-        mouseX <= width/2 + 100 &&
-        mouseY >= height/2 + 100 &&
-        mouseY <= height/2 + 150) {
-        println("Vamos a jugar.");
+    if (mouseX >= width/2 - anchoBoton/2 && mouseX <= width/2 + anchoBoton/2) {
+        if (mouseY >= height/2 - alturaBoton/2 && mouseY <= height/2 + alturaBoton/2) {
+            muestraMenu = false;
+            muestraJuego = true;
+            
+            microjuegos = new ArrayList<Microjuego>();
+            microjuegos.add(new Cipher());
+            microjuegos.add(new PaseoEuler());
+            //microjuegos.add(new MetodosConteo());
+            microjuegos.add(new Discos());
+        } else if (mouseY >= height/2 + alturaBoton/2 + padding && 
+                   mouseY < height/2 + 3*alturaBoton/2 + padding) {
+            background(0, 200, 200);
+        } else if (mouseY >= height/2 + 3*alturaBoton/2 + padding && 
+                   mouseY < height/2 + 5*alturaBoton/2 + padding) {
+            background(200, 200, 200);
+        } else if (mouseY >= height/2 + 5*alturaBoton/2 + padding && 
+                   mouseY < height/2 + 7*alturaBoton/2 + padding) {
+            background(50, 225, 100);
+        }
     }
 }
