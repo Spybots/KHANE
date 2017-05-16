@@ -7,10 +7,10 @@ void setup()
 
 void draw()
 {   
-    dibujarMaletin();  
+    crearMaletin();  
 }
 */
-void dibujarMaletin()
+void crearMaletin()
 {
     rect(width/8, height/8.75, width/1.25, height/1.8);
     
