@@ -6,10 +6,10 @@
  */
  
 class Grafica{
-    private Set<Punto> conjPuntos;
-    private Set<Recta> conjRectas;
+    private SetPunto conjPuntos;
+    private SetRecta conjRectas;
     
-    Grafica(Set<Punto> conjPuntos, Set<Recta> conjRectas){
+    Grafica(SetPunto conjPuntos, SetRecta conjRectas){
         this.conjPuntos = conjPuntos;
         this.conjRectas = conjRectas;
     }

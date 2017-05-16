@@ -12,14 +12,14 @@ class Punto{
     private float y;
     private float width;
     private float height;
-    private Set<Punto> conexiones;
+    private SetPunto conexiones;
   
     Punto(float x, float y){
         this.x = x;
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.conexiones = new HashSet<Punto>();
+        this.conexiones = new SetPunto();
     }
 
     float obtenerX(){
@@ -32,6 +32,10 @@ class Punto{
     
     void conectarPunto(Punto punto){
         this.conexiones.add(punto);
+    }
+
+	boolean equals(Punto punto){
+        return this.x == punto.x && this.y == punto.y;
     }
 
     void dibujar(){

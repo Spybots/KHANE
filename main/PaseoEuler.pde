@@ -12,7 +12,7 @@ class PaseoEuler extends Microjuego{
     private ArrayList<Grafica> listaGraf;
     private int indiceGraf;
     private int exitos;
-    private Set<Recta> rectasUsuario;
+    private SetRecta rectasUsuario;
     private Punto puntoActual;
     private final float TOLERANCIA = 10;
     private final int NUM_GRAF = 1;
@@ -24,7 +24,7 @@ class PaseoEuler extends Microjuego{
         this.fallos = 0;
 
         this.listaGraf = new ArrayList<Grafica>(NUM_GRAF);
-        this.rectasUsuario = new HashSet<Recta>();
+        this.rectasUsuario = new SetRecta();
         this.puntoActual = null;
 
         /**Inicializa parametros******************************/
@@ -57,7 +57,7 @@ class PaseoEuler extends Microjuego{
         punto5.conexiones.add(punto2);
         punto5.conexiones.add(punto4);
         
-        Set<Punto> puntos = new HashSet<Punto>();
+        SetPunto puntos = new SetPunto();
         puntos.add(punto1);
         puntos.add(punto2);
         puntos.add(punto3);
@@ -66,7 +66,7 @@ class PaseoEuler extends Microjuego{
 
         /**Agrega los puntos*********************************/
 
-        Set<Recta> rectas = new HashSet<Recta>();
+        SetRecta rectas = new SetRecta();
         rectas.add(new Recta(punto1, punto2));
         rectas.add(new Recta(punto1, punto4));
         rectas.add(new Recta(punto1, punto5));
@@ -129,10 +129,16 @@ class PaseoEuler extends Microjuego{
     boolean obtenerTermino()
     {   
          //revisa que el juego no haya terminado y que el usuario todavia puede fallar
-        if(!this.termino && !this.fallo){
+
+        if(!this.fallo){
+            this.fallo = false;
+        }
+        if(!this.termino){
             //revisa si el juego no ha terminado
-            Set<Recta> rectasSolucion = this.listaGraf.get(indiceGraf).conjRectas;
-            if(rectasUsuario.equals(rectasSolucion)){
+            SetRecta rectasSolucion = this.listaGraf.get(indiceGraf).conjRectas;
+            //como el paseo de euler ocupa que todas las rectas esten ocupadas, 
+            //con que el tamaño de las rectas del usuario sea iguales es suficiente           
+            if(rectasUsuario.size() == rectasSolucion.size()){
                 this.termino = true;
             }
         }
@@ -169,14 +175,11 @@ class PaseoEuler extends Microjuego{
         }else{
             revisarPuntoActual();
         }
-
-        
     }
 
     void revisarPuntoActual(){
         Iterator<Punto> iterador = this.puntoActual.conexiones.iterator();
         Recta nuevaRecta1 = null;
-        Recta nuevaRecta2 = null;
         Punto aux = null;
         while(iterador.hasNext() && nuevaRecta1 == null){
             aux = iterador.next();
@@ -186,23 +189,12 @@ class PaseoEuler extends Microjuego{
                mouseY < aux.obtenerY() + TOLERANCIA){
 
 			    nuevaRecta1 = new Recta(puntoActual, aux);
-                nuevaRecta2 = new Recta(aux, puntoActual);
 
-                if(!rectasUsuario.contains(nuevaRecta1) &&
-                   !rectasUsuario.contains(nuevaRecta2)){
-
-                    text("La recta no esta contenida", 100, 50);
-
+                if(!rectasUsuario.contains(nuevaRecta1)){
                     rectasUsuario.add(nuevaRecta1);
                     puntoActual = aux;
-                    
-                    if(obtenerTermino()){ //revisa si el juego termino
-                        puntoActual = null;
-                    }
 
                 }else{
-
-                    text("La recta ya esta contenida", 100, 50);
                     this.fallos += 1;
                     //si el usuario falla, termina el juego
                     if(obtenerFallo()){
@@ -210,6 +202,10 @@ class PaseoEuler extends Microjuego{
                     }
                 }
             }
+        }
+
+        if(obtenerTermino()){ //revisa si el juego termino
+            puntoActual = null;
         }
     }
     
@@ -220,51 +216,3 @@ class PaseoEuler extends Microjuego{
         }
     }
 }
-
-PaseoEuler paseo = null;
-boolean someKey = false;
-
-/*
-void setup(){
-     size(800, 800);
-     
-     paseo = new PaseoEuler();
-}
-
-void draw(){
-     paseo.actualizar();
-     
-     if(mousePressed){
-         paseo.procesarClick(); 
-     }
-     
-     paseo.procesarArrastre();
-     
-    textMode(CENTER);
-    
-    if(paseo.termino){
-         text("El juego se acabo", width/2, 75);  
-    }else{
-        text("El juego NO se ha acabado", width/2, 75); 
-    }
-    
-    if(paseo.puntoActual != null)
-        text("El punto actual es " + paseo.puntoActual.obtenerX() + " " + paseo.puntoActual.obtenerY() , width/2, 100);
-    else
-        text("El punto actual es NULL", width/2, 100);
-     
-     if(paseo.rectasUsuario.equals(paseo.listaGraf.get(0).conjRectas)){
-            text("Los conjuntos son iguales", width/2, 20);
-        }else{
-            text("Los conjuntos NO son iguales", width/2, 20);
-        }
-     
-     if(keyPressed){
-         background(127);
-         Iterator<Recta> iterador = paseo.rectasUsuario.iterator();
-         while(iterador.hasNext()){
-              iterador.next().dibujar();   
-         }
-     }
-}
-*/
