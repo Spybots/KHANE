@@ -13,7 +13,7 @@
 /*****************************************************/
 
 private final int VALOR_MAX_COLOR = 255;
-private PGraphics maletin, bomba, nombre, fondo;
+private PGraphics maletin, frenteMaletin, bomba, nombre, fondo;
 private boolean mostrarAnimacionMenu = false;
 private final float ROTACION_ESCENA_X = -PI/8.0;
 
@@ -71,6 +71,7 @@ void crearModelos() {
 
     fondo = createGraphics(width, height, P3D);
     maletin = createGraphics(width, height, P3D);
+    frenteMaletin = createGraphics(width, height, P3D);
     bomba = createGraphics(width, height, P3D);
     nombre = createGraphics(width, height, P2D);
 
@@ -92,6 +93,9 @@ void crearModelos() {
     for (int i = 0; i < 10; i++) {
         mitad[i] = 0;
     }
+    
+    dibujarMaletin();
+    dibujarFrenteMaletin();
 }
 
 /*****************************************************/
@@ -108,9 +112,13 @@ void desplegarVentanaComienzo()
 
     dibujarFondo();
     dibujarNombre();
-    dibujarMaletin();
+    //dibujarMaletin();
+    tint(VALOR_MAX_COLOR, 255);
+    image(maletin, 0, 0);
     dibujarBomba();
-    dibujarFrenteMaletin();
+    //dibujarFrenteMaletin();
+    tint(VALOR_MAX_COLOR, 255);
+    image(frenteMaletin, 0, 0);
 
     // Avisa a la función principal cuando es momento de mostrar el menú principal.
     if (alturaMecha <= 0) {
@@ -356,8 +364,8 @@ void dibujarMaletin()
 
     maletin.endDraw();
 
-    tint(VALOR_MAX_COLOR, 255);
-    image(maletin, 0, 0);
+    //tint(VALOR_MAX_COLOR, 255);
+    //image(maletin, 0, 0);
 }
 
 /*****************************************************/
@@ -367,39 +375,39 @@ void dibujarMaletin()
  */
 void dibujarFrenteMaletin()
 {
-    maletin.beginDraw();
+    frenteMaletin.beginDraw();
 
-    maletin.clear();
+    frenteMaletin.clear();
 
-    maletin.rotateX(ROTACION_ESCENA_X);
-    maletin.translate(width/2, height/2 + height/2.4, -110);
+    frenteMaletin.rotateX(ROTACION_ESCENA_X);
+    frenteMaletin.translate(width/2, height/2 + height/2.4, -110);
 
     // Parte frontal de la solapa.
-    maletin.beginShape();
-    maletin.texture(texturaExteriorMaletin);
+    frenteMaletin.beginShape();
+    frenteMaletin.texture(texturaExteriorMaletin);
 
-    maletin.vertex(-(4*width/5 + width/9)/2, -(height/4)/2, width/70.0, -(4*width/5 + width/9)/2, -(height/4)/2);
-    maletin.vertex((4*width/5 + width/9)/2, -(height/4)/2, width/70.0, (4*width/5 + width/9)/2, -(height/4)/2);
-    maletin.vertex((4*width/5 + width/9)/2, (height/4)/2, width/70.0, (4*width/5 + width/9)/2, (height/4)/2);
-    maletin.vertex(-(4*width/5 + width/9)/2, (height/4)/2, width/70.0, -(4*width/5 + width/9)/2, (height/4)/2);
+    frenteMaletin.vertex(-(4*width/5 + width/9)/2, -(height/4)/2, width/70.0, -(4*width/5 + width/9)/2, -(height/4)/2);
+    frenteMaletin.vertex((4*width/5 + width/9)/2, -(height/4)/2, width/70.0, (4*width/5 + width/9)/2, -(height/4)/2);
+    frenteMaletin.vertex((4*width/5 + width/9)/2, (height/4)/2, width/70.0, (4*width/5 + width/9)/2, (height/4)/2);
+    frenteMaletin.vertex(-(4*width/5 + width/9)/2, (height/4)/2, width/70.0, -(4*width/5 + width/9)/2, (height/4)/2);
 
-    maletin.endShape(CLOSE);
+    frenteMaletin.endShape(CLOSE);
 
     // Parte superior de la solapa.
-    maletin.beginShape();
-    maletin.texture(texturaExteriorMaletin);
+    frenteMaletin.beginShape();
+    frenteMaletin.texture(texturaExteriorMaletin);
 
-    maletin.vertex(-(4*width/5 + width/9)/2, -(height/4)/2, width/70.0, -(4*width/5 + width/9)/2, width/70.0);
-    maletin.vertex(-(4*width/5 + width/9)/2, -(height/4)/2, -width/70.0, -(4*width/5 + width/9)/2, -width/70.0);
-    maletin.vertex((4*width/5 + width/9)/2, -(height/4)/2, -width/70.0, (4*width/5 + width/9)/2, -width/70.0);
-    maletin.vertex((4*width/5 + width/9)/2, -(height/4)/2, width/70.0, (4*width/5 + width/9)/2, width/70.0);
+    frenteMaletin.vertex(-(4*width/5 + width/9)/2, -(height/4)/2, width/70.0, -(4*width/5 + width/9)/2, width/70.0);
+    frenteMaletin.vertex(-(4*width/5 + width/9)/2, -(height/4)/2, -width/70.0, -(4*width/5 + width/9)/2, -width/70.0);
+    frenteMaletin.vertex((4*width/5 + width/9)/2, -(height/4)/2, -width/70.0, (4*width/5 + width/9)/2, -width/70.0);
+    frenteMaletin.vertex((4*width/5 + width/9)/2, -(height/4)/2, width/70.0, (4*width/5 + width/9)/2, width/70.0);
 
-    maletin.endShape(CLOSE);
+    frenteMaletin.endShape(CLOSE);
 
-    maletin.endDraw();
+    frenteMaletin.endDraw();
 
-    tint(VALOR_MAX_COLOR, 255);
-    image(maletin, 0, 0);
+    //tint(VALOR_MAX_COLOR, 255);
+    //image(maletin, 0, 0);
 }
 
 /*****************************************************/
