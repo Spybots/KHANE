@@ -87,7 +87,7 @@ class Cipher extends Microjuego
         letraActual = ' ';
         //position and size of the letter (those change respect the nivel)
   
-        tamanioLetra = 250;
+        tamanioLetra = 250; 
     }
     
     boolean obtenerFallo()
@@ -129,6 +129,8 @@ class Cipher extends Microjuego
                 this.termino = true;
                 this.resultados();
               }
+        }else{
+            this.reset();
         }      
         //those lines are for draw the box of time, puntaje, nivel
         textFont(this.font, 60);
