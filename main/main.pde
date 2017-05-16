@@ -1,6 +1,7 @@
 /*
  * Este archivo contiene las funciones principales de KHANE.
  *
+ * Autor: Iván A. Moreno Soto.
  * Ultima modificacion: 15/Mayo/2017.
  */
 
@@ -15,11 +16,12 @@ boolean muestraJuego = false;
 boolean muestraPuntaje = false;
 boolean muestraOpciones = false;
 
+// Variables globales sobre los microjuegos de KHANE.
 final int NUMERO_MICROJUEGOS = 4; 
 ArrayList<Microjuego> microjuegos;
 
 /**
- *
+ * @brief Inicializa varios elementos del juego.
  */
 void setup()
 {
@@ -30,7 +32,7 @@ void setup()
     //Carga el texto usado por la interfaz del juego.
     fuenteTextoDefault = createFont("Georgia", 32);
     textFont(fuenteTextoDefault);
-    
+     //<>// //<>//
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos(); //<>//
     
@@ -38,7 +40,7 @@ void setup()
 }
 
 /**
- *
+ * @brief Actualiza lo que el usuario ve en pantalla acorde al punto en el programa en el que esté. 
  */
 void draw()
 {
@@ -81,3 +83,5 @@ void mouseClicked()
         // Hacer algo con opciones.
     }
 }
+
+/*****************************************************/

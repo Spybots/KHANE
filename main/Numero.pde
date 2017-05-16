@@ -3,7 +3,7 @@
  * de discos.
  *
  * Autor: Iván A. Moreno Soto.
- * Última modificación: 06/Mayo/2017.
+ * Última modificación: 15/Mayo/2017.
  */
 
 /*****************************************************/
@@ -75,18 +75,18 @@ class Numero {
         int residuo; // Residuo que se lleva a la siguiente posición de la suma.
         
         resultado = new Numero(this.modulo, this.numeroDigitos);
-        residuo = 0; //<>// //<>// //<>// //<>//
+        residuo = 0; //<>// //<>// //<>// //<>// //<>// //<>//
         
         for (int d = 0; d < resultado.numeroDigitos; d++) {
-            resultado.digitos[d] = (this.digitos[d] + a.digitos[d] + residuo) % resultado.modulo; //<>// //<>// //<>// //<>//
+            resultado.digitos[d] = (this.digitos[d] + a.digitos[d] + residuo) % resultado.modulo; //<>// //<>//
             
             // Revisa si hubo residuo en la última suma.
-            if (this.digitos[d] + a.digitos[d] + residuo >= resultado.modulo) { //<>// //<>// //<>// //<>//
+            if (this.digitos[d] + a.digitos[d] + residuo >= resultado.modulo) { //<>// //<>//
                 residuo = 1;
             } else {
                 residuo = 0;
             }
-        } //<>// //<>// //<>// //<>//
+        } //<>// //<>//
         
         return resultado;
     }

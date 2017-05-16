@@ -1,6 +1,21 @@
+/*
+ * Este archivo contiene las funciones que despliegan el menú principal del juego al
+ * usuario.
+ *
+ * Autor: Iván A. Moreno Soto.
+ * Ultima modificacion: 15/Mayo/2017.
+ */
+
+/*****************************************************/
+
 PImage botonIniciar, botonAjustes, botonPuntuaciones, botonSalir;
 int anchoBoton, alturaBoton, padding;
 
+/*****************************************************/
+
+/**
+ * @brief Carga las imágenes de cada botón del menú e inicializa las medidas de los mismos.
+ */
 void crearBotones()
 {
     botonAjustes = loadImage("./img/ajustes.png");
@@ -13,6 +28,11 @@ void crearBotones()
     padding = alturaBoton/10;
 }
 
+/*****************************************************/
+
+/**
+ * @brief Pinta en pantalla el menú principal.
+ */
 void desplegarMenu()
 {
     textAlign(CENTER);
@@ -25,9 +45,15 @@ void desplegarMenu()
     image(botonSalir, width/2 - anchoBoton/2, height/2 + 5*alturaBoton/2 + padding, anchoBoton, alturaBoton);
 }
 
+/*****************************************************/
+
+/**
+ * @brief Revisa que botón oprimió el usuario y actúa acorde a ello.
+ */
 void procesarClickMenu()
 {
     if (mouseX >= width/2 - anchoBoton/2 && mouseX <= width/2 + anchoBoton/2) {
+        // Iniciar.
         if (mouseY >= height/2 - alturaBoton/2 && mouseY <= height/2 + alturaBoton/2) {
             muestraMenu = false;
             muestraJuego = true;
@@ -37,15 +63,20 @@ void procesarClickMenu()
             microjuegos.add(new PaseoEuler());
             //microjuegos.add(new MetodosConteo());
             microjuegos.add(new Discos());
+        // Acerca de.
         } else if (mouseY >= height/2 + alturaBoton/2 + padding && 
                    mouseY < height/2 + 3*alturaBoton/2 + padding) {
             background(0, 200, 200);
+        // Puntuaciones.
         } else if (mouseY >= height/2 + 3*alturaBoton/2 + padding && 
                    mouseY < height/2 + 5*alturaBoton/2 + padding) {
             background(200, 200, 200);
+        // Salir.
         } else if (mouseY >= height/2 + 5*alturaBoton/2 + padding && 
                    mouseY < height/2 + 7*alturaBoton/2 + padding) {
             background(50, 225, 100);
         }
     }
 }
+
+/*****************************************************/

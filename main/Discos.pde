@@ -3,11 +3,7 @@
  * vectores bajo cierto campo finito.
  *
  * Autor: Iván A. Moreno Soto.
- * Última modificación: 08/Mayo/2017.
- *
- * TODO:
- * - Iluminacion
- * - Texturas
+ * Última modificación: 15/Mayo/2017.
  */
 
 /*****************************************************/
@@ -20,7 +16,10 @@ private final int PENALIZACION_FALLO = -100;
 /*****************************************************/
 
 /**
- *
+ * Clase que define uno de los cuatro microjuegos de KHANE.
+ * Discos es un microjuego cuyo objetivo es modificar una posición de un número (segundoSumando)
+ * de manera que los dos números desplegados al usuario sumen 0 bajo cierto módulo.
+ * Para terminar con éxito el microjuego el usuario debe acertar 3 veces.
  */
 class Discos extends Microjuego {
     // Atributos de la clase.
@@ -32,7 +31,7 @@ class Discos extends Microjuego {
     /*****************************************************/
 
     /**
-     * @brief
+     * @brief Inicializa cada atributo de la clase y crea el primer nivel.
      */
     Discos()
     {
@@ -60,7 +59,8 @@ class Discos extends Microjuego {
     /*****************************************************/
 
     /**
-     * @brief
+     * @brief Crea los dos números que conforman el nivel y modifica el segundo para crear
+     * la problemática que debe resolver el usuario.
      */
     void crearNivel()
     {
@@ -100,7 +100,9 @@ class Discos extends Microjuego {
     /*****************************************************/
 
     /**
-     * @brief
+     * @brief Devuelve si el usuario ha fallado en el microjuego desde la última vez que se
+     * mandó a llamar esta función.
+     * @return Verdadero si hay un fallo, falso de otro modo.
      */
     boolean obtenerFallo()
     {
@@ -108,6 +110,8 @@ class Discos extends Microjuego {
         
         valor = this.fallo;
         
+        // Evita que se registren dos o más fallos consecutivos si se manda a llamar muy rápido
+        // esta función.
         if (this.fallo) {
             this.fallo = false;
         }
@@ -118,7 +122,8 @@ class Discos extends Microjuego {
     /*****************************************************/
 
     /**
-     * @brief
+     * @brief Devuelve si el microjuego ha terminado.
+     * @return Verdadero si el microjuego terminó, falso de otro modo.
      */
     boolean obtenerTermino()
     {   
@@ -134,19 +139,49 @@ class Discos extends Microjuego {
     /*****************************************************/
 
     /**
-     * @brief
+     * @brief Calcula el puntaje actual del microjuego.
      */
     void calcularPuntaje()
     {
         this.puntaje = (PUNTUACION_EXITO * this.exitos) - (PENALIZACION_FALLO * this.numeroFallos);
     }
+    
+    /*****************************************************/
+
+    /**
+     * @brief Actualiza el estado actual del microjuego que está jugando el usuario o del
+     * maletín para seleccionar el nivel.
+     */
+    void actualizar()
+    {
+        this.crearFondo();
+
+        // Crea nuevos niveles mientras el usuario no haya completado el microjuego.
+        if (this.cambiarNivel && this.exitos < NUM_EXITOS_PARA_TERMINAR) {
+            this.crearNivel();
+            this.cambiarNivel = false;
+        }
+
+        // Dibuja el indicador del módulo de los Numeros.
+        this.dibujarIndicador();
+
+        // Dibuja los discos con los Numeros y colores correspondientes.
+        this.sumandoUno.dibujarBanda(width/2, height/2, -150, 30, height/2, height/3, 200);
+        this.sumandoDos.dibujarBanda(width/2, height/2, -50, 30, height/3, height/6, 200);
+        this.suma.dibujarBanda(width/2, height/2, 0, 30, height/6, 0, 150);
+    }
 
     /*****************************************************/
 
+    /**
+     * @brief Modifica el estado actual del microjuego cuando el usuario hace click en pantalla.
+     */
     void procesarClick()
     {
         float distanciaCentro, angulo;
         
+        // Sólo permite que el usuario interactúe con el microjuego mientras no haya sido
+        // completado.
         if (this.exitos < NUM_EXITOS_PARA_TERMINAR) {
             distanciaCentro = sqrt(sq(mouseX - width/2) + sq(mouseY - height/2));
             
@@ -154,6 +189,7 @@ class Discos extends Microjuego {
             if (distanciaCentro <= height/3 && distanciaCentro >= height/6) {
                 angulo = atan2((mouseY - height/2), (mouseX - width/2));
                 
+                // Revisa en que celda hizo click.
                 if (angulo > 0 && angulo < PI/4) {
                     this.sumandoDos.numero.incrementar(0);
                 } else if (angulo > PI/4 && angulo < PI/2) {
@@ -172,8 +208,10 @@ class Discos extends Microjuego {
                     this.sumandoDos.numero.incrementar(4);
                 } 
                 
+                // Comprueba la acción del usuario.
                 this.suma.numero = this.sumandoUno.numero.sumar(this.sumandoDos.numero);
                 
+                // En caso de que haya acertado.
                 if (this.suma.numero.esCero()) {
                     this.exitos++;
                     
@@ -182,7 +220,9 @@ class Discos extends Microjuego {
                         this.sumandoUno.numero = new Numero(this.modulo, NUM_DIGITOS_DISCOS);
                         this.sumandoDos.numero = new Numero(this.modulo, NUM_DIGITOS_DISCOS);
                         this.suma.numero = new Numero(this.modulo, NUM_DIGITOS_DISCOS);
+                        mostrarMicrojuego = false; // Regresa a la selección de microjuegos.
                     }
+                // En caso de que haya fallado.
                 } else {
                     this.fallo = true;
                     this.animarFallo = true;
@@ -194,32 +234,13 @@ class Discos extends Microjuego {
             }
         }
     }
-
+    
     /*****************************************************/
-
+    
     /**
-     * @brief
+     * @brief Dibuja en la esquina superior derecha un cilindro que indica al usuario
+     * que sección del manual leer para resolver el nivel.
      */
-    void actualizar()
-    {
-        this.crearFondo();
-
-        if (this.cambiarNivel && this.exitos < NUM_EXITOS_PARA_TERMINAR) {
-            this.crearNivel();
-            this.cambiarNivel = false;
-        }
-
-        // Dibuja el indicador del módulo de los Numeros.
-        this.dibujarIndicador();
-
-        // Dibuja los discos con los Numeros y colores correspondientes.
-        this.sumandoUno.dibujarBanda(width/2, height/2, -150, 30, height/2, height/3, 200);
-        this.sumandoDos.dibujarBanda(width/2, height/2, -50, 30, height/3, height/6, 200);
-        this.suma.dibujarBanda(width/2, height/2, 0, 30, height/6, 0, 150);
-    }
-    
-    /*****************************************************/
-    
     void dibujarIndicador()
     {
         float angulo, mitadAltura, x, y, h, r;
@@ -229,7 +250,9 @@ class Discos extends Microjuego {
         h = 30;
         r = width/40;
         
+        // Dibuja la base del indicador.
         this.indicador.beginDraw();
+        this.indicador.fill(20);
 
         this.indicador.translate(width - width/20, width/20, 0);
         this.indicador.box(width/10, width/10, 10);
@@ -239,9 +262,20 @@ class Discos extends Microjuego {
         angulo = 360/lados;
         mitadAltura = h/2;
 
-        // Dibuja la parte de arriba. 
+        // Dibuja el cilindro del indicador.
         this.indicador.beginShape();
-
+        if (this.modulo == 2) {
+            // Azul fuerte.
+            this.indicador.fill(45, 86, 166);
+        } else if (this.modulo == 3) {
+            // Naranja.
+            this.indicador.fill(249, 144, 47);
+        } else if (this.modulo == 4) {
+            // Morado.
+            this.indicador.fill(140, 65, 212);
+        }
+        
+        // Dibuja la parte de arriba. 
         for (int i = 0; i < lados; i++) {
             x = cos(radians(i * angulo)) * r;
             y = sin(radians(i * angulo)) * r;
@@ -263,7 +297,7 @@ class Discos extends Microjuego {
 
         this.indicador.beginShape(TRIANGLE_STRIP);
 
-        // Conecta ambas bases de la mecha.
+        // Conecta ambas caras del indicador.
         for (int i = 0; i < lados + 1; i++) {
             x = cos(radians(i * angulo)) * r;
             y = sin(radians(i * angulo)) * r;
@@ -280,6 +314,9 @@ class Discos extends Microjuego {
     
     /*****************************************************/
     
+    /**
+     * @brief Crea el efecto de luz parpadeante de fondo, y también de error.
+     */
     void crearFondo()
     {
         if (this.animarFallo) {
@@ -310,18 +347,44 @@ class Discos extends Microjuego {
         }
     }
     
+    /*****************************************************/
 } // Fin de la clase Discos.
 
+/*****************************************************/
+
+/**
+ * Define una clase que contiene los métodos necesarios para dibujar las bandas que conforman
+ * cada Numero del microjuego Discos.
+ */
 class Banda {
     // Atributos de la clase.
     Numero numero;
+    PImage textura;
     PGraphics disco;
     
+    /*****************************************************/
+    
+    /**
+     * @brief Inicializa los atributos gráficos del objeto.
+     */
     Banda()
     {
         this.disco = createGraphics(width, height, P3D);
+        this.textura = loadImage("./img/metal2.jpg");
     }
     
+    /*****************************************************/
+    
+    /**
+     * @brief Dibuja las partes externa e interna de la banda en pantalla.
+     * @param x Coordenada en X donde será dibujada la banda.
+     * @param y Coordenada en Y donde será dibujada la banda.
+     * @param z Coordenada en Z donde será dibujada la banda.
+     * @param lados Lados de cada cara de la banda.
+     * @param R Radio mayor de la banda.
+     * @param r Radio menor de la banda.
+     * @param h Profundidad de la banda.
+     */
     void dibujarBanda(float x, float y, float z, int lados, float R, float r, float h)
     {
         this.disco.beginDraw();
@@ -338,7 +401,15 @@ class Banda {
         
         image(this.disco, 0, 0);
     }
-    
+
+    /*****************************************************/
+
+    /**
+     * @brief Dibuja la parte externa de la banda en pantalla.
+     * @param lados Lados de cada cara de la banda.
+     * @param r Radio de este disco de la banda.
+     * @param h Profundidad de la banda.
+     */
     void dibujarDiscoExterno(int lados, float r, float h)
     {
         float angulo, mitadAltura, x, y;
@@ -360,7 +431,7 @@ class Banda {
         // Dibuja la parte de abajo.
         this.disco.beginShape();
         
-        this.disco.texture(texturaBomba);
+        this.disco.texture(this.textura);
         this.disco.textureWrap(REPEAT);
 
         for (int i = 0; i < lados; i++) {
@@ -373,7 +444,7 @@ class Banda {
 
         this.disco.beginShape(TRIANGLE_STRIP);
 
-        // Conecta ambas bases de la mecha.
+        // Conecta ambas bases.
         for (int i = 0; i < lados + 1; i++) {
             x = cos(radians(i * angulo)) * r;
             y = sin(radians(i * angulo)) * r;
@@ -384,6 +455,15 @@ class Banda {
         this.disco.endShape(CLOSE);
     }
     
+    /*****************************************************/
+    
+    /**
+     * @brief Dibuja la parte interna de la banda en pantalla. Esta parte contiene
+     * las celdas que representan a los números de cada nivel.
+     * @param R Radio del disco externo de la banda.
+     * @param r Radio del disco interno de la banda.
+     * @param h Profundidad de la banda.
+     */
     void dibujarDiscoInterno(float R, float r, float h)
     {
         int[] colores;
@@ -395,9 +475,11 @@ class Banda {
         for (int i = 0; i < NUM_DIGITOS_DISCOS; i++) {
             this.disco.beginShape();
 
+            // Cada celda es pintada acorde al valor numérico.
             colores = this.obtenerColorCelda(this.numero.digitos[i]);
             this.disco.fill(colores[0], colores[1], colores[2]);
 
+            // Dibuja las 4 esquinas que encierran a la celda.
             x = cos(radians(i * angulo)) * R;
             y = sin(radians(i * angulo)) * R;
             this.disco.vertex(x, y, mitadAltura);
@@ -420,6 +502,13 @@ class Banda {
         }
     }
     
+    /*****************************************************/
+    
+    /**
+     * @brief Obtiene las componentes R, G y B de una determinada celda de la banda.
+     * @param digito Digito del cual se quiere obtener el color con el que se debe pintar.
+     * @return Un arreglo de 3 enteros con las componente R, G y B de la celda.
+     */
     int[] obtenerColorCelda(int digito) 
     {
         int[] colores = new int[3];
@@ -448,5 +537,7 @@ class Banda {
         
         return colores;
     }
+    
+    /*****************************************************/
 } // Fin de la clase Banda.
 /*****************************************************/

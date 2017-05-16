@@ -2,7 +2,7 @@
  * Este archivo contiene todas las funciones necesarias para desplegar la pantalla de inicio
  * al usuario.
  *
- * Última modificación: 10/Mayo/2017.
+ * Última modificación: 15/Mayo/2017.
  *
  * TODO:
  * - Arreglar iluminacion.
@@ -21,10 +21,6 @@ private final float ROTACION_ESCENA_X = -PI/8.0;
 
 // Variables globales para la bomba.
 // Todo lo que tenga 'B' es una variable para la bomba.
-private final int B_SPOT_Z_OFFSET = 400; //Alejamiento de spotlight de la bomba.
-private final int B_SPOT_INTENSIDAD = 8; //Intensidad de spotlight de la bomba.
-private final float B_SPOT_ANGULO = PI/2;
-
 // Posición en el espacio de la bomba.
 private int B_POS_X;
 private float B_POS_Y;
