@@ -16,6 +16,10 @@ abstract class Figura{
           return this.colorFig.toString();
      }
 
+     Color obtenerColor(){
+          return this.colorFig;
+     }
+
      //Metodo para obtener el tamaño de sus lados (todos sus lados son iguales y en el caso del circulo sera su diametro)
      float obtenertamRadio(){
           return this.tamRadio;
@@ -32,7 +36,6 @@ abstract class Figura{
 
      abstract void dibujar(int posX, int posY);
 }
-
 
 //**************Clase Rectangulo******************************
 class Rectangulo extends Figura{
@@ -94,7 +97,7 @@ class Circulo extends Figura{
 
      void dibujar(int posX, int posY){
           fill(this.colorFig.getRed(), this.colorFig.getGreen(), this.colorFig.getBlue());
-          
+
           ellipse(posX, posY, this.tamRadio*2, this.tamRadio*2);
           noFill();
      }
