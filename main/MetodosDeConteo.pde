@@ -2,32 +2,44 @@ import java.lang.StringBuilder;
 
 MetodosConteo conteoJuego = new MetodosConteo();
 
-/*void setup(){
-  size(1000,1000);
-}
-
-void draw(){
-     conteoJuego.dibujarMetodoConteo();
-}*/
-
-
+/**
+* @brief clase para el minijuego de metodos de conteo.
+*/
 class MetodosConteo extends Microjuego{
      Figura figura[][];
      float tamRadio;
      String valorIngresado;
-
+     
+     /**
+     * @brief constructuro de la clase MetodosConteo que inicializa las variables de la clase.
+     */
      MetodosConteo(){
-          tamRadio = 50;
-          figura = new Figura[2][];
+          this.tamRadio = 50;
+          this.figura = new Figura[2][];
+          this.termino = false;
+          this.fallo = false;
+          this.puntaje = 0.0;
+          this.fallos = 0;
+          this.nombre = "Metodos de conteo";
+          this.valorIngresado = "";
           establecerGruposFiguras();
      }
-
+	 
+	 /**
+     * @brief Dibuja en la ventana los grupos de figuras )es recomendado usarlo en la funcion draw del archivo main.
+     */
      void dibujarMetodoConteo(){
           background(102);
           dibujarGrupoFiguras(0, 50);   //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
           dibujarGrupoFiguras(1, 200);  //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
+		  textSize(32);
+          fill(255);
+          text(valorIngresado, 200, 500); //Dibuja el texto que se lleva ingresado
      }
-
+	 
+	 /**
+     * @brief Inicializa los conjuntos para los metodos de conteo
+     */
      void establecerGruposFiguras(){
           boolean seguirBuscandoRandom = true;
           int numerosYaEscogidos[] = new int[4];
@@ -93,17 +105,23 @@ class MetodosConteo extends Microjuego{
           println(figura[0][0].obtenerCadenaColor());
           println("Lo hicimos!!!");
      }
-
+	 
+	 /**
+     * @brief Dibuja en la pantalla los conjuntos,
+     */
      void dibujarGrupoFiguras(int indiceFig, int posY){
-          int posX = 100;
+          int posX = 150;
 
           for(int i = 0; i < figura[indiceFig][0].obtenerTamGrupo(); i++){
                figura[indiceFig][i].dibujar(posX, posY);
-               posX+=100;
+               posX+=150;
           }
      }
-
-     void keyPressed(){
+	
+	 /**
+     * @brief procesa las teclas ingresadas para poder usar el minijuego
+     */
+     void procesarTeclas(){
           switch(key){
                case '0': println("key:" + "0");
                          sumarValorIngresado("0");
@@ -143,7 +161,10 @@ class MetodosConteo extends Microjuego{
                default:  break;
          }
      }
-
+	 
+	 /**
+     * @brief suma la tecla presionada al valor que el usuario lleva acumulado presionando teclas.
+     */
      void sumarValorIngresado(String numAgregar){
           if(valorIngresado == ""){
                valorIngresado = numAgregar;
@@ -151,7 +172,10 @@ class MetodosConteo extends Microjuego{
                valorIngresado += numAgregar;
           }
      }
-
+	 
+	 /**
+     * @brief resta el ultimo digito del valor que el usuario lleva acumulado presionando teclas. i.e. 123456 -> 12345
+     */
      void restarValor(){
           if(valorIngresado.length() > 0){
                StringBuilder sb = new StringBuilder(valorIngresado);
@@ -172,39 +196,156 @@ class MetodosConteo extends Microjuego{
 	//Rosa arriba y azul abajo = combinaciones de rosa en azul;
 	//Rosa arriba y verde abajo = combinaciones de rosa en verde;
 	//Rosa arriba y naranja abajo = combinaciones de rosa en naranja;
+	
+	 /**
+     * @brief Procesa la respuesta del usuario para verificar si es correcta o no
+     */
      void verificarRespuesta(){
-          if(figua[0][0].obtenerColor() == Color.BLUE){     //Si es azul el gurpo de arriba
-               if(figua[1][0].obtenerColor() == Color.GREEN || figua[1][0].obtenerColor() == Color.PINK){     //Permutaciones
+          if(figura[0][0].obtenerColor() == Color.BLUE){     //Si es azul el gurpo de arriba
+               if(figura[1][0].obtenerColor() == Color.GREEN || figura[1][0].obtenerColor() == Color.PINK){     //Permutaciones
+                    int n = figura[0][0].obtenerTamGrupo();
+                    int r = figura[1][0].obtenerTamGrupo();
+                    int respCorrecta = calcularFactorial(n)/(calcularFactorial(n-r));
 
+                    if( Integer.parseInt(valorIngresado) == respCorrecta){
+                         //Procesar respuesta correcta
+                    }else{
+                         //Processar respuesta incorrecta
+                    }
                }else{    //combinaciones
+                    int n = figura[0][0].obtenerTamGrupo();
+                    int r = figura[1][0].obtenerTamGrupo();
+                    int respCorrecta = calcularFactorial(n)/((calcularFactorial(r))*(calcularFactorial(n-r)));
 
+                    if( Integer.parseInt(valorIngresado) == respCorrecta){
+                         //Procesar respuesta correcta
+                    }else{
+                         //Processar respuesta incorrecta
+                    }
                }
 
           }else{
-               if(figua[0][0].obtenerColor() == Color.GREEN){    //Si es verde el grupo de arriba
-                    if(figua[1][0].obtenerColor() == Color.ORANGE){   //permutaciones
+               if(figura[0][0].obtenerColor() == Color.GREEN){    //Si es verde el grupo de arriba
+                    if(figura[1][0].obtenerColor() == Color.ORANGE){   //permutaciones
+                         int n = figura[0][0].obtenerTamGrupo();
+                         int r = figura[1][0].obtenerTamGrupo();
+                         int respCorrecta = calcularFactorial(n)/(calcularFactorial(n-r));
 
+                         if( Integer.parseInt(valorIngresado) == respCorrecta){
+                              //Procesar respuesta correcta
+                         }else{
+                              //Processar respuesta incorrecta
+                         }
                     }else{    //combinaciones
+                         int n = figura[0][0].obtenerTamGrupo();
+                         int r = figura[1][0].obtenerTamGrupo();
+                         int respCorrecta = calcularFactorial(n)/((calcularFactorial(r))*(calcularFactorial(n-r)));
 
+                         if( Integer.parseInt(valorIngresado) == respCorrecta){
+                              //Procesar respuesta correcta
+                         }else{
+                              //Processar respuesta incorrecta
+                         }
                     }
                }else{
-                    if(figua[0][0].obtenerColor() == Color.ORANGE){   //Si es naranja el grupo de arriba
-                         if(figua[1][0].obtenerColor() == Color.BLUE || figua[1][0].obtenerColor() == Color.PINK){   //permutaciones
+                    if(figura[0][0].obtenerColor() == Color.ORANGE){   //Si es naranja el grupo de arriba
+                         if(figura[1][0].obtenerColor() == Color.BLUE || figura[1][0].obtenerColor() == Color.PINK){   //permutaciones
+                              int n = figura[0][0].obtenerTamGrupo();
+                              int r = figura[1][0].obtenerTamGrupo();
+                              int respCorrecta = calcularFactorial(n)/(calcularFactorial(n-r));
 
+                              if( Integer.parseInt(valorIngresado) == respCorrecta){
+                                   //Procesar respuesta correcta
+                              }else{
+                                   //Processar respuesta incorrecta
+                              }
                          }else{    //combinaciones
+                              int n = figura[0][0].obtenerTamGrupo();
+                              int r = figura[1][0].obtenerTamGrupo();
+                              int respCorrecta = calcularFactorial(n)/((calcularFactorial(r))*(calcularFactorial(n-r)));
 
+                              if( Integer.parseInt(valorIngresado) == respCorrecta){
+                                   //Procesar respuesta correcta
+                              }else{
+                                   //Processar respuesta incorrecta
+                              }
                          }
                     }else{
-                         if(figua[0][0].obtenerColor() == Color.ORANGE){   //Si es Rosa el grupo de arriba
-                              if(figua[1][0].obtenerColor() == Color.GREEN){   //permutaciones
+                         if(figura[0][0].obtenerColor() == Color.ORANGE){   //Si es Rosa el grupo de arriba
+                              if(figura[1][0].obtenerColor() == Color.GREEN){   //permutaciones
+                                   int n = figura[0][0].obtenerTamGrupo();
+                                   int r = figura[1][0].obtenerTamGrupo();
+                                   int respCorrecta = calcularFactorial(n)/(calcularFactorial(n-r));
 
+                                   if( Integer.parseInt(valorIngresado) == respCorrecta){
+                                        //Procesar respuesta correcta
+                                   }else{
+                                        //Processar respuesta incorrecta
+                                   }
                               }else{    //combinaciones
+                                   int n = figura[0][0].obtenerTamGrupo();
+                                   int r = figura[1][0].obtenerTamGrupo();
+                                   int respCorrecta = calcularFactorial(n)/((calcularFactorial(r))*(calcularFactorial(n-r)));
 
+                                   if( Integer.parseInt(valorIngresado) == respCorrecta){
+                                        //Procesar respuesta correcta
+                                   }else{
+                                        //Processar respuesta incorrecta
+                                   }
                               }
                          }
                     }
                }
           }
+     }
+	 
+	 /**
+     * @brief Funcion basica para procesar el factorial de un numero.
+     * @return El factorial de del argumento n.
+     */
+     int calcularFactorial(int n){
+          if (n==0)
+            return 1;
+          else
+            return n * calcularFactorial(n-1);
+     }
+
+     /**
+     * @brief Devuelve si el usuario ha fallado en el microjuego desde la última vez que se
+     * mandó a llamar esta función.
+     * @return Verdadero si hay un fallo, falso de otro modo.
+     */
+     boolean obtenerFallo(){
+          return this.fallo;
+     }
+
+     /**
+      * @brief Devuelve si el microjuego ha terminado.
+      * @return Verdadero si el microjuego terminó, falso de otro modo.
+      */
+     boolean obtenerTermino(){
+          return this.termino;
+     }
+
+     /**
+      * @brief Calcula el puntaje actual del microjuego.
+      */
+     void calcularPuntaje(){
+     }
+
+     /**
+      * @brief Actualiza el estado visual actual del microjuego que está jugando el usuario o del
+      * maletín para seleccionar el nivel.
+      */
+     void actualizar(){
+
+     }
+
+     /**
+     * @brief Modifica el estado actual del microjuego cuando el usuario hace click en pantalla.
+     */
+     void procesarClick(){
+
      }
 
 }
