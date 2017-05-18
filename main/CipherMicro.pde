@@ -195,9 +195,9 @@ class Cipher extends Microjuego
         text("nivel : " + str(nivel), 830, 75);
      }
      
-     void teclaPresionada(char tecla)
+     void teclaPresionada()
      {
-         switch (tecla) {
+         switch (key) {
          case ' ':
               if (run == false) {
                   letraActual = letraAzar();
