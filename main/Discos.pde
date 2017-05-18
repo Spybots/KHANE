@@ -8,10 +8,10 @@
 
 /*****************************************************/
 
-private final int NUM_DIGITOS_DISCOS = 8;
-private final int NUM_EXITOS_PARA_TERMINAR = 3;
-private final int PUNTUACION_EXITO = 200;
-private final int PENALIZACION_FALLO = -100;
+final int NUM_DIGITOS_DISCOS = 8;
+final int NUM_EXITOS_PARA_TERMINAR = 3;
+final int PUNTUACION_EXITO = 200;
+final int PENALIZACION_FALLO = -100;
 
 /*****************************************************/
 

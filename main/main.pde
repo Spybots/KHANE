@@ -6,7 +6,7 @@
  */
 
 PFont fuenteTextoDefault;
-private final int MAGNITUD_TEXTO = 48;
+final int MAGNITUD_TEXTO = 48;
 
 final int FPS_CAP = 60;
 
@@ -15,7 +15,7 @@ boolean muestraInicio = true;
 boolean muestraMenu = false;
 boolean muestraJuego = false;
 boolean muestraPuntaje = false;
-boolean muestraOpciones = false;
+boolean muestraAcerca = false;
 
 // Variables globales sobre los microjuegos de KHANE.
 final int NUMERO_MICROJUEGOS = 4; 
@@ -26,7 +26,7 @@ ArrayList<Microjuego> microjuegos;
  */
 void setup()
 {
-    fullScreen(P3D);
+    size(1366, 768, P3D);
     frameRate(FPS_CAP);
     background(0, 0, 0);
     
@@ -56,7 +56,7 @@ void draw()
         actualizarJuego();
     } else if (muestraPuntaje) {
         // Desplegar puntajes.
-    } else if (muestraOpciones) {
+    } else if (muestraAcerca) {
         // Desplegar opciones.
     }
     
@@ -80,7 +80,7 @@ void mouseClicked()
         procesarClickBomba();
     } else if (muestraPuntaje) {
         // Hacer algo con puntajes.
-    } else if (muestraOpciones) {
+    } else if (muestraAcerca) {
         // Hacer algo con opciones.
     }
 }

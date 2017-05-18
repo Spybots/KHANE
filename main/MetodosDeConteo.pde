@@ -1,6 +1,6 @@
 import java.lang.StringBuilder;
 
-MetodosConteo conteoJuego = new MetodosConteo();
+//MetodosConteo conteoJuego = new MetodosConteo();
 
 /*void setup(){
   size(1000,1000);
@@ -10,7 +10,7 @@ void draw(){
      conteoJuego.dibujarMetodoConteo();
 }*/
 
-
+/*
 class MetodosConteo extends Microjuego{
      Figura figura[][];
      float tamRadio;
@@ -208,3 +208,4 @@ class MetodosConteo extends Microjuego{
      }
 
 }
+*/

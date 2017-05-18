@@ -66,15 +66,17 @@ void procesarClickMenu()
         // Acerca de.
         } else if (mouseY >= height/2 + alturaBoton/2 + padding && 
                    mouseY < height/2 + 3*alturaBoton/2 + padding) {
-            background(0, 200, 200);
+            muestraAcerca = true;
+            muestraMenu = false;
         // Puntuaciones.
         } else if (mouseY >= height/2 + 3*alturaBoton/2 + padding && 
                    mouseY < height/2 + 5*alturaBoton/2 + padding) {
-            background(200, 200, 200);
+            muestraPuntaje = true;
+            muestraMenu = false;
         // Salir.
         } else if (mouseY >= height/2 + 5*alturaBoton/2 + padding && 
                    mouseY < height/2 + 7*alturaBoton/2 + padding) {
-            background(50, 225, 100);
+            exit();
         }
     }
 }

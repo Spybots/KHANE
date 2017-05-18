@@ -5,56 +5,54 @@
  * Última modificación: 15/Mayo/2017.
  *
  * TODO:
- * - Arreglar iluminacion.
  * - Agregar partículas en la animación.
- * - Arreglar texturas.
  */
 
 /*****************************************************/
 
-private final int VALOR_MAX_COLOR = 255;
-private PGraphics maletin, frenteMaletin, bomba, nombre, fondo;
-private boolean mostrarAnimacionMenu = false;
-private final float ROTACION_ESCENA_X = -PI/8.0;
+final int VALOR_MAX_COLOR = 255;
+PGraphics maletin, frenteMaletin, bomba, nombre, fondo;
+boolean mostrarAnimacionMenu = false;
+final float ROTACION_ESCENA_X = -PI/8.0;
 
 /*****************************************************/
 
 // Variables globales para la bomba.
 // Todo lo que tenga 'B' es una variable para la bomba.
 // Posición en el espacio de la bomba.
-private int B_POS_X;
-private float B_POS_Y;
-private int B_POS_Z;
+int B_POS_X;
+float B_POS_Y;
+int B_POS_Z;
 
-private final int MIN_ALPHA = 50;
-private int B_MAGNITUD_CUERPO;
-private final float B_VEL_ROTACION = 80.0;
+final int MIN_ALPHA = 50;
+int B_MAGNITUD_CUERPO;
+final float B_VEL_ROTACION = 80.0;
 
-private int B_MECHA_Y_OFFSET;
-private final float B_MECHA_ANGULO_OFFSET = PI/2;
-private final int B_MECHA_CANTIDAD_LADOS = 10;
-private final int B_MECHA_RADIO = 20;
-private float B_MECHA_VEL;
-private float alturaMecha;
+int B_MECHA_Y_OFFSET;
+final float B_MECHA_ANGULO_OFFSET = PI/2;
+final int B_MECHA_CANTIDAD_LADOS = 10;
+final int B_MECHA_RADIO = 20;
+float B_MECHA_VEL;
+float alturaMecha;
 
 /*****************************************************/
 
 // Variables goblales para el texto.
-private float intensidadAlphaNombre = 255;
-private float cambioAlpha = 5;
-private boolean estaDesapareciendo = true;
+float intensidadAlphaNombre = 255;
+float cambioAlpha = 5;
+boolean estaDesapareciendo = true;
 
-private int T_POS_X;
-private int T_Y_OFFSET;
+int T_POS_X;
+int T_Y_OFFSET;
 
 /*****************************************************/
 
 // Texturas para los objetos.
-private PImage texturaExteriorMaletin;
-private PImage texturaInteriorMaletin;
-private PImage texturaBomba;
-private PImage texturaMecha;
-private PImage texturaChip;
+PImage texturaExteriorMaletin;
+PImage texturaInteriorMaletin;
+PImage texturaBomba;
+PImage texturaMecha;
+PImage texturaChip;
 
 /*****************************************************/
 
@@ -420,8 +418,7 @@ void dibujarBomba()
     float alpha;
 
     bomba.beginDraw();
-
-    bomba.clear();
+    bomba.lights();
 
     // Empieza la animacion para desplegar el menu principal.
     if (mostrarAnimacionMenu) {
@@ -442,6 +439,8 @@ void dibujarBomba()
     bomba.rotateX(ROTACION_ESCENA_X);
     bomba.rotateY(frameCount/B_VEL_ROTACION);
 
+    bomba.noStroke();
+    bomba.fill(20, 48, 84);
     bomba.sphere(B_MAGNITUD_CUERPO);
 
     // Dibuja la mecha.
@@ -463,8 +462,6 @@ void dibujarBomba()
 void dibujarNombre()
 {
     nombre.beginDraw();
-
-    nombre.lights();
 
     nombre.textAlign(CENTER);
     nombre.textFont(fuenteTextoDefault);
@@ -521,6 +518,8 @@ void dibujarMecha(int lados, float r, float h)
     angulo = 360/lados;
     mitadAltura = h/2;
 
+    bomba.fill(0);
+
     // Dibuja la parte de arriba. 
     bomba.beginShape();
 
@@ -555,8 +554,8 @@ void dibujarMecha(int lados, float r, float h)
     for (int i = 0; i < lados + 1; i++) {
         x = cos(radians(i * angulo)) * r;
         y = sin(radians(i * angulo)) * r;
-        bomba.vertex(x, y, mitadAltura, x, y);
-        bomba.vertex(x, y, -mitadAltura, x, y);
+        bomba.vertex(x, y, mitadAltura, x, mitadAltura);
+        bomba.vertex(x, y, -mitadAltura, x, -mitadAltura);
     }
 
     bomba.endShape(CLOSE);
