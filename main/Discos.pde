@@ -348,6 +348,13 @@ class Discos extends Microjuego {
     }
     
     /*****************************************************/
+    
+    /**
+     * @brief Modifica el estado actual del microjuego cuando el usaurio presiona una tecla del teclado.
+     */
+    void procesarTeclas() {}
+    
+    /*****************************************************/
 } // Fin de la clase Discos.
 
 /*****************************************************/

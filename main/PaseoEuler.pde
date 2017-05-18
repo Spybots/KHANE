@@ -223,4 +223,11 @@ class PaseoEuler extends Microjuego{
                  mouseX, mouseY); 
         }
     }
+    
+    /*****************************************************/
+    
+    /**
+     * @brief Modifica el estado actual del microjuego cuando el usaurio presiona una tecla del teclado.
+     */
+    void procesarTeclas() {}
 }

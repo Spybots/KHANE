@@ -32,7 +32,7 @@ void setup()
     
     //Carga el texto usado por la interfaz del juego.
     fuenteTextoDefault = loadFont("./data/SertoKharput-48.vlw");
-    textFont(fuenteTextoDefault, 48); //<>//
+    textFont(fuenteTextoDefault, 48); //<>// //<>//
     
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos();
@@ -68,7 +68,7 @@ void draw()
 /*****************************************************/
 
 /**
- * @brief Espera el click de un ratón para interactuar con el usuario..
+ * @brief Espera el click de un ratón para interactuar con el usuario.
  */
 void mouseClicked()
 {   
@@ -82,6 +82,19 @@ void mouseClicked()
         // Hacer algo con puntajes.
     } else if (muestraAcerca) {
         // Hacer algo con opciones.
+    }
+}
+
+/*****************************************************/
+
+/**
+ * @brief Espera el evento de una tecla presionada. Sólo le importa el evento si el usuario
+ * está dentro del juego.
+ */
+void keyPressed()
+{   
+    if (muestraJuego) {
+        procesarTeclasBomba();
     }
 }
 

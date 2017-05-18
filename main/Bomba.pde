@@ -95,3 +95,16 @@ void procesarClickBomba()
 }
 
 /*****************************************************/
+
+/**
+ * @brief Manda a llamar la función del microjuego actual que se encarga de procesar
+ * la tecla presionada por el usuario.
+ */
+void procesarTeclasBomba()
+{
+    if (mostrarMicrojuego) {
+        microjuegos.get(microjuegoActual).procesarTeclas();
+    }
+}
+
+/*****************************************************/

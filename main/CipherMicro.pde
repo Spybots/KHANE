@@ -195,7 +195,7 @@ class Cipher extends Microjuego
         text("nivel : " + str(nivel), 830, 75);
      }
      
-     void teclaPresionada()
+     void procesarTeclas()
      {
          switch (key) {
          case ' ':
