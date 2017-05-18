@@ -83,6 +83,11 @@ abstract class Microjuego {
      */
     abstract void actualizar();
     
+    /**
+     * @brief Modifica el estado actual del microjuego cuando el usaurio presiona una tecla del teclado.
+     */
+    abstract void procesarTeclas();
+    
     /*****************************************************/
     
     /**
