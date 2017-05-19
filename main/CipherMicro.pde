@@ -123,33 +123,34 @@ class Cipher extends Microjuego
             text(this.letraActual, this.px, this.py);
             
             //if clock is zero, show the score
-            if ( this.tiempo <= 0) {
+            if ( this.fallos > 2) {
                 this.tiempo = 0;
+                this.fallo = true;
                 this.run = false;
                 this.termino = true;
-                this.resultados();
-              }
+            }
         }else{
             this.reset();
         }      
+        //those lines are for draw the box of time, puntaje, nivel
         //those lines are for draw the box of time, puntaje, nivel
         textFont(this.font, 60);
         fill(#B6D315);
         rect(20, 20, 300, 60);
         fill(0);
-        text("Time : " + str(this.tiempo), 170, 75);
+        text("Fallos : " + str(this.fallos), 170, 75);
         
         fill(#B6D315);
         strokeWeight(5);
         rect(350, 20, 300, 60);
         fill(0);
-        text("puntaje : " + str(this.puntaje), 500, 75);
+        text("Puntaje : " + str(this.puntaje), 500, 75);
         
         fill(#B6D315);
         strokeWeight(5);
         rect(680, 20, 300, 60);
         fill(0);
-        text("nivel : " + str(this.nivel), 830, 75);
+        text("Nivel : " + str(this.nivel), 830, 75);
     }
     
     void reset()
@@ -176,23 +177,24 @@ class Cipher extends Microjuego
         
         textAlign(CENTER);
         
-        textFont(font, 60);
+        //those lines are for draw the box of time, puntaje, nivel
+        textFont(this.font, 60);
         fill(#B6D315);
         rect(20, 20, 300, 60);
         fill(0);
-        text("Time : " + str(tiempo), 170, 75);
+        text("Fallos : " + str(this.fallos), 170, 75);
         
         fill(#B6D315);
         strokeWeight(5);
         rect(350, 20, 300, 60);
         fill(0);
-        text("puntaje : " + str(puntaje), 500, 75);
+        text("Puntaje : " + str(this.puntaje), 500, 75);
         
         fill(#B6D315);
         strokeWeight(5);
         rect(680, 20, 300, 60);
         fill(0);
-        text("nivel : " + str(nivel), 830, 75);
+        text("Nivel : " + str(this.nivel), 830, 75);
      }
      
      void procesarTeclas()
@@ -200,6 +202,17 @@ class Cipher extends Microjuego
          switch (key) {
          case ' ':
               if (run == false) {
+                  letraActual = ' ';
+                  tiempo = tiempoInicial;
+                  run = false;
+                  fallo = false;
+                  termino = false;
+                  fallos = 0;
+                  puntaje = 0;
+                  nivel = 1;
+                  px = width / 2;
+                  py = 400;
+                  tamanioLetra = 170;
                   letraActual = letraAzar();
                   run = true;
               }
@@ -230,7 +243,7 @@ class Cipher extends Microjuego
               nivel = 1;
               px = width / 2;
               py = 400;
-              tamanioLetra = 250;
+              tamanioLetra = 170;
               reset();
               break;
         }    
@@ -245,10 +258,10 @@ class Cipher extends Microjuego
                 //if the keypress is bad, play a sound
                 puntaje--;
                 ++fallos;
-                if(fallos > 3){
+                /*if(fallos > 3){
                     fallo = true;
                     //reset();
-                }
+                }*/
                 background(#db1313);//efecto de fallo
                 //bad.trigger();
             }
@@ -259,7 +272,7 @@ class Cipher extends Microjuego
             if (nivel == 1) {
                 px = width / 2;
                 py = 400;
-                tamanioLetra = 250;
+                tamanioLetra = 170;
             }
             else if (nivel == 2) {
                 tamanioLetra = 250;
