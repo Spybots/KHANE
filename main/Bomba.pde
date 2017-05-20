@@ -2,11 +2,12 @@
  * Este archivo contiene las funciones que despliegan el juego actual de KHANE.
  *
  * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 15/Mayo/2017.
+ * Ultima modificacion: 19/Mayo/2017.
  */
  
 /*****************************************************/
 
+PGraphics maletinJuego;
 boolean mostrarMicrojuego = false;
 short microjuegoActual = 0, errores = 0;
 final short NUMERO_ERRORES_FIN = 3; // Número de errores para Game Over.
@@ -35,8 +36,8 @@ void actualizarJuego()
     
     if (microjuegos.get(0).obtenerTermino() &&
         microjuegos.get(1).obtenerTermino() &&
-        microjuegos.get(2).obtenerTermino() /*&&
-        microjuegos.get(3).obtenerTermino()*/) {
+        microjuegos.get(2).obtenerTermino() &&
+        microjuegos.get(3).obtenerTermino()) {
         // AGREGAR FIN DEL JUEGO EXITOSO.
     }
 }
@@ -49,15 +50,21 @@ void actualizarJuego()
  */
 void renderizarMaletinJuego()
 {
-    translate(width/2, height/2, 0); //Ajusta todos los objetos al centro de la pantalla.
-    //rotateY(PI/8);
-    fill(255);
-    box(width, height, 50);
+    maletinJuego.beginDraw();
     
-    fill(0);
-    translate(-width/2, -height/2, 0);
-    line(width/2, 0, 100, width/2, height, 100);
-    line(0, height/2, 100, width, height/2, 100);
+    maletinJuego.translate(width/2, height/2, 0); //Ajusta todos los objetos al centro de la pantalla.
+    //maletinJuego.rotateY(PI/12);
+    maletinJuego.fill(255);
+    maletinJuego.box(width, height, 50);
+    
+    maletinJuego.fill(0);
+    maletinJuego.translate(-width/2, -height/2, 0);
+    maletinJuego.line(width/2, 0, 100, width/2, height, 100);
+    maletinJuego.line(0, height/2, 100, width, height/2, 100);
+    
+    maletinJuego.endDraw();
+    
+    image(maletinJuego, 0, 0);
 }
 
 /*****************************************************/
@@ -83,11 +90,11 @@ void procesarClickBomba()
             }
         } else {
             if (mouseY >= 0 && mouseY < height/2 && !microjuegos.get(2).obtenerTermino()) {
-                microjuegoActual = 2;  // CAMBIAR YA QUE MÉTODOS DE CONTEO ESTÉ LISTO.
+                microjuegoActual = 2;
                 mostrarMicrojuego = true;
             }
-            if (mouseY >= height/2 && mouseY < height && !microjuegos.get(2).obtenerTermino()) {
-                microjuegoActual = 2;
+            if (mouseY >= height/2 && mouseY < height && !microjuegos.get(3).obtenerTermino()) {
+                microjuegoActual = 3;
                 mostrarMicrojuego = true;
             }
         }
@@ -103,7 +110,11 @@ void procesarClickBomba()
 void procesarTeclasBomba()
 {
     if (mostrarMicrojuego) {
-        microjuegos.get(microjuegoActual).procesarTeclas();
+        if (key == TAB) {
+            mostrarMicrojuego = false;
+        } else {
+            microjuegos.get(microjuegoActual).procesarTeclas();
+        }
     }
 }
 

@@ -26,13 +26,13 @@ ArrayList<Microjuego> microjuegos;
  */
 void setup()
 {
-    size(1366, 768, P3D);
+    size(1366, 768, P2D);
     frameRate(FPS_CAP);
     background(0, 0, 0);
     
     //Carga el texto usado por la interfaz del juego.
     fuenteTextoDefault = loadFont("./data/SertoKharput-48.vlw");
-    textFont(fuenteTextoDefault, 48); //<>// //<>//
+    textFont(fuenteTextoDefault, 48); //<>//
     
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos();

@@ -35,6 +35,8 @@ void crearBotones()
  */
 void desplegarMenu()
 {
+    dibujarFondo();
+    
     textAlign(CENTER);
     textSize(MAGNITUD_TEXTO);
     text("Keep Hacking and Nobody Explodes", width/2, height/4);
@@ -61,8 +63,10 @@ void procesarClickMenu()
             microjuegos = new ArrayList<Microjuego>();
             microjuegos.add(new Cipher());
             microjuegos.add(new PaseoEuler());
-            //microjuegos.add(new MetodosConteo());
+            microjuegos.add(new MetodosConteo());
             microjuegos.add(new Discos());
+            
+            maletinJuego = createGraphics(width, height, P3D);
         // Acerca de.
         } else if (mouseY >= height/2 + alturaBoton/2 + padding && 
                    mouseY < height/2 + 3*alturaBoton/2 + padding) {
