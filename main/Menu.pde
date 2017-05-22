@@ -86,3 +86,24 @@ void procesarClickMenu()
 }
 
 /*****************************************************/
+
+/**
+ * @brief Muestra en pantalla información sobre KHANE.
+ */
+void desplegarAcercaDe()
+{
+    int it;
+    
+    dibujarFondo();
+    
+    textAlign(CENTER);
+    textSize(MAGNITUD_TEXTO);
+    
+    it = 0;
+    for (String l : informacion) {
+        text(l, width/2, height/4 + it*MAGNITUD_TEXTO);
+        it++;
+    }
+}
+
+/*****************************************************/

@@ -4,6 +4,8 @@
  * Autor: Iván A. Moreno Soto.
  * Ultima modificacion: 15/Mayo/2017.
  */
+ 
+ /*****************************************************/
 
 PFont fuenteTextoDefault;
 final int MAGNITUD_TEXTO = 48;
@@ -21,12 +23,20 @@ boolean muestraAcerca = false;
 final int NUMERO_MICROJUEGOS = 4; 
 ArrayList<Microjuego> microjuegos;
 
+EscritorArchivo escritor;
+BufferedReader lector;
+String informacion[];
+
+/*****************************************************/
+
 /**
  * @brief Inicializa varios elementos del juego.
  */
 void setup()
 {
-    size(1366, 768, P2D);
+    String linea;
+    
+    size(1366, 768, P3D);
     frameRate(FPS_CAP);
     background(0, 0, 0);
     
@@ -38,7 +48,21 @@ void setup()
     crearModelos();
     
     crearBotones();
+    
+    // Consigue la información sobre el software.
+    escritor = new EscritorArchivo();
+    lector = createReader("./data/acerca.khane");
+    
+    try {
+        linea = lector.readLine();
+        informacion = split(linea, '*');
+        lector.close();
+    } catch (Exception exc) {
+        println("Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
+    }
 }
+
+/*****************************************************/
 
 /**
  * @brief Actualiza lo que el usuario ve en pantalla acorde al punto en el programa en el que esté. 
@@ -57,7 +81,7 @@ void draw()
     } else if (muestraPuntaje) {
         // Desplegar puntajes.
     } else if (muestraAcerca) {
-        // Desplegar opciones.
+        desplegarAcercaDe();
     }
     
     // REMOVER DESPUES DE DEBUGUEAR.
