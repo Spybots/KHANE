@@ -11,6 +11,8 @@ PGraphics maletinJuego;
 boolean mostrarMicrojuego = false;
 short microjuegoActual = 0, errores = 0;
 final short NUMERO_ERRORES_FIN = 3; // Número de errores para Game Over.
+boolean fade = false;
+int intensidadFondo = 255;
 
 /*****************************************************/
 
@@ -20,25 +22,47 @@ final short NUMERO_ERRORES_FIN = 3; // Número de errores para Game Over.
  */
 void actualizarJuego()
 {
-    if (mostrarMicrojuego) {
-        microjuegos.get(microjuegoActual).actualizar();
-        
-        if (microjuegos.get(microjuegoActual).obtenerFallo()) {
-            errores++;
+    if(!fade){
+        if (mostrarMicrojuego) {
+                
+            microjuegos.get(microjuegoActual).actualizar();
+            
+            if (microjuegos.get(microjuegoActual).obtenerFallo()) {
+                errores++;
+            }
+        }else {
+            renderizarMaletinJuego();
         }
-    } else {
-        renderizarMaletinJuego();
-    }
-    
-    if (errores == NUMERO_ERRORES_FIN) {
-        // Poner game over.
-    }
-    
-    if (microjuegos.get(0).obtenerTermino() &&
-        microjuegos.get(1).obtenerTermino() &&
-        microjuegos.get(2).obtenerTermino() &&
-        microjuegos.get(3).obtenerTermino()) {
-        // AGREGAR FIN DEL JUEGO EXITOSO.
+        
+        if (errores == NUMERO_ERRORES_FIN) {
+            // Poner game over.
+        }
+        
+        if (microjuegos.get(0).obtenerTermino() &&
+            microjuegos.get(1).obtenerTermino() &&
+            microjuegos.get(2).obtenerTermino() &&
+            microjuegos.get(3).obtenerTermino()) {
+            // AGREGAR FIN DEL JUEGO EXITOSO.
+        }
+    }else{
+        if(mostrarMicrojuego){
+            fadeToBlack();
+            fill(#B6D315);
+            rect(width/2-150, height/2-50, 300, 60);
+            fill(0);
+            textFont(fuenteTextoDefault, 48);
+            text("Ingresando", 680, 375);
+            maletinJuego.background(intensidadFondo);
+        }else{
+            fadeToWhite();
+            fill(#B6D315);
+            rect(width/2-150, height/2-50, 300, 60);
+            fill(0);
+            textFont(fuenteTextoDefault, 48);
+            text("Regresando", 680, 375);
+            maletinJuego.background(intensidadFondo);
+        }
+        
     }
 }
 
@@ -81,19 +105,23 @@ void procesarClickBomba()
         if (mouseX >= 0 && mouseX < width/2) {
             // No permite que el usuario visualice un microjuego que ya fue completado.
             if (mouseY >= 0 && mouseY < height/2 && !microjuegos.get(0).obtenerTermino()) {
+                fade =true;
                 microjuegoActual = 0;
                 mostrarMicrojuego = true;
             }
             if (mouseY >= height/2 && mouseY < height && !microjuegos.get(1).obtenerTermino()) {
+                fade =true;
                 microjuegoActual = 1;
                 mostrarMicrojuego = true;
             }
         } else {
             if (mouseY >= 0 && mouseY < height/2 && !microjuegos.get(2).obtenerTermino()) {
+                fade =true;
                 microjuegoActual = 2;
                 mostrarMicrojuego = true;
             }
             if (mouseY >= height/2 && mouseY < height && !microjuegos.get(3).obtenerTermino()) {
+                fade =true;
                 microjuegoActual = 3;
                 mostrarMicrojuego = true;
             }
@@ -111,6 +139,7 @@ void procesarTeclasBomba()
 {
     if (mostrarMicrojuego) {
         if (key == TAB) {
+            fade =true;
             mostrarMicrojuego = false;
         } else {
             microjuegos.get(microjuegoActual).procesarTeclas();
@@ -119,3 +148,30 @@ void procesarTeclasBomba()
 }
 
 /*****************************************************/
+/**
+ * @brief Funcion que crea el efecto visual de transicion
+ de malatin a microjuego
+ */
+void fadeToBlack()
+{
+    if(intensidadFondo < 5){
+        intensidadFondo= 0;
+        fade = false;
+    }else{
+        intensidadFondo-=4;
+    }
+}
+/*****************************************************/
+/**
+ * @brief Funcion que crea el efecto visual de transicion
+ de microjuego a maletin
+ */
+void fadeToWhite()
+{
+    if(intensidadFondo < 255){
+        intensidadFondo+=4;
+    }else{
+        intensidadFondo= 255;
+        fade = false;
+    }
+}
