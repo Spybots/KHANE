@@ -75,7 +75,7 @@ class Cipher extends Microjuego
         tiempo = tiempoInicial;
         puntaje = 0;
         nivel = 1;
-        font = createFont("times", 16, true);
+        font = createFont("times", 60, true);
         
         fallos = 0;
         fallo = false;
@@ -123,14 +123,17 @@ class Cipher extends Microjuego
             text(this.letraActual, this.px, this.py);
             
             //if clock is zero, show the score
-            if ( this.fallos > 2) {
+            if ( this.fallos > 2 || this.puntaje >= 5) {
                 this.tiempo = 0;
                 this.fallo = true;
                 this.run = false;
                 this.termino = true;
             }
         }else{
-            this.reset();
+            if(termino)
+                this.resultados();
+            else
+                this.reset();
         }      
         //those lines are for draw the box of time, puntaje, nivel
         //those lines are for draw the box of time, puntaje, nivel
@@ -209,7 +212,6 @@ class Cipher extends Microjuego
                   termino = false;
                   fallos = 0;
                   puntaje = 0;
-                  nivel = 1;
                   px = width / 2;
                   py = 400;
                   tamanioLetra = 170;
