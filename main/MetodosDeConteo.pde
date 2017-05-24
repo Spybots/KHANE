@@ -31,7 +31,7 @@ class MetodosConteo extends Microjuego{
           this.figura = new Figura[2][];
           this.termino = false;
           this.fallo = false;
-          this.puntaje = 0.0;
+          this.puntaje = 0;
           this.fallos = 0;
           this.nombre = "Metodos de conteo";
           this.valorIngresado = "";
