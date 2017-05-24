@@ -135,7 +135,7 @@ class Cipher extends Microjuego
             
             if (this.puntaje >= 5) {
                 this.tiempo = 0;
-                this.fallo = true;
+                this.fallo = false;
                 this.run = false;
                 this.termino = true;
             }

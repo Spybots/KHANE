@@ -5,7 +5,7 @@ import java.lang.StringBuilder;
  * Autor: Iván A. Moreno Soto.
  * Ultima modificacion: 19/Mayo/2017.
  */
- 
+
 /*****************************************************/
 
 PGraphics maletinJuego;
@@ -27,15 +27,15 @@ void actualizarJuego()
 {
     /*
     //para prueba.
-    exito = true;
-    terminoJuego = true;
-    procesarGameOver(exito);
-    */
+     exito = true;
+     terminoJuego = true;
+     procesarGameOver(exito);
+     */
     if (terminoJuego) {
         fill(255);
         textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
         textAlign(CENTER);
-        
+
         if (exito) {
             text("¡FELICIDADES!", width/2, height/2);
             text(valorIngresado, width/2, (height/2)+150);
@@ -43,37 +43,35 @@ void actualizarJuego()
             //reemplazar en caso de poner alguna animacion de explocion
             text("Perdiste...", width/2, height/2);
         }
-        
+
         text("Tu puntaje fue: " + puntaje, width/2, height/2 + 50);
-    } else if(!fade){
+    } else if (!fade) {
         if (mostrarMicrojuego) {
-                
+
             microjuegos.get(microjuegoActual).actualizar();
-            
+
             if (microjuegos.get(microjuegoActual).obtenerFallo()) {
                 ++errores;
             }
-        }else {
+        } else {
             renderizarMaletinJuego();
         }
-        
-        if (errores == NUMERO_ERRORES_FIN && !nomIngresado) {
-          exito = false;
-          terminoJuego = true;
-          procesarGameOver(exito);
+
+        if (errores == NUMERO_ERRORES_FIN) {
+            exito = false;
+            terminoJuego = true;
+            procesarGameOver(exito);
         }
         if (microjuegos.get(0).obtenerTermino() &&
             microjuegos.get(1).obtenerTermino() &&
             microjuegos.get(2).obtenerTermino() &&
-            microjuegos.get(3).obtenerTermino() &&
-            !nomIngresado
-            ) {
+            microjuegos.get(3).obtenerTermino()) {
             exito = true;  
             terminoJuego = true;
             procesarGameOver(exito);
         }
     } else {
-        if(mostrarMicrojuego){
+        if (mostrarMicrojuego) {
             fadeToBlack();
             fill(#B6D315);
             rect(width/2-150, height/2-50, 300, 60);
@@ -81,7 +79,7 @@ void actualizarJuego()
             textFont(fuenteTextoDefault, 48);
             text("Ingresando", 680, 375);
             maletinJuego.background(intensidadFondo);
-        }else{
+        } else {
             fadeToWhite();
             fill(#B6D315);
             rect(width/2-150, height/2-50, 300, 60);
@@ -90,7 +88,6 @@ void actualizarJuego()
             text("Regresando", 680, 375);
             maletinJuego.background(intensidadFondo);
         }
-        
     }
 }
 
@@ -103,19 +100,19 @@ void actualizarJuego()
 void renderizarMaletinJuego()
 {
     maletinJuego.beginDraw();
-    
+
     maletinJuego.translate(width/2, height/2, 0); //Ajusta todos los objetos al centro de la pantalla.
     //maletinJuego.rotateY(PI/12);
     maletinJuego.fill(255);
     maletinJuego.box(width, height, 50);
-    
+
     maletinJuego.fill(0);
     maletinJuego.translate(-width/2, -height/2, 0);
     maletinJuego.line(width/2, 0, 100, width/2, height, 100);
     maletinJuego.line(0, height/2, 100, width, height/2, 100);
-    
+
     maletinJuego.endDraw();
-    
+
     image(maletinJuego, 0, 0);
 }
 
@@ -128,8 +125,20 @@ void renderizarMaletinJuego()
 void procesarClickBomba()
 {
     if (terminoJuego) {
+        // Reinicia todas las variables del juego para iniciar uno fresco y nuevo la siguiente
+        // vez.
+        mostrarMicrojuego = false;
+        terminoJuego = false;
+        exito = false;
+        microjuegoActual = 0;
+        errores = 0;
+        fade = false;
+        puntaje = 0;
         muestraJuego = false;
         muestraMenu = true;
+        valorIngresado = "";
+        nomIngresado = false;
+        microjuegos.clear();
     } else if (mostrarMicrojuego) {
         microjuegos.get(microjuegoActual).procesarClick();
     } else {
@@ -176,17 +185,17 @@ void procesarTeclasBomba()
             microjuegos.get(microjuegoActual).procesarTeclas();
         }
     }
-    
-    if(exito){
-        switch(key){
-            case BACKSPACE:     
-                restarValor(); 
-                break;
-            case ENTER: 
-                nomIngresado = true;
-                break;
-            default:
-                sumarValorIngresado(key);
+
+    if (exito) {
+        switch(key) {
+        case BACKSPACE:     
+            restarValor(); 
+            break;
+        case ENTER: 
+            nomIngresado = true;
+            break;
+        default:
+            sumarValorIngresado(key);
         }
     }
 }
@@ -198,10 +207,10 @@ void procesarTeclasBomba()
  */
 void fadeToBlack()
 {
-    if(intensidadFondo < 5){
+    if (intensidadFondo < 5) {
         intensidadFondo= 0;
         fade = false;
-    }else{
+    } else {
         intensidadFondo-=4;
     }
 }
@@ -212,9 +221,9 @@ void fadeToBlack()
  */
 void fadeToWhite()
 {
-    if(intensidadFondo < 255){
+    if (intensidadFondo < 255) {
         intensidadFondo+=4;
-    }else{
+    } else {
         intensidadFondo= 255;
         fade = false;
     }
@@ -222,38 +231,38 @@ void fadeToWhite()
 
 /*****************************************************/
 /**
-* @brief Funcion que procesa el fin del juego, por
-* victoria o derrota    
-* @param exito Variable booleana que indica si el jugador
-* desactivo exitosamente la bomba o no
-*/
-void procesarGameOver(boolean exito){
+ * @brief Funcion que procesa el fin del juego, por
+ * victoria o derrota    
+ * @param exito Variable booleana que indica si el jugador
+ * desactivo exitosamente la bomba o no
+ */
+void procesarGameOver(boolean exito) {
     //detenerReloj()
-    
+
     puntaje = (int)obtenerPuntaje();
     //puntaje = 8000; //para prueba
     String nombre;
-    
-    if(exito){
+
+    if (exito) {
         int i = 0;
         for (int punt : valoresPuntuaciones) {
             if (puntaje < punt) {
                 ++i;
             }
         }
-        
-        
-        
-        if(i < 10){
-            for(int j = 9; j > i; --j){
+
+
+
+        if (i < 10) {
+            for (int j = 9; j > i; --j) {
                 valoresPuntuaciones[j] = valoresPuntuaciones[j - 1];
             }
-            
-            
+
+
             nombre = obtenerNombre();
             valoresPuntuaciones[i] = (int)(puntaje);
             nombresPuntuaciones[i] = nombre;
-            
+
             actualizarArchivoPuntuaciones();
         }
     }
@@ -262,42 +271,42 @@ void procesarGameOver(boolean exito){
 /*****************************************************/
 
 /**
-* @brief Funcion que calcula la puntuacion de los microjuegos
-* @return El puntaje total
-*/
-double obtenerPuntaje(){
+ * @brief Funcion que calcula la puntuacion de los microjuegos
+ * @return El puntaje total
+ */
+double obtenerPuntaje() {
     double puntaje = 0;
-    for(Microjuego microjuego : microjuegos){
-        puntaje += microjuego.puntaje;   
+    for (Microjuego microjuego : microjuegos) {
+        puntaje += microjuego.puntaje;
     }
-    
+
     return puntaje;
 }
 /*****************************************************/
-String obtenerNombre(){
+String obtenerNombre() {
     return valorIngresado;
 }
 /*****************************************************/
 /**
  * @brief resta el ultimo digito del valor que el usuario lleva acumulado presionando teclas. i.e. 123456 -> 12345
  */
- void restarValor(){
-      if(valorIngresado.length() > 0){
-           StringBuilder sb = new StringBuilder(valorIngresado);
-           sb.deleteCharAt(valorIngresado.length() - 1);
-           valorIngresado = sb.toString();
-      }
- }
- /*******************************************************/
- /**
+void restarValor() {
+    if (valorIngresado.length() > 0) {
+        StringBuilder sb = new StringBuilder(valorIngresado);
+        sb.deleteCharAt(valorIngresado.length() - 1);
+        valorIngresado = sb.toString();
+    }
+}
+/*******************************************************/
+/**
  * @brief suma la tecla presionada al valor que el usuario lleva acumulado presionando teclas.
  */
- void sumarValorIngresado(char numAgregar){
-      if(this.valorIngresado.length() < 5){
-           if(this.valorIngresado == ""){
-                this.valorIngresado = str(numAgregar);
-           }else{
-                this.valorIngresado += numAgregar;
-           }
-      }
- }
+void sumarValorIngresado(char numAgregar) {
+    if (this.valorIngresado.length() < 5) {
+        if (this.valorIngresado == "") {
+            this.valorIngresado = str(numAgregar);
+        } else {
+            this.valorIngresado += numAgregar;
+        }
+    }
+}
