@@ -28,7 +28,7 @@ void actualizarJuego()
             microjuegos.get(microjuegoActual).actualizar();
             
             if (microjuegos.get(microjuegoActual).obtenerFallo()) {
-                errores++;
+                ++errores;
             }
         }else {
             renderizarMaletinJuego();

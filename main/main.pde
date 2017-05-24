@@ -2,7 +2,7 @@
  * Este archivo contiene las funciones principales de KHANE.
  *
  * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 15/Mayo/2017.
+ * Ultima modificacion: 23/Mayo/2017.
  */
  
  /*****************************************************/
@@ -23,7 +23,6 @@ boolean muestraAcerca = false;
 final int NUMERO_MICROJUEGOS = 4; 
 ArrayList<Microjuego> microjuegos;
 
-EscritorArchivo escritor;
 BufferedReader lector;
 String informacion[];
 
@@ -50,7 +49,6 @@ void setup()
     crearBotones();
     
     // Consigue la información sobre el software.
-    escritor = new EscritorArchivo();
     lector = createReader("./data/acerca.khane");
     
     try {
@@ -60,6 +58,8 @@ void setup()
     } catch (Exception exc) {
         println("Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
     }
+    
+    leerPuntuaciones();
 }
 
 /*****************************************************/
@@ -79,7 +79,7 @@ void draw()
     } else if (muestraJuego) {
         actualizarJuego();
     } else if (muestraPuntaje) {
-        // Desplegar puntajes.
+        desplegarPuntuaciones();
     } else if (muestraAcerca) {
         desplegarAcercaDe();
     }
@@ -103,9 +103,9 @@ void mouseClicked()
     } else if (muestraJuego) {
         procesarClickBomba();
     } else if (muestraPuntaje) {
-        // Hacer algo con puntajes.
+        procesarClickPuntuaciones();
     } else if (muestraAcerca) {
-        // Hacer algo con opciones.
+        procesarClickAcerca();
     }
 }
 

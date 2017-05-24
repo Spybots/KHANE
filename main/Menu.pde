@@ -8,7 +8,7 @@
 
 /*****************************************************/
 
-PImage botonIniciar, botonAcerca, botonPuntuaciones, botonSalir;
+PImage botonIniciar, botonAcerca, botonPuntuaciones, botonSalir, botonRegresar;
 int anchoBoton, alturaBoton, padding;
 
 /*****************************************************/
@@ -22,6 +22,7 @@ void crearBotones()
     botonPuntuaciones = loadImage("./img/puntuaciones.png");
     botonSalir = loadImage("./img/salir.png");
     botonIniciar = loadImage("./img/iniciar.png");
+    botonRegresar = loadImage("./img/regresar.png");
 
     anchoBoton = width/3;
     alturaBoton = height/8;
@@ -103,6 +104,25 @@ void desplegarAcercaDe()
     for (String l : informacion) {
         text(l, width/2, height/4 + it*MAGNITUD_TEXTO);
         it++;
+    }
+    
+    image(botonRegresar, width/2 - anchoBoton/2, height - height/10 - alturaBoton/2, anchoBoton, alturaBoton);
+}
+
+/*****************************************************/
+
+/**
+ * @brief Revisa si el usuario hizo click en el botón "Regresar" e indica al programa que debe
+ * desplegar nuevamente el menú principal.
+ */
+void procesarClickAcerca()
+{
+    if (mouseX >= width/2 - anchoBoton/2 &&
+        mouseX <= width/2 + anchoBoton/2 &&
+        mouseY >= height - height/10 - alturaBoton/2 &&
+        mouseY <= height - height/10 + alturaBoton/2) {
+        muestraAcerca = false;
+        muestraMenu = true;
     }
 }
 
