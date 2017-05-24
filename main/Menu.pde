@@ -38,6 +38,7 @@ void desplegarMenu()
 {
     dibujarFondo();
     
+    fill(255);
     textAlign(CENTER);
     textSize(MAGNITUD_TEXTO);
     text("Keep Hacking and Nobody Explodes", width/2, height/4);

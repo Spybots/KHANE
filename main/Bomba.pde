@@ -127,18 +127,7 @@ void procesarClickBomba()
     if (terminoJuego) {
         // Reinicia todas las variables del juego para iniciar uno fresco y nuevo la siguiente
         // vez.
-        mostrarMicrojuego = false;
-        terminoJuego = false;
-        exito = false;
-        microjuegoActual = 0;
-        errores = 0;
-        fade = false;
-        puntaje = 0;
-        muestraJuego = false;
-        muestraMenu = true;
-        valorIngresado = "";
-        nomIngresado = false;
-        microjuegos.clear();
+        resetearJuego();
     } else if (mostrarMicrojuego) {
         microjuegos.get(microjuegoActual).procesarClick();
     } else {
@@ -184,8 +173,12 @@ void procesarTeclasBomba()
         } else {
             microjuegos.get(microjuegoActual).procesarTeclas();
         }
+    } else {
+        if (key == TAB) {
+            resetearJuego();
+        }
     }
-
+    
     if (exito) {
         switch(key) {
         case BACKSPACE:     
@@ -230,13 +223,15 @@ void fadeToWhite()
 }
 
 /*****************************************************/
+
 /**
  * @brief Funcion que procesa el fin del juego, por
  * victoria o derrota    
  * @param exito Variable booleana que indica si el jugador
  * desactivo exitosamente la bomba o no
  */
-void procesarGameOver(boolean exito) {
+void procesarGameOver(boolean exito)
+{
     //detenerReloj()
 
     puntaje = (int)obtenerPuntaje();
@@ -250,9 +245,7 @@ void procesarGameOver(boolean exito) {
                 ++i;
             }
         }
-
-
-
+        
         if (i < 10) {
             for (int j = 9; j > i; --j) {
                 valoresPuntuaciones[j] = valoresPuntuaciones[j - 1];
@@ -270,11 +263,30 @@ void procesarGameOver(boolean exito) {
 
 /*****************************************************/
 
+void resetearJuego()
+{
+    mostrarMicrojuego = false;
+    terminoJuego = false;
+    exito = false;
+    microjuegoActual = 0;
+    errores = 0;
+    fade = false;
+    puntaje = 0;
+    muestraJuego = false;
+    muestraMenu = true;
+    valorIngresado = "";
+    nomIngresado = false;
+    microjuegos.clear();
+}
+
+/*****************************************************/
+
 /**
  * @brief Funcion que calcula la puntuacion de los microjuegos
  * @return El puntaje total
  */
-double obtenerPuntaje() {
+double obtenerPuntaje()
+{
     double puntaje = 0;
     for (Microjuego microjuego : microjuegos) {
         puntaje += microjuego.puntaje;
@@ -283,14 +295,16 @@ double obtenerPuntaje() {
     return puntaje;
 }
 /*****************************************************/
-String obtenerNombre() {
+String obtenerNombre()
+{
     return valorIngresado;
 }
 /*****************************************************/
 /**
  * @brief resta el ultimo digito del valor que el usuario lleva acumulado presionando teclas. i.e. 123456 -> 12345
  */
-void restarValor() {
+void restarValor()
+{
     if (valorIngresado.length() > 0) {
         StringBuilder sb = new StringBuilder(valorIngresado);
         sb.deleteCharAt(valorIngresado.length() - 1);
@@ -301,7 +315,8 @@ void restarValor() {
 /**
  * @brief suma la tecla presionada al valor que el usuario lleva acumulado presionando teclas.
  */
-void sumarValorIngresado(char numAgregar) {
+void sumarValorIngresado(char numAgregar)
+{
     if (this.valorIngresado.length() < 5) {
         if (this.valorIngresado == "") {
             this.valorIngresado = str(numAgregar);
