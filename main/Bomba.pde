@@ -8,11 +8,11 @@
 /*****************************************************/
 
 PGraphics maletinJuego;
-boolean mostrarMicrojuego = false;
+boolean mostrarMicrojuego = false, terminoJuego = false, exito;
 short microjuegoActual = 0, errores = 0;
 final short NUMERO_ERRORES_FIN = 3; // Número de errores para Game Over.
 boolean fade = false;
-int intensidadFondo = 255;
+int intensidadFondo = 255, puntaje;
 
 /*****************************************************/
 
@@ -22,7 +22,20 @@ int intensidadFondo = 255;
  */
 void actualizarJuego()
 {
-    if(!fade){
+    if (terminoJuego) {
+        fill(255);
+        textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
+        textAlign(CENTER);
+        
+        if (exito) {
+            text("¡FELICIDADES!", width/2, height/2);
+        } else {
+            //reemplazar en caso de poner alguna animacion de explocion
+            text("Perdiste...", width/2, height/2);
+        }
+        
+        text("Tu puntaje fue: " + puntaje, width/2, height/2 + 50);
+    } else if(!fade){
         if (mostrarMicrojuego) {
                 
             microjuegos.get(microjuegoActual).actualizar();
@@ -35,18 +48,19 @@ void actualizarJuego()
         }
         
         if (errores == NUMERO_ERRORES_FIN) {
-          boolean exito = false;  
+          exito = false;
+          terminoJuego = true;
           procesarGameOver(exito);
         }
-        
         if (microjuegos.get(0).obtenerTermino() &&
             microjuegos.get(1).obtenerTermino() &&
             microjuegos.get(2).obtenerTermino() &&
             microjuegos.get(3).obtenerTermino()) {
-            boolean exito = true;  
+            exito = true;  
+            terminoJuego = true;
             procesarGameOver(exito);
         }
-    }else{
+    } else {
         if(mostrarMicrojuego){
             fadeToBlack();
             fill(#B6D315);
@@ -101,7 +115,10 @@ void renderizarMaletinJuego()
  */
 void procesarClickBomba()
 {
-    if (mostrarMicrojuego) {
+    if (terminoJuego) {
+        muestraJuego = false;
+        muestraMenu = true;
+    } else if (mostrarMicrojuego) {
         microjuegos.get(microjuegoActual).procesarClick();
     } else {
         if (mouseX >= 0 && mouseX < width/2) {
@@ -188,38 +205,29 @@ void fadeToWhite()
 void procesarGameOver(boolean exito){
     //detenerReloj()
     
-    double puntaje = obtenerPuntaje();
+    puntaje = (int)obtenerPuntaje();
+    String nombre;
     
     if(exito){
-        fill(255);
-        textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
-        textAlign(CENTER);
-        text("GANASTE!", width/2, height/2);
-        text("Tu puntaje fue: " + puntaje, width/2 + 50, height/2 + 50);
-        /*
         int i = 0;
-        while(i < listaPuntaje.size() && puntaje < listaPuntaje.get(i)){
-            ++i;
-        }
-        
-        if(i < listaPuntaje.size()){
-            for(int j = listaPuntaje.size() - 1; j > i; --j){
-                listaPuntaje.set(j, listaPuntaje.get(j + 1) );
+        for (int punt : valoresPuntuaciones) {
+            if (puntaje < punt) {
+                ++i;
             }
         }
         
-        listaPuntaje.set(i, puntaje);*/
-    }else{
-        //reemplazar en caso de poner alguna animacion de explocion
-        fill(255);
-        textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
-        textAlign(CENTER);
-        text("Perdiste...", width/2, height/2);
-        text("Tu puntaje fue: " + puntaje, width/2 + 50, height/2 + 50);
+        if(i < 10){
+            for(int j = 9; j > i; --j){
+                valoresPuntuaciones[j] = valoresPuntuaciones[j - 1];
+            }
+            
+            nombre = "UWU";
+            valoresPuntuaciones[i] = (int)(puntaje);
+            nombresPuntuaciones[i] = nombre;
+            
+            actualizarArchivoPuntuaciones();
+        }
     }
-    
-    muestraJuego = false;
-    muestraMenu = true;
 }
 
 /*****************************************************/

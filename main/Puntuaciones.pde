@@ -10,7 +10,7 @@
 BufferedReader lectorPuntuaciones;
 
 String nombresPuntuaciones[];
-String valoresPuntuaciones[];
+int valoresPuntuaciones[];
 
 String linea;
 
@@ -22,6 +22,9 @@ PrintWriter escritorPuntuaciones;
 
 void leerPuntuaciones()
 {
+    int indice;
+    String auxValores[];
+    
     // Consigue la información sobre las mejores puntuaciones.
     lectorPuntuaciones = createReader("./data/puntuaciones_nombres.khane");
 
@@ -38,8 +41,15 @@ void leerPuntuaciones()
 
     try {
         linea = lectorPuntuaciones.readLine();
-        valoresPuntuaciones = split(linea, '*');
+        auxValores = split(linea, '*');
         lectorPuntuaciones.close();
+
+        indice = 0;
+        valoresPuntuaciones = new int[10];
+        for (String valor : auxValores) {
+            valoresPuntuaciones[indice] = Integer.parseInt(valor);
+            ++indice;
+        }
     } catch (Exception exc) {
         println("Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
     }
@@ -58,7 +68,7 @@ void actualizarArchivoPuntuaciones() {
         escritorPuntuaciones.close();
         
         escritorPuntuaciones = createWriter("./data/puntuaciones_valores.khane");
-        for (String valor : valoresPuntuaciones) {
+        for (int valor : valoresPuntuaciones) {
             escritorPuntuaciones.write(valor + "*");
         }
         
@@ -87,7 +97,7 @@ void desplegarPuntuaciones()
     }
 
     it = 0;
-    for (String l : valoresPuntuaciones) {
+    for (int l : valoresPuntuaciones) {
         text(l, width/2 + width/12, height/6 + it*MAGNITUD_TEXTO);
         it++;
     }
