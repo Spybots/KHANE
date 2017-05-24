@@ -35,14 +35,16 @@ void actualizarJuego()
         }
         
         if (errores == NUMERO_ERRORES_FIN) {
-            // Poner game over.
+          boolean exito = false;  
+          procesarGameOver(exito);
         }
         
         if (microjuegos.get(0).obtenerTermino() &&
             microjuegos.get(1).obtenerTermino() &&
             microjuegos.get(2).obtenerTermino() &&
             microjuegos.get(3).obtenerTermino()) {
-            // AGREGAR FIN DEL JUEGO EXITOSO.
+            boolean exito = true;  
+            procesarGameOver(exito);
         }
     }else{
         if(mostrarMicrojuego){
@@ -174,4 +176,62 @@ void fadeToWhite()
         intensidadFondo= 255;
         fade = false;
     }
+}
+
+/*****************************************************/
+/**
+* @brief Funcion que procesa el fin del juego, por
+* victoria o derrota    
+* @param exito Variable booleana que indica si el jugador
+* desactivo exitosamente la bomba o no
+*/
+void procesarGameOver(boolean exito){
+    //detenerReloj()
+    
+    double puntaje = obtenerPuntaje();
+    
+    if(exito){
+        fill(255);
+        textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
+        textAlign(CENTER);
+        text("GANASTE!", width/2, height/2);
+        text("Tu puntaje fue: " + puntaje, width/2 + 50, height/2 + 50);
+        /*
+        int i = 0;
+        while(i < listaPuntaje.size() && puntaje < listaPuntaje.get(i)){
+            ++i;
+        }
+        
+        if(i < listaPuntaje.size()){
+            for(int j = listaPuntaje.size() - 1; j > i; --j){
+                listaPuntaje.set(j, listaPuntaje.get(j + 1) );
+            }
+        }
+        
+        listaPuntaje.set(i, puntaje);*/
+    }else{
+        //reemplazar en caso de poner alguna animacion de explocion
+        fill(255);
+        textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
+        textAlign(CENTER);
+        text("Perdiste...", width/2, height/2);
+        text("Tu puntaje fue: " + puntaje, width/2 + 50, height/2 + 50);
+    }
+    
+    muestraJuego = false;
+    muestraMenu = true;
+}
+
+/*****************************************************/
+/**
+* @brief Funcion que calcula la puntuacion de los microjuegos
+* @return El puntaje total
+*/
+double obtenerPuntaje(){
+    double puntaje = 0;
+    for(Microjuego microjuego : microjuegos){
+        puntaje += microjuego.puntaje;   
+    }
+    
+    return puntaje;
 }
