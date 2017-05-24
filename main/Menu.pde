@@ -102,7 +102,7 @@ void desplegarAcercaDe()
     
     it = 0;
     for (String l : informacion) {
-        text(l, width/2, height/4 + it*MAGNITUD_TEXTO);
+        text(l, width/2, height/5 + it*MAGNITUD_TEXTO);
         it++;
     }
     

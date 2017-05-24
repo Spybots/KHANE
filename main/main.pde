@@ -41,7 +41,7 @@ void setup()
     
     //Carga el texto usado por la interfaz del juego.
     fuenteTextoDefault = loadFont("./data/SertoKharput-48.vlw");
-    textFont(fuenteTextoDefault, 48); //<>//
+    textFont(fuenteTextoDefault, 48); //<>// //<>//
     
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos();

@@ -206,6 +206,7 @@ void procesarGameOver(boolean exito){
     //detenerReloj()
     
     puntaje = (int)obtenerPuntaje();
+    puntaje = 7000;
     String nombre;
     
     if(exito){
@@ -221,7 +222,7 @@ void procesarGameOver(boolean exito){
                 valoresPuntuaciones[j] = valoresPuntuaciones[j - 1];
             }
             
-            nombre = "UWU";
+            nombre = "ÓWÓ";
             valoresPuntuaciones[i] = (int)(puntaje);
             nombresPuntuaciones[i] = nombre;
             

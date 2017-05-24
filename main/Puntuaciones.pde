@@ -74,6 +74,8 @@ void actualizarArchivoPuntuaciones() {
         
         escritorPuntuaciones.flush();
         escritorPuntuaciones.close();
+        
+        leerPuntuaciones();
     } catch (Exception exc) {
         println("Ha ocurrido un error al actualizar las puntuaciones.");
     }
