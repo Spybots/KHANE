@@ -50,8 +50,10 @@ class Cipher extends Microjuego
     int puntaje;
     int nivel;
     PFont font;
+    int letra;
     
     int fallos;
+    int recorrido=1;
     boolean fallo;
     boolean termino;
     
@@ -61,6 +63,7 @@ class Cipher extends Microjuego
     
     //initialize the letraActual
     char letraActual;
+    char letraMostrada;
     //position and size of the letter (those change respect the nivel)
     float px;
     float py;
@@ -85,6 +88,7 @@ class Cipher extends Microjuego
      
         //initialize the letraActual
         letraActual = ' ';
+        letraMostrada = ' ';
         //position and size of the letter (those change respect the nivel)
   
         tamanioLetra = 250; 
@@ -120,7 +124,7 @@ class Cipher extends Microjuego
             }
             
             textFont(this.font, this.tamanioLetra);
-            text(this.letraActual, this.px, this.py);
+            text(this.letraMostrada, this.px, this.py);
             
             //if clock is zero, show the score
             if ( this.fallos > 2 || this.puntaje >= 5) {
@@ -206,6 +210,7 @@ class Cipher extends Microjuego
          case ' ':
               if (run == false) {
                   letraActual = ' ';
+                  letraMostrada = ' ';
                   tiempo = tiempoInicial;
                   run = false;
                   fallo = false;
@@ -215,7 +220,9 @@ class Cipher extends Microjuego
                   px = width / 2;
                   py = 400;
                   tamanioLetra = 170;
-                  letraActual = letraAzar();
+                  letra = letraAzar();
+                  letraActual = letras[letra];
+                  letraMostrada = letras[letra+recorrido];
                   run = true;
               }
               break;
@@ -236,6 +243,7 @@ class Cipher extends Microjuego
                 break;
          case '0':
               letraActual = ' ';
+              letraMostrada = ' ';
               tiempo = tiempoInicial;
               run = false;
               fallo = false;
@@ -269,7 +277,10 @@ class Cipher extends Microjuego
             }
         
             //generate a letraAzar (is defined below)
-            letraActual = letraAzar();
+            letra = letraAzar();
+            letraActual = letras[letra];
+            letraMostrada = letras[letra+recorrido];
+            
             //select the nivel
             if (nivel == 1) {
                 px = width / 2;
@@ -290,9 +301,9 @@ class Cipher extends Microjuego
       
       
       //function for generate a letraAzar
-      char letraAzar()
+      int letraAzar()
       {
-        return letras[int(random(3, 29))];
+        return int(random(3, 29));
       }
       
       //function for set the initial configuration
