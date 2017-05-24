@@ -1,3 +1,4 @@
+import java.lang.StringBuilder;
 /*
  * Este archivo contiene las funciones que despliegan el juego actual de KHANE.
  *
@@ -13,6 +14,8 @@ short microjuegoActual = 0, errores = 0;
 final short NUMERO_ERRORES_FIN = 3; // Número de errores para Game Over.
 boolean fade = false;
 int intensidadFondo = 255, puntaje;
+String valorIngresado = "";
+boolean nomIngresado = false;
 
 /*****************************************************/
 
@@ -22,6 +25,12 @@ int intensidadFondo = 255, puntaje;
  */
 void actualizarJuego()
 {
+    /*
+    //para prueba.
+    exito = true;
+    terminoJuego = true;
+    procesarGameOver(exito);
+    */
     if (terminoJuego) {
         fill(255);
         textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
@@ -29,6 +38,7 @@ void actualizarJuego()
         
         if (exito) {
             text("¡FELICIDADES!", width/2, height/2);
+            text(valorIngresado, width/2, (height/2)+150);
         } else {
             //reemplazar en caso de poner alguna animacion de explocion
             text("Perdiste...", width/2, height/2);
@@ -47,7 +57,7 @@ void actualizarJuego()
             renderizarMaletinJuego();
         }
         
-        if (errores == NUMERO_ERRORES_FIN) {
+        if (errores == NUMERO_ERRORES_FIN && !nomIngresado) {
           exito = false;
           terminoJuego = true;
           procesarGameOver(exito);
@@ -55,7 +65,9 @@ void actualizarJuego()
         if (microjuegos.get(0).obtenerTermino() &&
             microjuegos.get(1).obtenerTermino() &&
             microjuegos.get(2).obtenerTermino() &&
-            microjuegos.get(3).obtenerTermino()) {
+            microjuegos.get(3).obtenerTermino() &&
+            !nomIngresado
+            ) {
             exito = true;  
             terminoJuego = true;
             procesarGameOver(exito);
@@ -164,6 +176,19 @@ void procesarTeclasBomba()
             microjuegos.get(microjuegoActual).procesarTeclas();
         }
     }
+    
+    if(exito){
+        switch(key){
+            case BACKSPACE:     
+                restarValor(); 
+                break;
+            case ENTER: 
+                nomIngresado = true;
+                break;
+            default:
+                sumarValorIngresado(key);
+        }
+    }
 }
 
 /*****************************************************/
@@ -206,6 +231,7 @@ void procesarGameOver(boolean exito){
     //detenerReloj()
     
     puntaje = (int)obtenerPuntaje();
+    //puntaje = 8000; //para prueba
     String nombre;
     
     if(exito){
@@ -216,12 +242,15 @@ void procesarGameOver(boolean exito){
             }
         }
         
+        
+        
         if(i < 10){
             for(int j = 9; j > i; --j){
                 valoresPuntuaciones[j] = valoresPuntuaciones[j - 1];
             }
             
-            nombre = "UWU";
+            
+            nombre = obtenerNombre();
             valoresPuntuaciones[i] = (int)(puntaje);
             nombresPuntuaciones[i] = nombre;
             
@@ -231,6 +260,7 @@ void procesarGameOver(boolean exito){
 }
 
 /*****************************************************/
+
 /**
 * @brief Funcion que calcula la puntuacion de los microjuegos
 * @return El puntaje total
@@ -243,3 +273,31 @@ double obtenerPuntaje(){
     
     return puntaje;
 }
+/*****************************************************/
+String obtenerNombre(){
+    return valorIngresado;
+}
+/*****************************************************/
+/**
+ * @brief resta el ultimo digito del valor que el usuario lleva acumulado presionando teclas. i.e. 123456 -> 12345
+ */
+ void restarValor(){
+      if(valorIngresado.length() > 0){
+           StringBuilder sb = new StringBuilder(valorIngresado);
+           sb.deleteCharAt(valorIngresado.length() - 1);
+           valorIngresado = sb.toString();
+      }
+ }
+ /*******************************************************/
+ /**
+ * @brief suma la tecla presionada al valor que el usuario lleva acumulado presionando teclas.
+ */
+ void sumarValorIngresado(char numAgregar){
+      if(this.valorIngresado.length() < 5){
+           if(this.valorIngresado == ""){
+                this.valorIngresado = str(numAgregar);
+           }else{
+                this.valorIngresado += numAgregar;
+           }
+      }
+ }
