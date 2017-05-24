@@ -42,29 +42,28 @@ void keyPressed()
 */
 class Cipher extends Microjuego
 {
-    //modify this for change the max time
     int tiempoInicial = 100;
     
     int conta;
     int tiempo;
-    int puntaje;
+    //int puntaje;
     int nivel;
     PFont font;
     int letra;
     
-    int fallos;
+    //int fallos;
     int recorrido=1;
-    boolean fallo;
-    boolean termino;
+    //boolean fallo;
+    //boolean termino;
     
     boolean run;
     
     char[] letras = {'x', 'y', 'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','a', 'b', 'c'};
-    
-    //initialize the letraActual
+
+
     char letraActual;
     char letraMostrada;
-    //position and size of the letter (those change respect the nivel)
+
     float px;
     float py;
     float tamanioLetra;
@@ -127,7 +126,14 @@ class Cipher extends Microjuego
             text(this.letraMostrada, this.px, this.py);
             
             //if clock is zero, show the score
-            if ( this.fallos > 2 || this.puntaje >= 5) {
+            if ( this.fallos > 2) {
+                this.tiempo = 0;
+                this.fallo = true;
+                this.run = false;
+                this.termino = false;
+            }
+            
+            if (this.puntaje >= 5) {
                 this.tiempo = 0;
                 this.fallo = true;
                 this.run = false;
@@ -151,7 +157,7 @@ class Cipher extends Microjuego
         strokeWeight(5);
         rect(350, 20, 300, 60);
         fill(0);
-        text("Puntaje : " + str(this.puntaje), 500, 75);
+        text("Puntaje : " + str(puntaje), 500, 75);
         
         fill(#B6D315);
         strokeWeight(5);
@@ -195,7 +201,7 @@ class Cipher extends Microjuego
         strokeWeight(5);
         rect(350, 20, 300, 60);
         fill(0);
-        text("Puntaje : " + str(this.puntaje), 500, 75);
+        text("Puntaje : " + str(puntaje), 500, 75);
         
         fill(#B6D315);
         strokeWeight(5);

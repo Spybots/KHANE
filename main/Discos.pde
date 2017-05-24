@@ -43,7 +43,7 @@ class Discos extends Microjuego {
         this.termino = false;
         this.fallo = false;
         this.oscurecerFondo = true;
-        this.puntaje = 0.0;
+        this.puntaje = 0;
         this.cambiarNivel = false;
         this.animarFallo = false;
         

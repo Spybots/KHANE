@@ -16,7 +16,7 @@ abstract class Microjuego {
     int ID, fallos;
     String nombre;
     boolean termino, fallo;
-    double puntaje;
+    int puntaje;
     
     /*****************************************************/
     
