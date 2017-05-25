@@ -22,6 +22,7 @@ boolean muestraAcerca = false;
 // Variables globales sobre los microjuegos de KHANE.
 final int NUMERO_MICROJUEGOS = 4; 
 ArrayList<Microjuego> microjuegos;
+Reloj relojPrincipal;
 
 BufferedReader lector;
 String informacion[];
