@@ -234,12 +234,16 @@ class MetodosConteo extends Microjuego{
                          //Procesar respuesta correcta
                          this.noAciertos++;
                          establecerGruposFiguras();
-                         println("gano");
                          valorIngresado = "";
 
                     }else{
                          //Processar respuesta incorrecta
-                         println("pedio");
+                         this.fallos++;
+			 if ( this.fallos > 2) {
+			     this.fallo = true;
+			     this.termino = false;
+			 }
+			 valorIngresado = "";
                     }
                }else{    //combinaciones
                     int n = figura[0][0].obtenerTamGrupo();
@@ -250,11 +254,15 @@ class MetodosConteo extends Microjuego{
                          //Procesar respuesta correcta
                          this.noAciertos++;
                          establecerGruposFiguras();
-                         println("gano");
                          valorIngresado = "";
                     }else{
                          //Processar respuesta incorrecta
-                         println("perdio");
+                         this.fallos++;
+			 if ( this.fallos > 2) {
+			     this.fallo = true;
+			     this.termino = false;
+			 }
+			 valorIngresado = "";
                     }
                }
 
@@ -269,11 +277,15 @@ class MetodosConteo extends Microjuego{
                               //Procesar respuesta correcta
                               this.noAciertos++;
                               establecerGruposFiguras();
-                              println("gano");
                               valorIngresado = "";
                          }else{
                               //Processar respuesta incorrecta
-                              println("perdio");
+                              this.fallos++;
+			      if ( this.fallos > 2) {
+				      this.fallo = true;
+				      this.termino = false;
+			      }
+			      valorIngresado = "";
                          }
                     }else{    //combinaciones
                          int n = figura[0][0].obtenerTamGrupo();
@@ -284,11 +296,15 @@ class MetodosConteo extends Microjuego{
                               //Procesar respuesta correcta
                               this.noAciertos++;
                               establecerGruposFiguras();
-                              println("gano");
                               valorIngresado = "";
                          }else{
                               //Processar respuesta incorrecta
-                              println("perdio");
+                              this.fallos++;
+			      if ( this.fallos > 2) {
+				     this.fallo = true;
+				     this.termino = false;
+			      }
+			      valorIngresado = "";
                          }
                     }
                }else{
@@ -302,11 +318,14 @@ class MetodosConteo extends Microjuego{
                                    //Procesar respuesta correcta
                                    this.noAciertos++;
                                    establecerGruposFiguras();
-                                   println("gano");
                                    valorIngresado = "";
                               }else{
                                    //Processar respuesta incorrecta
-                                   println("perdio");
+                                   if ( this.fallos > 2) {
+				     this.fallo = true;
+				     this.termino = false;
+			           }
+			           valorIngresado = "";
                               }
                          }else{    //combinaciones
                               int n = figura[0][0].obtenerTamGrupo();
@@ -317,11 +336,14 @@ class MetodosConteo extends Microjuego{
                                    //Procesar respuesta correcta
                                    this.noAciertos++;
                                    establecerGruposFiguras();
-                                   println("gano");
                                    valorIngresado = "";
                               }else{
                                    //Processar respuesta incorrecta
-                                   println("perdio");
+                                   if ( this.fallos > 2) {
+				     this.fallo = true;
+				     this.termino = false;
+			           }
+			           valorIngresado = "";
                               }
                          }
                     }else{
@@ -335,11 +357,15 @@ class MetodosConteo extends Microjuego{
                                         //Procesar respuesta correcta
                                         this.noAciertos++;
                                         establecerGruposFiguras();
-                                        println("gano");
                                         valorIngresado = "";
                                    }else{
                                         //Processar respuesta incorrecta
-                                        println("perdio");
+                                        this.fallos++;
+                                        if ( this.fallos > 2) {
+                                            this.fallo = true;
+                                            this.termino = false;
+                                        }
+                                        valorIngresado = "";
                                    }
                               }else{    //combinaciones
                                    int n = figura[0][0].obtenerTamGrupo();
@@ -350,11 +376,15 @@ class MetodosConteo extends Microjuego{
                                         //Procesar respuesta correcta
                                         this.noAciertos++;
                                         establecerGruposFiguras();
-                                        println("gano");
                                         valorIngresado = "";
                                    }else{
                                         //Processar respuesta incorrecta
-                                        println("perdio");
+                                        this.fallos++;
+                                        if ( this.fallos > 2) {
+                                            this.fallo = true;
+                                            this.termino = false;
+                                        }
+                                        valorIngresado = "";
                                    }
                               }
                          }
