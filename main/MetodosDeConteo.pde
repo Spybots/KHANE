@@ -466,7 +466,7 @@ class MetodosConteo extends Microjuego{
       * @brief Calcula el puntaje actual del microjuego.
       */
      void calcularPuntaje(){
-          puntaje = noAciertos*1000 + (180000 - relojPrincipal.obtenerTiempoMilis())*0.2; //Ver como exactamente se calcularan el puntaje.
+          puntaje = noAciertos*1000 + (int)((180000 - relojPrincipal.obtenerTiempoMilis())*0.2); //Ver como exactamente se calcularan el puntaje.
      }
 
      /**
