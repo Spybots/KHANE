@@ -9,8 +9,8 @@
 /*****************************************************/
 
 final int NUM_DIGITOS_DISCOS = 8;
-final int NUM_EXITOS_PARA_TERMINAR = 3;
-final int PUNTUACION_EXITO = 200;
+final int NUM_NIVELES_PARA_TERMINAR = 3;
+final int PUNTUACION_EXITO = 750;
 final int PENALIZACION_FALLO = -100;
 
 /*****************************************************/
@@ -23,7 +23,7 @@ final int PENALIZACION_FALLO = -100;
  */
 class Discos extends Microjuego {
     // Atributos de la clase.
-    int modulo, exitos, numeroFallos, intensidadFondo;
+    int modulo, nivelesConcluidos, intensidadFondo;
     boolean cambiarNivel, oscurecerFondo, animarFallo;
     Banda sumandoUno, sumandoDos, suma;
     PGraphics indicador;
@@ -36,8 +36,8 @@ class Discos extends Microjuego {
     Discos()
     {
         this.ID = 4;
-        this.numeroFallos = 0;
-        this.exitos = 0;
+        this.fallos = 0;
+        this.nivelesConcluidos = 0;
         this.intensidadFondo = 50;
         this.nombre = "Discos";
         this.termino = false;
@@ -127,7 +127,7 @@ class Discos extends Microjuego {
      */
     boolean obtenerTermino()
     {   
-        if (this.exitos == NUM_EXITOS_PARA_TERMINAR) {
+        if (this.nivelesConcluidos == NUM_NIVELES_PARA_TERMINAR) {
             this.termino = true;
         } else {
             this.termino = false;
@@ -143,7 +143,7 @@ class Discos extends Microjuego {
      */
     void calcularPuntaje()
     {
-        this.puntaje = (PUNTUACION_EXITO * this.exitos) - (PENALIZACION_FALLO * this.numeroFallos);
+        this.puntaje = (PUNTUACION_EXITO * this.nivelesConcluidos) - (PENALIZACION_FALLO * this.fallos);
     }
     
     /*****************************************************/
@@ -157,7 +157,7 @@ class Discos extends Microjuego {
         this.crearFondo();
 
         // Crea nuevos niveles mientras el usuario no haya completado el microjuego.
-        if (this.cambiarNivel && this.exitos < NUM_EXITOS_PARA_TERMINAR) {
+        if (this.cambiarNivel && this.nivelesConcluidos < NUM_NIVELES_PARA_TERMINAR) {
             this.crearNivel();
             this.cambiarNivel = false;
         }
@@ -182,7 +182,7 @@ class Discos extends Microjuego {
         
         // Sólo permite que el usuario interactúe con el microjuego mientras no haya sido
         // completado.
-        if (this.exitos < NUM_EXITOS_PARA_TERMINAR) {
+        if (this.nivelesConcluidos < NUM_NIVELES_PARA_TERMINAR) {
             distanciaCentro = sqrt(sq(mouseX - width/2) + sq(mouseY - height/2));
             
             // Revisa que el click se haya realizado dentro de la zona del segundo sumando.
@@ -213,9 +213,9 @@ class Discos extends Microjuego {
                 
                 // En caso de que haya acertado.
                 if (this.suma.numero.esCero()) {
-                    this.exitos++;
+                    this.nivelesConcluidos++;
                     
-                    if (this.exitos == NUM_EXITOS_PARA_TERMINAR) {
+                    if (this.nivelesConcluidos == NUM_NIVELES_PARA_TERMINAR) {
                         // Pone todos los números en 0.
                         this.sumandoUno.numero = new Numero(this.modulo, NUM_DIGITOS_DISCOS);
                         this.sumandoDos.numero = new Numero(this.modulo, NUM_DIGITOS_DISCOS);
@@ -226,11 +226,12 @@ class Discos extends Microjuego {
                 } else {
                     this.fallo = true;
                     this.animarFallo = true;
-                    this.numeroFallos++;
+                    this.fallos++;
                     this.intensidadFondo = 0;
                 }
                 
                 this.cambiarNivel = true;
+                this.calcularPuntaje();
             }
         }
     }

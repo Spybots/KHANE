@@ -240,7 +240,7 @@ void procesarGameOver(boolean exito)
 {
     //detenerReloj()
 
-    puntaje = (int)obtenerPuntaje();
+    puntaje = (int)(obtenerPuntaje());
     //puntaje = 8000; //para prueba
     String nombre;
 
