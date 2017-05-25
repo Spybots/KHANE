@@ -2,7 +2,6 @@ class Reloj{
      int cx, cy;
      float secondsRadius;
      float minutesRadius;
-     float hoursRadius;
      float clockDiameter;
      int sec, min, start, timer;
 
@@ -66,8 +65,6 @@ class Reloj{
           line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
           strokeWeight(2);
           line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
-          //strokeWeight(4);
-          //line(cx, cy, cx + cos(h) * hoursRadius, cy + sin(h) * hoursRadius);
 
           // Draw the minute ticks
           strokeWeight(2);
@@ -115,7 +112,6 @@ class Reloj{
      *@brief Dibuja un reloj digital en la pantalla.
      */
      void dibujarRelojDigital(){
-          println(obtenerMinCadena() + ":" + obtenerSegCadena());
           textSize(25);
           fill(255);
           switch(microjuegos.get(microjuegoActual).obtenerID()){
