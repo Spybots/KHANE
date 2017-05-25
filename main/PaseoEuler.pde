@@ -36,6 +36,7 @@ class PaseoEuler extends Microjuego{
         this.fallos = 0;
         this.movimientosRegresados = 0;
         this.vecesVaciadas = 0;
+        this.ID = 3;
 
         this.listaGraf = new ArrayList<Grafica>(NUM_GRAF);
         
