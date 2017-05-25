@@ -36,7 +36,7 @@ void setup()
 {
     String linea;
     
-    size(1366, 768, P3D);
+    fullScreen(P3D);
     frameRate(FPS_CAP);
     background(0, 0, 0);
     
@@ -61,6 +61,9 @@ void setup()
     }
     
     leerPuntuaciones();
+    
+    discosNoConcluidos = loadImage("./img/discos_no_completo.png");
+    discosConcluidos = loadImage("./img/discos_completo.png");
 }
 
 /*****************************************************/

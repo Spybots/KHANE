@@ -19,18 +19,16 @@ boolean nomIngresado = false;
 
 /*****************************************************/
 
+PImage discosNoConcluidos, discosConcluidos;
+
+/*****************************************************/
+
 /**
  * @brief Actualiza el estado actual del microjuego que está jugando el usuario o del
  * maletín para seleccionar el nivel.
  */
 void actualizarJuego()
 {
-    /*
-    //para prueba.
-     exito = true;
-     terminoJuego = true;
-     procesarGameOver(exito);
-     */
     if (terminoJuego) {
         fill(255);
         textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
@@ -108,7 +106,6 @@ void renderizarMaletinJuego()
     maletinJuego.beginDraw();
 
     maletinJuego.translate(width/2, height/2, 0); //Ajusta todos los objetos al centro de la pantalla.
-    //maletinJuego.rotateY(PI/12);
     maletinJuego.fill(255);
     maletinJuego.box(width, height, 50);
 
@@ -120,6 +117,13 @@ void renderizarMaletinJuego()
     maletinJuego.endDraw();
 
     image(maletinJuego, 0, 0);
+    
+    // Despliega las imágenes que muestran el estado de cada microjuego.
+    if (microjuegos.get(3).obtenerTermino()) {
+        image(discosConcluidos, width/2, height/2, width/2, height/2);
+    } else {
+        image(discosNoConcluidos, width/2, height/2, width/2, height/2);
+    }
 }
 
 /*****************************************************/
@@ -241,7 +245,7 @@ void procesarGameOver(boolean exito)
     //detenerReloj()
 
     puntaje = (int)(obtenerPuntaje());
-    //puntaje = 8000; //para prueba
+    puntaje = 10000; //para prueba
     String nombre;
 
     if (exito) {
@@ -252,15 +256,18 @@ void procesarGameOver(boolean exito)
             }
         }
         
-        if (i < 10) {
-            for (int j = 9; j > i; --j) {
-                valoresPuntuaciones[j] = valoresPuntuaciones[j - 1];
+        if (i < valoresPuntuaciones.size()) {
+            for (int j = valoresPuntuaciones.size() - 1; j > i; --j) {
+                valoresPuntuaciones.set(j, valoresPuntuaciones.get(j - 1));
+            }
+            
+            for (int j = nombresPuntuaciones.size() - 1; j > i; --j) {
+                nombresPuntuaciones.set(j, nombresPuntuaciones.get(j - 1));
             }
 
-
             nombre = obtenerNombre();
-            valoresPuntuaciones[i] = (int)(puntaje);
-            nombresPuntuaciones[i] = nombre;
+            valoresPuntuaciones.set(i, (int)(puntaje));
+            nombresPuntuaciones.set(i, nombre);
 
             actualizarArchivoPuntuaciones();
         }

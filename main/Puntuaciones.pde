@@ -9,8 +9,8 @@
 
 BufferedReader lectorPuntuaciones;
 
-String nombresPuntuaciones[];
-int valoresPuntuaciones[];
+ArrayList<String> nombresPuntuaciones;
+ArrayList<Integer> valoresPuntuaciones;
 
 String linea;
 
@@ -22,15 +22,22 @@ PrintWriter escritorPuntuaciones;
 
 void leerPuntuaciones()
 {
-    int indice;
     String auxValores[];
+    
+    nombresPuntuaciones = new ArrayList<String>();
+    valoresPuntuaciones = new ArrayList<Integer>();
     
     // Consigue la información sobre las mejores puntuaciones.
     lectorPuntuaciones = createReader("./data/puntuaciones_nombres.khane");
 
     try {
         linea = lectorPuntuaciones.readLine();
-        nombresPuntuaciones = split(linea, '*');
+        auxValores = split(linea, '*');
+        
+        for (String nombre : auxValores) {
+            nombresPuntuaciones.add(nombre);
+        }
+        
         lectorPuntuaciones.close();
     } 
     catch (Exception exc) {
@@ -44,11 +51,8 @@ void leerPuntuaciones()
         auxValores = split(linea, '*');
         lectorPuntuaciones.close();
 
-        indice = 0;
-        valoresPuntuaciones = new int[10];
         for (String valor : auxValores) {
-            valoresPuntuaciones[indice] = Integer.parseInt(valor);
-            ++indice;
+            valoresPuntuaciones.add(Integer.parseInt(valor));
         }
     } catch (Exception exc) {
         println("Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
@@ -60,19 +64,22 @@ void leerPuntuaciones()
 void actualizarArchivoPuntuaciones() {
     try {
         escritorPuntuaciones = createWriter("./data/puntuaciones_nombres.khane");
-        for (String nombre : nombresPuntuaciones) {
-            escritorPuntuaciones.write(nombre + "*");
+        for (int i = 0; i < nombresPuntuaciones.size() - 1; i++) {
+            escritorPuntuaciones.write(nombresPuntuaciones.get(i) + "*");
         }
+        // Escribe el último nombre.
+        escritorPuntuaciones.write(nombresPuntuaciones.get(nombresPuntuaciones.size() - 1));
         
-        escritorPuntuaciones.flush();
+        //180,000 milisegundos.
         escritorPuntuaciones.close();
         
         escritorPuntuaciones = createWriter("./data/puntuaciones_valores.khane");
-        for (int valor : valoresPuntuaciones) {
-            escritorPuntuaciones.write(valor + "*");
+        for (int i = 0; i < valoresPuntuaciones.size() - 1; i++) {
+            escritorPuntuaciones.write(valoresPuntuaciones.get(i) + "*");
         }
+        // Escribe el último valor.
+        escritorPuntuaciones.write(valoresPuntuaciones.get(valoresPuntuaciones.size() - 1));
         
-        escritorPuntuaciones.flush();
         escritorPuntuaciones.close();
         
         leerPuntuaciones();
