@@ -32,9 +32,9 @@ class PaseoEuler extends Microjuego{
     private final int NUM_GRAF = /*3*/1;
     private int movimientosRegresados;
     private int vecesVaciadas;
-    private final int PUNTUACION_BASE = 500;
-    private final int PENAL_REGRESAR = 10;
-    private final int PENAL_VACIAR = 40;
+    private final int PUNTUACION_BASE = 2000;
+    private final int PENAL_REGRESAR = 100;
+    private final int PENAL_VACIAR = 200;
     private int workingWidth;
     private int workingHeight;
     
@@ -71,7 +71,8 @@ class PaseoEuler extends Microjuego{
     /**
      * @brief Dibuja la grafica seleccionada actualmente.
      */
-    void dibujar(){
+    void dibujar()
+    {
         this.listaGraf.get(this.indiceGraf).dibujarRectas(this.colorRectas);
 
         this.listaGraf.get(this.indiceGraf).dibujarRectasUsuario(this.colorRectasUsuario);
@@ -100,7 +101,8 @@ class PaseoEuler extends Microjuego{
     * @brief Metodo para saber si el usuario ya fallo el microjuego.
     * @return true si el usuario ya fallo y no puede seguir, false en otro caso.
     */
-    boolean obtenerFallo(){
+    boolean obtenerFallo()
+    {
         return this.fallo;
     }
     
@@ -137,7 +139,8 @@ class PaseoEuler extends Microjuego{
     * @brief Obtiene la bandera que indica que el juego ya termino.
     * @return true si el juego ya termino, false en otro caso.
     */
-    boolean obtenerTermino(){
+    boolean obtenerTermino()
+    {
         return this.termino;
     }
     
@@ -148,8 +151,12 @@ class PaseoEuler extends Microjuego{
     */
     void calcularPuntaje()
     {
-        if(this.termino){
-            this.puntaje = this.PUNTUACION_BASE - (this.PENAL_REGRESAR * this.movimientosRegresados) -  (this.PENAL_VACIAR * this.vecesVaciadas);
+        int rectasGrafica = this.listaGraf.get(this.indiceGraf).conjPuntos.size();
+        int rectasUsuario = this.listaGraf.get(this.indiceGraf).listaRectas.size();
+
+        this.puntaje = this.PUNTUACION_BASE*rectasUsuario/rectasGrafica - (this.PENAL_REGRESAR * this.movimientosRegresados) -  (this.PENAL_VACIAR * this.vecesVaciadas);
+        if(this.puntaje < 0){
+            this.puntaje = 0;   
         }
     }
     
@@ -161,6 +168,7 @@ class PaseoEuler extends Microjuego{
     public void actualizar()
     {
         this.revisarTermino(); //revisa si el juego termino
+        this.calcularPuntaje();
         //si el juego no ha terminado, repinta el fondo, dibuja la grafica y dibuja la linea del ultimo vertice al cursor
         if(!this.termino){
             background(this.colorFondo);
@@ -182,7 +190,8 @@ class PaseoEuler extends Microjuego{
     /**
     * @brief Metodo que procesa el click hecho dependiendo de donde se hizo y si ya tenia un punto seleccionado.
     */
-    public void procesarClick(){
+    public void procesarClick()
+    {
         if(listaGraf.get(indiceGraf).obtenerPuntoActual() == null){
 
             Iterator<Punto> iterador = this.listaGraf.get(this.indiceGraf).conjPuntos.iterator();
@@ -194,11 +203,11 @@ class PaseoEuler extends Microjuego{
                    mouseX < aux.obtenerX() + TOLERANCIA &&
                    mouseY > aux.obtenerY() - TOLERANCIA &&
                    mouseY < aux.obtenerY() + TOLERANCIA){
-          if(!revisarTermino()){
-            this.listaGraf.get(indiceGraf).asignarPuntoActual(aux);
-          }else{
-            this.listaGraf.get(indiceGraf).asignarPuntoActual(null);
-          }
+                    if(!revisarTermino()){
+                        this.listaGraf.get(indiceGraf).asignarPuntoActual(aux);
+                    }else{
+                        this.listaGraf.get(indiceGraf).asignarPuntoActual(null);
+                    }
                 }
             }
         }else{
@@ -211,7 +220,8 @@ class PaseoEuler extends Microjuego{
     /**
     * @brief Revisa el punto actual con todas sus conexiones.
     */
-    public void revisarPuntoActual(){
+    public void revisarPuntoActual()
+    {
         Iterator<Punto> iterador = this.listaGraf.get(indiceGraf).obtenerPuntoActual().conexiones.iterator();
         Recta nuevaRecta1 = null;
         Punto aux = null;
@@ -222,19 +232,19 @@ class PaseoEuler extends Microjuego{
                mouseY > aux.obtenerY() - TOLERANCIA &&
                mouseY < aux.obtenerY() + TOLERANCIA){
 
-          nuevaRecta1 = new Recta(this.listaGraf.get(indiceGraf).obtenerPuntoActual(), aux);
+                nuevaRecta1 = new Recta(this.listaGraf.get(indiceGraf).obtenerPuntoActual(), aux);
 
-          //si pudo agregar exitosamente la nueva recta a la lista de rectas, entonces cambia el punto actual. En otro caso
-          //agrega un fallo
-          if(this.listaGraf.get(indiceGraf).agregarRectaLista(nuevaRecta1)){
+                //si pudo agregar exitosamente la nueva recta a la lista de rectas, entonces cambia el punto actual. En otro caso
+                //agrega un fallo
+                if(this.listaGraf.get(indiceGraf).agregarRectaLista(nuevaRecta1)){
                     if(!revisarTermino()){
-            this.listaGraf.get(indiceGraf).asignarPuntoActual(aux);
-          }else{
-            this.listaGraf.get(indiceGraf).asignarPuntoActual(null);
-          }
-          }else{
+                        this.listaGraf.get(indiceGraf).asignarPuntoActual(aux);
+                    }else{
+                        this.listaGraf.get(indiceGraf).asignarPuntoActual(null);
+                    }
+                }else{
                     this.fallos += 1;
-          }
+                }
             }
         }
     }
@@ -244,7 +254,8 @@ class PaseoEuler extends Microjuego{
     /**
     * @brief Si el usuario tiene seleccionado algun punto, esto crea una linea del punto al cursor.
     */
-    public void procesarArrastre(){
+    public void procesarArrastre()
+    {
 
         if(listaGraf.get(indiceGraf).obtenerPuntoActual() != null){
             line(listaGraf.get(indiceGraf).obtenerPuntoActual().obtenerX(), listaGraf.get(indiceGraf).obtenerPuntoActual().obtenerY(),
@@ -257,7 +268,8 @@ class PaseoEuler extends Microjuego{
     /**
     * @brief Metodo que quita el ultimo movimiento hecho o vacia la grafica si se presiona la tecla 'b' o 'x' respectivamente
     */
-    public void procesarTeclas(){
+    public void procesarTeclas()
+    {
         if(key == 'b' || key == 'B'){
             if(!this.listaGraf.get(indiceGraf).obtenerListaRectas().isEmpty()){
                 this.listaGraf.get(indiceGraf).removerUltimaRecta();
@@ -279,7 +291,8 @@ class PaseoEuler extends Microjuego{
     /**
     * @brief Metodo para generar las graficas que se usaran en el juego. Esto depende del codigo de la bomba.    
     */
-    public void generarGrafica(){
+    public void generarGrafica()
+    {
         
         final int CODIGO_1 = 0;
         final int CODIGO_2 = 1;
@@ -290,7 +303,7 @@ class PaseoEuler extends Microjuego{
         
         final int GRAFICA_1 = 0;
         final int GRAFICA_2 = 1;
-        final int GRAFICA_3 = 2;
+        //final int GRAFICA_3 = 2;
         
         Random r = new Random();
         int limiteInferior = 0;
@@ -298,6 +311,8 @@ class PaseoEuler extends Microjuego{
         int indiceGraficaActual = r.nextInt(limiteSuperior - limiteInferior) + limiteInferior;
         this.indiceGraf = /*indiceGraficaActual*/0;
         
+        SetPunto puntos;
+        SetRecta rectas;
         Punto puntoInicial;
         /*
         switch(indiceGraficaActual){
@@ -347,7 +362,7 @@ class PaseoEuler extends Microjuego{
             punto5.conexiones.add(punto2);
             punto5.conexiones.add(punto4);
     
-            SetPunto puntos = new SetPunto();
+            puntos = new SetPunto();
             puntos.add(punto1);
             puntos.add(punto2);
             puntos.add(punto3);
@@ -356,7 +371,7 @@ class PaseoEuler extends Microjuego{
     
             /**Agrega los puntos*********************************/
     
-            SetRecta rectas = new SetRecta();
+            rectas = new SetRecta();
             rectas.add(new Recta(punto1, punto2));
             rectas.add(new Recta(punto1, punto4));
             rectas.add(new Recta(punto1, punto5));
@@ -393,9 +408,7 @@ class PaseoEuler extends Microjuego{
                 default:
                     puntoInicial = punto5;
             }
-            
-            this.listaGraf.add(this.indiceGraf, new Grafica(puntos, rectas, puntoInicial));
-            
+
             /**Agrega una grafica*********************************/
         }else if(indiceGraficaActual == GRAFICA_2){
             /**Inicializa parametros******************************/
@@ -436,7 +449,7 @@ class PaseoEuler extends Microjuego{
             punto6.conexiones.add(punto1);
             punto6.conexiones.add(punto4);
     
-            SetPunto puntos = new SetPunto();
+            puntos = new SetPunto();
             puntos.add(punto1);
             puntos.add(punto2);
             puntos.add(punto3);
@@ -446,7 +459,7 @@ class PaseoEuler extends Microjuego{
     
             /**Agrega los puntos*********************************/
     
-            SetRecta rectas = new SetRecta();
+            rectas = new SetRecta();
             rectas.add(new Recta(punto1, punto2));
             rectas.add(new Recta(punto1, punto3));
             rectas.add(new Recta(punto1, punto5));
@@ -489,8 +502,6 @@ class PaseoEuler extends Microjuego{
                 default:
                     puntoInicial = punto4;
             }
-            
-            this.listaGraf.add(this.indiceGraf, new Grafica(puntos, rectas, puntoInicial));
             
             /**Agrega una grafica*********************************/
         }else{
@@ -542,7 +553,7 @@ class PaseoEuler extends Microjuego{
             punto7.conexiones.add(punto4);
             punto7.conexiones.add(punto6);
     
-            SetPunto puntos = new SetPunto();
+            puntos = new SetPunto();
             puntos.add(punto1);
             puntos.add(punto2);
             puntos.add(punto3);
@@ -553,7 +564,7 @@ class PaseoEuler extends Microjuego{
     
             /**Agrega los puntos*********************************/
             
-            SetRecta rectas = new SetRecta();
+            rectas = new SetRecta();
             rectas.add(new Recta(punto1, punto2));
             rectas.add(new Recta(punto1, punto4));
             rectas.add(new Recta(punto1, punto5));
@@ -606,10 +617,10 @@ class PaseoEuler extends Microjuego{
                 default:
                     puntoInicial = punto7;
             }
-            
-            this.listaGraf.add(this.indiceGraf, new Grafica(puntos, rectas, puntoInicial));
-            
+
             /**Agrega una grafica*********************************/
         }
+        
+        this.listaGraf.add(this.indiceGraf, new Grafica(puntos, rectas, puntoInicial));
     }
 }
