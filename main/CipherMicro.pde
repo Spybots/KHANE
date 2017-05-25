@@ -79,6 +79,7 @@ class Cipher extends Microjuego
         nivel = 1;
         font = createFont("times", 60, true);
         
+        ID = 1;
         fallos = 0;
         fallo = false;
         termino = false;
