@@ -67,6 +67,7 @@ void procesarClickMenu()
             microjuegos.add(new PaseoEuler());
             microjuegos.add(new MetodosConteo());
             microjuegos.add(new Discos());
+            relojPrincipal = new Reloj();
             
             maletinJuego = createGraphics(width, height, P3D);
         // Acerca de.
