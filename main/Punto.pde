@@ -8,12 +8,17 @@ import java.util.*;
  */
 
 class Punto{
+    
+    /*****************************************************/
+    
     private float x;
     private float y;
     private float width;
     private float height;
     private SetPunto conexiones;
-  private color pColor;
+    private color pColor;
+    
+    /*****************************************************/
 
     /**
     * @brief Constructor que recibe la posicion en x y y del punto y crea un punto con color(0, 0, 0).
@@ -28,6 +33,8 @@ class Punto{
         this.conexiones = new SetPunto();
         this.pColor = color(0, 0, 0);
     }
+    
+    /*****************************************************/
 
   /**
     * @brief Constructor que recibe la posicion en x y y del punto y el color que se quiere.
@@ -35,7 +42,7 @@ class Punto{
     * @param y Posicion en y.
     * @param pColor Color del punto.
     */
-  public Punto(float x, float y, color pColor){
+    public Punto(float x, float y, color pColor){
         this.x = x;
         this.y = y;
         this.width = 10;
@@ -43,6 +50,8 @@ class Punto{
         this.conexiones = new SetPunto();
     this.pColor = pColor;
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Metodo para obtener la posicion en x de un punto.
@@ -51,6 +60,8 @@ class Punto{
     public float obtenerX(){
         return this.x;
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Metodo para obtener la posicion en y de un punto.
@@ -59,14 +70,16 @@ class Punto{
     public float obtenerY(){
         return this.y;
     }
+    
+    /*****************************************************/
 
   /**
     * @brief Metodo para obtener el color de un punto.
     * @return El color del punto.
     */
-  public color obtenerColor(){
+    public color obtenerColor(){
     return this.pColor;
-  }
+    }
 
     /**
     * @brief Metodo para conectar el punto a algun otro.
@@ -75,15 +88,19 @@ class Punto{
     public void conectarPunto(Punto punto){
         this.conexiones.add(punto);
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Sobrecarga de la igualdad para revisar si dos puntos son iguales.
     * @param punto El punto al que se quiere comparar la igualdad.
     * @return true si ambos puntos tienen las mismas coordenadas, false en cualquier otro caso.
     */
-  public boolean equals(Punto punto){
+    public boolean equals(Punto punto){
         return this.x == punto.x && this.y == punto.y;
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Metodo para dibujar el punto en su posicion y con su color.
@@ -92,6 +109,8 @@ class Punto{
         fill(this.pColor);
         ellipse(this.x, this.y, this.width, this.height);
     }
+    
+    /*****************************************************/
     
     /**
     * @brief Metodo para dibujar el punto en su posicion y con su color.

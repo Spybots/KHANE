@@ -8,13 +8,15 @@ import java.util.*;
  */
 
 class SetPunto extends HashSet{
+    
+    /*****************************************************/
 
     /**
     * @brief Sobrecarga de la igualdad para revisar si dos conjuntos de puntos son iguales.
     * @param conjPuntos El otro conjunto de puntos con el que se quiera comparar si son iguales.
     * @return true si ambos conjuntos contienen los mismos elementos, false en otro caso.
     */
-  public boolean equals(HashSet conjPuntos){
+    public boolean equals(HashSet conjPuntos){
         //si las capacidades son diferentes, no pueden ser los mismos conjuntos
         if(this.size() != conjPuntos.size()){
             return false;
@@ -43,6 +45,8 @@ class SetPunto extends HashSet{
         //si todos los elementos del primer conjunto estan en el segundo, entonces los conjuntos son iguales
         return true;
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Sobrecarga del metodo contains para revisar si un conjunto contiene a un punto en particular.
@@ -59,6 +63,8 @@ class SetPunto extends HashSet{
 
         return false;
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Sobrecarga del metodo add para agregar un elemento al conjunto.
@@ -72,6 +78,8 @@ class SetPunto extends HashSet{
 
         return false;
     }
+    
+    /*****************************************************/
 
     /**
     * @brief Metodo para dibujar todos los puntos contenidos en el conjunto.
@@ -82,6 +90,8 @@ class SetPunto extends HashSet{
             iterador.next().dibujar();
         }
     }
+    
+    /*****************************************************/
     
     /**
     * @brief Metodo para dibujar todos los puntos contenidos en el conjunto.
