@@ -113,16 +113,10 @@ class Cipher extends Microjuego
     void actualizar(){
         if (this.run == true) {
             this.conta += 1;
-            fill(#2DB8ED);
+            fill(0,0,0);
             rect(0, 0, width, height);
-          
-            fill(0);
-            //this is for do slow clock
-            if (this.conta == 10) {
-                this.tiempo--;
-                this.conta = 0;
-            }
             
+            fill(255, 0, 0);
             textFont(this.font, this.tamanioLetra);
             text(this.letraMostrada, this.px, this.py);
             
@@ -146,8 +140,7 @@ class Cipher extends Microjuego
             else
                 this.reset();
         }      
-        //those lines are for draw the box of time, puntaje, nivel
-        //those lines are for draw the box of time, puntaje, nivel
+        //cajas
         textFont(this.font, 60);
         fill(#B6D315);
         rect(20, 20, 300, 60);
@@ -169,33 +162,33 @@ class Cipher extends Microjuego
     
     void reset()
     {
-        fill(#2DB8ED);
+        fill(0,0,0);
         rect(0, 0, width, height);
           
-        PImage img = loadImage("1.jpg");
-        image(img, 400, 150, 374, 323);
+        //PImage img = loadImage("1.jpg");
+        //image(img, 400, 150, 374, 323);
         
         stroke(0);
         strokeWeight(5);
-        fill(#4CE5D0);
-        rect(30, 150, 260, 323);
+        fill(#B6D315);
+        rect(230, 150, 260, 323);
         textFont(font, 20);
         textAlign(CENTER);
         fill(255, 0, 0);
-        text(" Typing game", 140, 180);
+        text(" Juego de teclear", 340, 180);
         textFont(font, 16);
         textAlign(LEFT);
         fill(0);
-        text("GET READY YOUR FINGERS !!!\n         GOTTA TYPE FAST ", 47, 210);
-        text("These are the commands:\n * 0 = reset \n * 1, 2, 3 = set nivel \n * space = start the game\n * esc = exit", 47, 310);
+        text("PREPARATE!!!", 247, 210);
+        text("Comandos:\n * 0 = reset \n * 1, 2, 3 = Escojer nivel \n * space = Iniciar juego\n * TAB = Salida", 247, 310);
         
         textAlign(CENTER);
         
-        //those lines are for draw the box of time, puntaje, nivel
+        //cajas 
         textFont(this.font, 60);
         fill(#B6D315);
         rect(20, 20, 300, 60);
-        fill(0);
+        fill(0,0,0);
         text("Fallos : " + str(this.fallos), 170, 75);
         
         fill(#B6D315);
@@ -319,7 +312,7 @@ class Cipher extends Microjuego
       //function for print the score and play a tada
       void resultados()
       {
-        fill(#2DB8ED);
+        fill(0,0,0);
         rect(0, 0, width, height);
         textFont(font, 170);
         textAlign(CENTER);
