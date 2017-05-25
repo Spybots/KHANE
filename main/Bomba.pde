@@ -49,12 +49,18 @@ void actualizarJuego()
         if (mostrarMicrojuego) {
 
             microjuegos.get(microjuegoActual).actualizar();
+            //Calcula y dibuja el tiempo
+            relojPrincipal.calcularTiempo();
+            relojPrincipal.dibujarRelojDigital();
 
             if (microjuegos.get(microjuegoActual).obtenerFallo()) {
                 ++errores;
             }
         } else {
             renderizarMaletinJuego();
+            //Calcula y dibuja el tiempo
+            relojPrincipal.calcularTiempo();
+            relojPrincipal.dibujarRelojAnalogico();
         }
 
         if (errores == NUMERO_ERRORES_FIN) {
