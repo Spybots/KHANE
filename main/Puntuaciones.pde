@@ -34,9 +34,14 @@ void leerPuntuaciones()
         linea = lectorPuntuaciones.readLine();
         auxValores = split(linea, '*');
         
+        int i = 0;
         for (String nombre : auxValores) {
+            println("nombre: " + i + " " + nombre);
             nombresPuntuaciones.add(nombre);
+            ++i;
         }
+        
+        println("Tam nombre: " + i);
         
         lectorPuntuaciones.close();
     } 
@@ -51,11 +56,16 @@ void leerPuntuaciones()
         auxValores = split(linea, '*');
         lectorPuntuaciones.close();
 
+        int i = 0;
         for (String valor : auxValores) {
+            println("puntaje: " + i + " " + valor);
             valoresPuntuaciones.add(Integer.parseInt(valor));
+            ++i;
         }
+        
+         println("Tam num: " + i);
     } catch (Exception exc) {
-        println("Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
+        println("7967789Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
     }
 }
 
@@ -70,7 +80,6 @@ void actualizarArchivoPuntuaciones() {
         // Escribe el último nombre.
         escritorPuntuaciones.write(nombresPuntuaciones.get(nombresPuntuaciones.size() - 1));
         
-        //180,000 milisegundos.
         escritorPuntuaciones.close();
         
         escritorPuntuaciones = createWriter("./data/puntuaciones_valores.khane");
@@ -78,11 +87,11 @@ void actualizarArchivoPuntuaciones() {
             escritorPuntuaciones.write(valoresPuntuaciones.get(i) + "*");
         }
         // Escribe el último valor.
-        escritorPuntuaciones.write(valoresPuntuaciones.get(valoresPuntuaciones.size() - 1));
+        escritorPuntuaciones.write(str(valoresPuntuaciones.get(valoresPuntuaciones.size() - 1)));
         
         escritorPuntuaciones.close();
         
-        leerPuntuaciones();
+        //leerPuntuaciones();
     } catch (Exception exc) {
         println("Ha ocurrido un error al actualizar las puntuaciones.");
     }

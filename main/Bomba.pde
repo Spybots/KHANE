@@ -14,7 +14,7 @@ short microjuegoActual = 0, errores = 0;
 final short NUMERO_ERRORES_FIN = 3; // Número de errores para Game Over.
 boolean fade = false;
 int intensidadFondo = 255, puntaje;
-String valorIngresado = "";
+String valorIngresado = "XD";
 boolean nomIngresado = false;
 
 /*****************************************************/
@@ -36,7 +36,7 @@ void actualizarJuego()
 
         if (exito) {
             text("¡FELICIDADES!", width/2, height/2);
-            text(valorIngresado, width/2, (height/2)+150);
+            text("Ingresa tu nombre: "+ valorIngresado, width/2, (height/2)+150);
         } else {
             //reemplazar en caso de poner alguna animacion de explocion
             text("Perdiste...", width/2, height/2);
@@ -70,9 +70,11 @@ void actualizarJuego()
             microjuegos.get(1).obtenerTermino() &&
             microjuegos.get(2).obtenerTermino() &&
             microjuegos.get(3).obtenerTermino()) {
-            exito = true;  
+            exito = true;
             terminoJuego = true;
-            procesarGameOver(exito);
+            if(nomIngresado){  
+                procesarGameOver(exito);
+            }
         }
     } else {
         if (mostrarMicrojuego) {
@@ -199,6 +201,7 @@ void procesarTeclasBomba()
             break;
         default:
             sumarValorIngresado(key);
+            println(valorIngresado);
         }
     }
 }
@@ -246,7 +249,7 @@ void procesarGameOver(boolean exito)
 
     puntaje = (int)(obtenerPuntaje());
     puntaje = 10000; //para prueba
-    String nombre;
+    //String nombre;
 
     if (exito) {
         int i = 0;
@@ -257,6 +260,8 @@ void procesarGameOver(boolean exito)
         }
         
         if (i < valoresPuntuaciones.size()) {
+            
+          
             for (int j = valoresPuntuaciones.size() - 1; j > i; --j) {
                 valoresPuntuaciones.set(j, valoresPuntuaciones.get(j - 1));
             }
@@ -265,11 +270,11 @@ void procesarGameOver(boolean exito)
                 nombresPuntuaciones.set(j, nombresPuntuaciones.get(j - 1));
             }
 
-            nombre = obtenerNombre();
+            //nombre = valorIngresado;
             valoresPuntuaciones.set(i, (int)(puntaje));
-            nombresPuntuaciones.set(i, nombre);
-
+            nombresPuntuaciones.set(i, valorIngresado);
             actualizarArchivoPuntuaciones();
+            
         }
     }
 }
@@ -278,6 +283,7 @@ void procesarGameOver(boolean exito)
 
 void resetearJuego()
 {
+    
     mostrarMicrojuego = false;
     terminoJuego = false;
     exito = false;
@@ -287,7 +293,7 @@ void resetearJuego()
     puntaje = 0;
     muestraJuego = false;
     muestraMenu = true;
-    valorIngresado = "";
+    valorIngresado = "CF";
     nomIngresado = false;
     microjuegos.clear();
 }
