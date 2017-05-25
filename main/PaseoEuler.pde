@@ -50,6 +50,7 @@ class PaseoEuler extends Microjuego{
     *        correcto. Y el correcto dependera de el codigo en la bomba que dicta desde que punto de la grafica se debe iniciar.
     */
     public PaseoEuler(){
+        this.ID = 3;
         this.fallos = 0;
         this.movimientosRegresados = 0;
         this.vecesVaciadas = 0;
