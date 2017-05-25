@@ -36,6 +36,7 @@ class MetodosConteo extends Microjuego{
           this.nombre = "Metodos de conteo";
           this.valorIngresado = "";
           this.noAciertos = 0;
+	  this.ID = 2;
           establecerGruposFiguras();
      }
 
