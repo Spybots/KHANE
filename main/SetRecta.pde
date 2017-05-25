@@ -16,7 +16,8 @@ class SetRecta extends HashSet{
     * @param conjRectas El otro conjunto de rectas con el que se quiera comparar si son iguales.
     * @return true si ambos conjuntos contienen los mismos elementos, false en otro caso.
     */
-    public boolean equals(HashSet conjRectas){
+    public boolean equals(HashSet conjRectas)
+    {
         //si las capacidades son diferentes, no pueden ser los mismos conjuntos
         if(this.size() != conjRectas.size()){
             return false;
@@ -53,7 +54,8 @@ class SetRecta extends HashSet{
     * @param recta La recta que se quiere saber si esta contenido en el conjunto.
     * @return true si el conjunto contiene a la recta, false en otro caso.
     */
-    public boolean contains(Recta recta){
+    public boolean contains(Recta recta)
+    {
         Iterator<Recta> iterador = this.iterator();
         while(iterador.hasNext()){
             if(iterador.next().equals(recta)){
@@ -71,7 +73,8 @@ class SetRecta extends HashSet{
     * @param recta La recta que se quiere agregar al conjunto.
     * @return true si el conjunto no contenia anteriormente al elemento y lo agrego, false en otro caso.
     */
-    public boolean add(Recta recta){
+    public boolean add(Recta recta)
+    {
         if(!this.contains(recta)){
             return super.add(recta);
         }
@@ -84,7 +87,8 @@ class SetRecta extends HashSet{
     /**
     * @brief Metodo para dibujar todas las rectas contenidos en el conjunto.
     */
-    public void dibujar(){
+    public void dibujar()
+    {
         Iterator<Recta> iterador = this.iterator();
         while(iterador.hasNext()){
             iterador.next().dibujar();
@@ -97,7 +101,8 @@ class SetRecta extends HashSet{
     * @brief Metodo para dibujar todas las rectas contenidos en el conjunto.
     * @param colorRectas Color con el que se quiere pintar todas las rectas.
     */
-    public void dibujar(color colorRectas){
+    public void dibujar(color colorRectas)
+    {
         Iterator<Recta> iterador = this.iterator();
         while(iterador.hasNext()){
             iterador.next().dibujar(colorRectas);

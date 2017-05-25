@@ -25,7 +25,8 @@ class Punto{
     * @param x Posicion en x.
     * @param y Posicion en y.
     */
-    public Punto(float x, float y){
+    public Punto(float x, float y)
+    {
         this.x = x;
         this.y = y;
         this.width = 10;
@@ -42,7 +43,8 @@ class Punto{
     * @param y Posicion en y.
     * @param pColor Color del punto.
     */
-    public Punto(float x, float y, color pColor){
+    public Punto(float x, float y, color pColor)
+    {
         this.x = x;
         this.y = y;
         this.width = 10;
@@ -57,7 +59,8 @@ class Punto{
     * @brief Metodo para obtener la posicion en x de un punto.
     * @return La posicion en x de un punto.
     */
-    public float obtenerX(){
+    public float obtenerX()
+    {
         return this.x;
     }
     
@@ -67,7 +70,8 @@ class Punto{
     * @brief Metodo para obtener la posicion en y de un punto.
     * @return La posicion en y de un punto.
     */
-    public float obtenerY(){
+    public float obtenerY()
+    {
         return this.y;
     }
     
@@ -77,7 +81,8 @@ class Punto{
     * @brief Metodo para obtener el color de un punto.
     * @return El color del punto.
     */
-    public color obtenerColor(){
+    public color obtenerColor()
+    {
     return this.pColor;
     }
 
@@ -96,7 +101,8 @@ class Punto{
     * @param punto El punto al que se quiere comparar la igualdad.
     * @return true si ambos puntos tienen las mismas coordenadas, false en cualquier otro caso.
     */
-    public boolean equals(Punto punto){
+    public boolean equals(Punto punto)
+    {
         return this.x == punto.x && this.y == punto.y;
     }
     
@@ -105,7 +111,8 @@ class Punto{
     /**
     * @brief Metodo para dibujar el punto en su posicion y con su color.
     */
-    public void dibujar(){
+    public void dibujar()
+    {
         fill(this.pColor);
         ellipse(this.x, this.y, this.width, this.height);
     }
@@ -116,7 +123,8 @@ class Punto{
     * @brief Metodo para dibujar el punto en su posicion y con su color.
     * @param pColor Color con el que se quiera pintar al punto.
     */
-    public void dibujar(color pColor){
+    public void dibujar(color pColor)
+    {
         fill(pColor);
         ellipse(this.x, this.y, this.width, this.height);
     }

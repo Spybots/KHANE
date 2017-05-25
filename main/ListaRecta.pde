@@ -16,7 +16,8 @@ class ListaRecta extends ArrayList<Recta>{
     * @param listaRectas La otra lista de rectas con la que se quiera comparar si son iguales.
     * @return true si ambas listas contiene los mismos elementos en el mismo orden, false en otro caso.
     */
-    public boolean equals(ArrayList<Recta> listaRectas){
+    public boolean equals(ArrayList<Recta> listaRectas)
+    {
         //si las capacidades son diferentes, no pueden ser las mismas listas
         if(this.size() != listaRectas.size()){
             return false;
@@ -42,7 +43,8 @@ class ListaRecta extends ArrayList<Recta>{
     * @param recta La recta que se quiere saber si esta contenido en la lista.
     * @return true si la lista contiene a la recta, false en otro caso.
     */
-    public boolean contains(Recta recta){
+    public boolean contains(Recta recta)
+    {
         Iterator<Recta> iterador = this.iterator();
         while(iterador.hasNext()){
             if(iterador.next().equals(recta)){
@@ -60,7 +62,8 @@ class ListaRecta extends ArrayList<Recta>{
     * @param recta La recta que se quiere agregar la lista.
     * @return true si la lista no contenia anteriormente al elemento y lo agrego, false en otro caso.
     */
-    public boolean add(Recta recta){
+    public boolean add(Recta recta)
+    {
         if(!this.contains(recta)){
             return super.add(recta);
         }
@@ -73,7 +76,8 @@ class ListaRecta extends ArrayList<Recta>{
     /**
     * @brief Metodo para dibujar todas las rectas contenidos en la lista.
     */
-    public void dibujar(){
+    public void dibujar()
+    {
         Iterator<Recta> iterador = this.iterator();
         while(iterador.hasNext()){
             iterador.next().dibujar();
@@ -86,7 +90,8 @@ class ListaRecta extends ArrayList<Recta>{
     * @brief Metodo para dibujar todas las rectas contenidos en la lista.
     * @param colorRectas Color con el que se quiere dibujar todas las rectas.
     */
-    public void dibujar(color colorRectas){
+    public void dibujar(color colorRectas)
+    {
         Iterator<Recta> iterador = this.iterator();
         while(iterador.hasNext()){
             iterador.next().dibujar(colorRectas);

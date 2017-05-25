@@ -16,7 +16,8 @@ class SetPunto extends HashSet{
     * @param conjPuntos El otro conjunto de puntos con el que se quiera comparar si son iguales.
     * @return true si ambos conjuntos contienen los mismos elementos, false en otro caso.
     */
-    public boolean equals(HashSet conjPuntos){
+    public boolean equals(HashSet conjPuntos)
+    {
         //si las capacidades son diferentes, no pueden ser los mismos conjuntos
         if(this.size() != conjPuntos.size()){
             return false;
@@ -53,7 +54,8 @@ class SetPunto extends HashSet{
     * @param punto El punto que se quiere saber si esta contenido en el conjunto.
     * @return true si el conjunto contiene al punto, false en otro caso.
     */
-    public boolean contains(Punto punto){
+    public boolean contains(Punto punto)
+    {
         Iterator<Punto> iterador = this.iterator();
         while(iterador.hasNext()){
             if(iterador.next().equals(punto)){
@@ -71,7 +73,8 @@ class SetPunto extends HashSet{
     * @param punto El punto que se quiere agregar al conjunto.
     * @return true si el conjunto no contenia anteriormente al elemento y lo agrego, false en otro caso.
     */
-    public boolean add(Punto punto){
+    public boolean add(Punto punto)
+    {
         if(!this.contains(punto)){
             return super.add(punto);
         }
@@ -84,7 +87,8 @@ class SetPunto extends HashSet{
     /**
     * @brief Metodo para dibujar todos los puntos contenidos en el conjunto.
     */
-    public void dibujar(){
+    public void dibujar()
+    {
         Iterator<Punto> iterador = this.iterator();
         while(iterador.hasNext()){
             iterador.next().dibujar();
@@ -97,7 +101,8 @@ class SetPunto extends HashSet{
     * @brief Metodo para dibujar todos los puntos contenidos en el conjunto.
     * @param colorPuntos Color con el que se quiere pintar todos los puntos del conjunto.
     */
-    public void dibujar(color colorPuntos){
+    public void dibujar(color colorPuntos)
+    {
         Iterator<Punto> iterador = this.iterator();
         while(iterador.hasNext()){
             iterador.next().dibujar(colorPuntos);

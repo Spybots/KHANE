@@ -23,7 +23,8 @@ class Grafica{
     * @param conjPuntos Conjunto de puntos de la grafica
     * @param conjRectas Conjunto de rectas de la grafica
     */
-    public Grafica(SetPunto conjPuntos, SetRecta conjRectas, Punto puntoInicial){
+    public Grafica(SetPunto conjPuntos, SetRecta conjRectas, Punto puntoInicial)
+    {
         this.conjPuntos = conjPuntos;
         this.conjRectas = conjRectas;
         this.puntoActual = null;
@@ -37,7 +38,8 @@ class Grafica{
     * @brief Metodo para obtener el punto actual.
     * @return Punto actual
     */
-    public Punto obtenerPuntoActual(){
+    public Punto obtenerPuntoActual()
+    {
         return this.puntoActual;
     }
     
@@ -47,7 +49,8 @@ class Grafica{
     * @brief Metodo para obtener la lista de rectas.
     * @return Lista de rectas del usuario.
     */
-    public ListaRecta obtenerListaRectas(){
+    public ListaRecta obtenerListaRectas()
+    {
         return this.listaRectas;
     }
     
@@ -57,7 +60,8 @@ class Grafica{
     * @brief Metodo para cambiar el valor del punto actual.
     * @param nuevoPunto Nuevo valor para el punto actual.
     */
-    public void asignarPuntoActual(Punto nuevoPunto){
+    public void asignarPuntoActual(Punto nuevoPunto)
+    {
         this.puntoActual = nuevoPunto;
     }
 
@@ -66,7 +70,8 @@ class Grafica{
     /**
     * @brief Metodo para vaciar la lista de rectas.
     */
-    public void vaciarLista(){
+    public void vaciarLista()
+    {
         this.listaRectas.clear();
         this.puntoActual = null;
     }
@@ -77,7 +82,8 @@ class Grafica{
     * @brief Metodo que compara el primer elemento de la lista de rectas con el punto inicial
     * @return true si el primer elemento de la lista es el mismo que el punto inicial de la grafica
     */
-    public boolean confirmarPuntoInicial(){
+    public boolean confirmarPuntoInicial()
+    {
         //si el primer elemento de la lista o el punto inicial es nulo, entonces no puede ser iguales
         if(this.listaRectas.size() <= 0 || this.listaRectas.get(0) == null || this.puntoInicial == null){
             return false;
@@ -98,7 +104,8 @@ class Grafica{
     * @param recta Recta que se quiere agregar a la lista de rectas
     * @return true si la recta se agrego porque todavia no existia en la lista pero si en el conjunto, false en otro caso
     */
-    public boolean agregarRectaLista(Recta recta){
+    public boolean agregarRectaLista(Recta recta)
+    {
         /*if(this.listaRectas.add(recta)){ //si agrego la recta a la lista
             if(this.puntoInicial == null){
                 this.puntoInicial = recta;
@@ -118,7 +125,8 @@ class Grafica{
     * @brief Metodo para remover el ultimo elemento de la lista de rectas el usuario. Efectivamente regresando un 'turno'.
     * @return true si la lista no esta vacio y se quito el ultimo elemento, false en otro caso.
     */
-    public boolean removerUltimaRecta(){
+    public boolean removerUltimaRecta()
+    {
         if(!this.listaRectas.isEmpty()){
             Recta rectaBorrar = this.listaRectas.get(this.listaRectas.size() - 1);
 
@@ -147,7 +155,8 @@ class Grafica{
     * @brief Metodo que revisa que todos los elementos de la lista esten contenidos en el conjunto, en cuyo caso el paseo fue encontrado.
     * @return true si la lista de rectas tiene los mismos elmentos que el conjunto de rectas.
     */
-    public boolean paseoCompletado(){
+    public boolean paseoCompletado()
+    {
         //si los tamaños son diferentes, no pueden contener los mismos elementos
         if( this.listaRectas.size() != this.conjRectas.size() ){
             return false;
@@ -169,7 +178,8 @@ class Grafica{
     /**
     * @brief Metodo para dibujar todas las rectas, todas las rectas que ha hecho el usuario y todos los puntos de la grafica.
     */
-    public void dibujar(){
+    public void dibujar()
+    {
         Iterator<Recta> iteradorRecta = this.conjRectas.iterator();
         while(iteradorRecta.hasNext()){
            iteradorRecta.next().dibujar();
@@ -190,7 +200,8 @@ class Grafica{
     /**
     * @brief Metodo para dibujar todas las rectas de la grafica.
     */
-    public void dibujarRectas(){
+    public void dibujarRectas()
+    {
         Iterator<Recta> iteradorRecta = this.conjRectas.iterator();
         while(iteradorRecta.hasNext()){
            iteradorRecta.next().dibujar();
@@ -202,7 +213,8 @@ class Grafica{
     /**
     * @brief Metodo para dibujar todas las rectas del usuario de la grafica.
     */
-  public void dibujarRectasUsuario(){
+  public void dibujarRectasUsuario()
+  {
         for(Recta recta : this.listaRectas){
             recta.dibujar();
         }
@@ -213,7 +225,8 @@ class Grafica{
     /**
     * @brief Metodo para dibujar todos los puntos de la grafica.
     */
-    public void dibujarPuntos(){
+    public void dibujarPuntos()
+    {
         Iterator<Punto> iteradorPunto = this.conjPuntos.iterator();
         while(iteradorPunto.hasNext()){
            iteradorPunto.next().dibujar();
@@ -228,7 +241,8 @@ class Grafica{
     * @param colorListaRectas Color con el cual pintar a la lista de rectas.
     * @param colorConjuntoPuntos Color con el cual pintar al conjunto de puntos.
     */
-    public void dibujar(color colorConjuntoRectas, color colorListaRectas, color colorConjuntoPuntos){
+    public void dibujar(color colorConjuntoRectas, color colorListaRectas, color colorConjuntoPuntos)
+    {
         Iterator<Recta> iteradorRecta = this.conjRectas.iterator();
         while(iteradorRecta.hasNext()){
            iteradorRecta.next().dibujar(colorConjuntoRectas);
@@ -250,7 +264,8 @@ class Grafica{
     * @brief Metodo para dibujar todas las rectas de la grafica.
     * @param colorConjuntoRectas Color con el cual pintar al conjunto de rectas.
     */
-  public void dibujarRectas(color colorConjuntoRectas){
+  public void dibujarRectas(color colorConjuntoRectas)
+  {
         Iterator<Recta> iteradorRecta = this.conjRectas.iterator();
         while(iteradorRecta.hasNext()){
            iteradorRecta.next().dibujar(colorConjuntoRectas);
@@ -263,7 +278,8 @@ class Grafica{
     * @brief Metodo para dibujar todas las rectas del usuario de la grafica.
     * @param colorListaRectas Color con el cual pintar a la lista de rectas.
     */
-  public void dibujarRectasUsuario(color colorListaRectas){
+  public void dibujarRectasUsuario(color colorListaRectas)
+  {
         for(Recta recta : this.listaRectas){
             recta.dibujar(colorListaRectas);
         }
@@ -275,7 +291,8 @@ class Grafica{
     * @brief Metodo para dibujar todos los puntos de la grafica.
     * @param colorConjuntoPuntos Color con el cual pintar al conjunto de puntos.
     */
-    public void dibujarPuntos(color colorConjuntoPuntos){
+    public void dibujarPuntos(color colorConjuntoPuntos)
+    {
         Iterator<Punto> iteradorPunto = this.conjPuntos.iterator();
         while(iteradorPunto.hasNext()){
            iteradorPunto.next().dibujar(colorConjuntoPuntos);
