@@ -1,18 +1,4 @@
 import java.lang.StringBuilder;
-/*
-MetodosConteo conteoJuego = new MetodosConteo();*/
-/*
-void setup(){
-     size(1300,1000);
-}
-
-void draw(){
-     conteoJuego.dibujarMetodoConteo();
-}
-
-void keyPressed(){
-    conteoJuego.procesarTeclas();
-}*/
 
 /**
 * @brief clase para el minijuego de metodos de conteo.
@@ -22,6 +8,7 @@ class MetodosConteo extends Microjuego{
      float tamRadio;
      String valorIngresado;
      int noAciertos;
+     boolean haGanado;
 
      /**
      * @brief constructuro de la clase MetodosConteo que inicializa las variables de la clase.
@@ -37,21 +24,9 @@ class MetodosConteo extends Microjuego{
           this.valorIngresado = "";
           this.noAciertos = 0;
 	  this.ID = 2;
+	  this.haGanado = false;
           establecerGruposFiguras();
      }
-
-     /**
-     * @brief Dibuja en la ventana los grupos de figuras )es recomendado usarlo en la funcion draw del archivo main.
-     */
-     /*void dibujarMetodoConteo(){
-          background(102);
-          dibujarGrupoFiguras(0, 50);   //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
-          dibujarGrupoFiguras(1, 200);  //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
-          println(this.valorIngresado);
-          textSize(32);
-          fill(255);
-          text(valorIngresado, 200, 500); //Dibuja el texto que se lleva ingresado
-     }*/
 
      /**
      * @brief Inicializa los conjuntos para los metodos de conteo
@@ -153,34 +128,36 @@ class MetodosConteo extends Microjuego{
      * @brief procesa las teclas ingresadas para poder usar el minijuego
      */
      void procesarTeclas(){
-          switch(key){
-               case '0': sumarValorIngresado("0");
-                         break;
-               case '1': sumarValorIngresado("1");
-                         break;
-               case '2': sumarValorIngresado("2");
-                         break;
-               case '3': sumarValorIngresado("3");
-                         break;
-               case '4': sumarValorIngresado("4");
-                         break;
-               case '5': sumarValorIngresado("5");
-                         break;
-               case '6': sumarValorIngresado("6");
-                         break;
-               case '7': sumarValorIngresado("7");
-                         break;
-               case '8': sumarValorIngresado("8");
-                         break;
-               case '9': sumarValorIngresado("9");
-                         break;
-               case BACKSPACE:     restarValor();
-                                   break;
-               case ENTER:    verificarRespuesta();
+          if(this.haGanado == false){
+               switch(key){
+                    case '0': sumarValorIngresado("0");
                               break;
-               default:  println("entrada no valida");
-                         break;
-         }
+                    case '1': sumarValorIngresado("1");
+                              break;
+                    case '2': sumarValorIngresado("2");
+                              break;
+                    case '3': sumarValorIngresado("3");
+                              break;
+                    case '4': sumarValorIngresado("4");
+                              break;
+                    case '5': sumarValorIngresado("5");
+                              break;
+                    case '6': sumarValorIngresado("6");
+                              break;
+                    case '7': sumarValorIngresado("7");
+                              break;
+                    case '8': sumarValorIngresado("8");
+                              break;
+                    case '9': sumarValorIngresado("9");
+                              break;
+                    case BACKSPACE:     restarValor();
+                                        break;
+                    case ENTER:    verificarRespuesta();
+                                   break;
+                    default:  println("entrada no valida");
+                              break;
+              }
+          }
      }
 
      /**
@@ -232,8 +209,15 @@ class MetodosConteo extends Microjuego{
 
                     if( Integer.parseInt(valorIngresado) == respCorrecta){
                          //Procesar respuesta correcta
-                         this.noAciertos++;
-                         establecerGruposFiguras();
+			 this.noAciertos++;
+                         if(this.noAciertos > 2){
+                              this.fallo = false;
+                              this.termino = true;
+                              this.haGanado = true;
+                              calcularPuntaje();
+                         }else{
+                              establecerGruposFiguras();
+                         }
                          valorIngresado = "";
 
                     }else{
@@ -242,6 +226,7 @@ class MetodosConteo extends Microjuego{
 			 if ( this.fallos > 2) {
 			     this.fallo = true;
 			     this.termino = false;
+			     calcularPuntaje();
 			 }
 			 valorIngresado = "";
                     }
@@ -253,7 +238,14 @@ class MetodosConteo extends Microjuego{
                     if( Integer.parseInt(valorIngresado) == respCorrecta){
                          //Procesar respuesta correcta
                          this.noAciertos++;
-                         establecerGruposFiguras();
+                         if(this.noAciertos > 2){
+                              this.fallo = false;
+                              this.termino = true;
+                              this.haGanado = true;
+                              calcularPuntaje();
+                         }else{
+                              establecerGruposFiguras();
+                         }
                          valorIngresado = "";
                     }else{
                          //Processar respuesta incorrecta
@@ -261,6 +253,7 @@ class MetodosConteo extends Microjuego{
 			 if ( this.fallos > 2) {
 			     this.fallo = true;
 			     this.termino = false;
+			     calcularPuntaje();
 			 }
 			 valorIngresado = "";
                     }
@@ -276,7 +269,14 @@ class MetodosConteo extends Microjuego{
                          if( Integer.parseInt(valorIngresado) == respCorrecta){
                               //Procesar respuesta correcta
                               this.noAciertos++;
-                              establecerGruposFiguras();
+                              if(this.noAciertos > 2){
+                                   this.fallo = false;
+                                   this.termino = true;
+                                   this.haGanado = true;
+                                   calcularPuntaje();
+                              }else{
+                                   establecerGruposFiguras();
+                              }
                               valorIngresado = "";
                          }else{
                               //Processar respuesta incorrecta
@@ -284,6 +284,7 @@ class MetodosConteo extends Microjuego{
 			      if ( this.fallos > 2) {
 				      this.fallo = true;
 				      this.termino = false;
+				      calcularPuntaje();
 			      }
 			      valorIngresado = "";
                          }
@@ -295,7 +296,14 @@ class MetodosConteo extends Microjuego{
                          if( Integer.parseInt(valorIngresado) == respCorrecta){
                               //Procesar respuesta correcta
                               this.noAciertos++;
-                              establecerGruposFiguras();
+                              if(this.noAciertos > 2){
+                                   this.fallo = false;
+                                   this.termino = true;
+                                   this.haGanado = true;
+                                   calcularPuntaje();
+                              }else{
+                                   establecerGruposFiguras();
+                              }
                               valorIngresado = "";
                          }else{
                               //Processar respuesta incorrecta
@@ -303,6 +311,7 @@ class MetodosConteo extends Microjuego{
 			      if ( this.fallos > 2) {
 				     this.fallo = true;
 				     this.termino = false;
+				     calcularPuntaje();
 			      }
 			      valorIngresado = "";
                          }
@@ -317,13 +326,21 @@ class MetodosConteo extends Microjuego{
                               if( Integer.parseInt(valorIngresado) == respCorrecta){
                                    //Procesar respuesta correcta
                                    this.noAciertos++;
-                                   establecerGruposFiguras();
+                                   if(this.noAciertos > 2){
+                                        this.fallo = false;
+                                        this.termino = true;
+                                        this.haGanado = true;
+                                        calcularPuntaje();
+                                   }else{
+                                        establecerGruposFiguras();
+                                   }
                                    valorIngresado = "";
                               }else{
                                    //Processar respuesta incorrecta
                                    if ( this.fallos > 2) {
 				     this.fallo = true;
 				     this.termino = false;
+				     calcularPuntaje();
 			           }
 			           valorIngresado = "";
                               }
@@ -335,13 +352,21 @@ class MetodosConteo extends Microjuego{
                               if( Integer.parseInt(valorIngresado) == respCorrecta){
                                    //Procesar respuesta correcta
                                    this.noAciertos++;
-                                   establecerGruposFiguras();
+                                   if(this.noAciertos > 2){
+                                        this.fallo = false;
+                                        this.termino = true;
+                                        this.haGanado = true;
+                                        calcularPuntaje();
+                                   }else{
+                                        establecerGruposFiguras();
+                                   }
                                    valorIngresado = "";
                               }else{
                                    //Processar respuesta incorrecta
                                    if ( this.fallos > 2) {
 				     this.fallo = true;
 				     this.termino = false;
+				     calcularPuntaje();
 			           }
 			           valorIngresado = "";
                               }
@@ -356,7 +381,14 @@ class MetodosConteo extends Microjuego{
                                    if( Integer.parseInt(valorIngresado) == respCorrecta){
                                         //Procesar respuesta correcta
                                         this.noAciertos++;
-                                        establecerGruposFiguras();
+                                        if(this.noAciertos > 2){
+                                             this.fallo = false;
+                                             this.termino = true;
+                                             this.haGanado = true;
+                                             calcularPuntaje();
+                                        }else{
+                                             establecerGruposFiguras();
+                                        }
                                         valorIngresado = "";
                                    }else{
                                         //Processar respuesta incorrecta
@@ -364,6 +396,7 @@ class MetodosConteo extends Microjuego{
                                         if ( this.fallos > 2) {
                                             this.fallo = true;
                                             this.termino = false;
+					    calcularPuntaje();
                                         }
                                         valorIngresado = "";
                                    }
@@ -375,7 +408,14 @@ class MetodosConteo extends Microjuego{
                                    if( Integer.parseInt(valorIngresado) == respCorrecta){
                                         //Procesar respuesta correcta
                                         this.noAciertos++;
-                                        establecerGruposFiguras();
+                                        if(this.noAciertos > 2){
+                                             this.fallo = false;
+                                             this.termino = true;
+                                             this.haGanado = true;
+                                             calcularPuntaje();
+                                        }else{
+                                             establecerGruposFiguras();
+                                        }
                                         valorIngresado = "";
                                    }else{
                                         //Processar respuesta incorrecta
@@ -383,6 +423,7 @@ class MetodosConteo extends Microjuego{
                                         if ( this.fallos > 2) {
                                             this.fallo = true;
                                             this.termino = false;
+					    calcularPuntaje();
                                         }
                                         valorIngresado = "";
                                    }
@@ -425,7 +466,7 @@ class MetodosConteo extends Microjuego{
       * @brief Calcula el puntaje actual del microjuego.
       */
      void calcularPuntaje(){
-          puntaje = noAciertos*1000; //Ver como exactamente se calcularan el puntaje.
+          puntaje = noAciertos*1000 + (180000 - relojPrincipal.obtenerTiempoMilis())*0.2; //Ver como exactamente se calcularan el puntaje.
      }
 
      /**
@@ -433,19 +474,28 @@ class MetodosConteo extends Microjuego{
       * maletín para seleccionar el nivel.
       */
      void actualizar(){
-          background(102);
-          dibujarGrupoFiguras(0, 50);   //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
-          dibujarGrupoFiguras(1, 200);  //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
-          println(this.valorIngresado);
-          textSize(32);
-          fill(255);
-          text(valorIngresado, 200, 500); //Dibuja el texto que se lleva ingresado
+          if(this.haGanado == false){
+               background(102);
+               dibujarGrupoFiguras(0, 50);   //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
+               dibujarGrupoFiguras(1, 200);  //Mandamos el indice del prmer grupo y la posicion del eje y en el que se dibujaran.
+               textSize(32);
+               fill(255);
+               text(valorIngresado, 200, 500); //Dibuja el texto que se lleva ingresado
+          }else{
+
+               background(102);
+               textSize(68);
+               fill(255);
+               text("Has terminado este modulo\n\nTu puntaje es: " + this.puntaje, width/2, height/2); //Dibuja el texto que se lleva ingresado
+               textSize(20);
+               fill(255);
+               text("\n\n\n\nPresione Tab para regresar a la seleccion de los otros modulos",  width/2, height/2 + 200);
+          }
      }
 
      /**
      * @brief Modifica el estado actual del microjuego cuando el usuario hace click en pantalla.
      */
      void procesarClick(){
-
      }
 }//***********Fin de la clase MetodosDeConteo
