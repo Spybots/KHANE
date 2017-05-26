@@ -70,7 +70,7 @@ void setup()
     abacoConcluido = loadImage("/img/portadaMetodosConteoTerminado.jpg");
     
     eulerNoCompletado = loadImage("./img/eulerPathSAMPLE.png");
-    eulerCompletado = loadImage("./img/eulerPathCompletedSAMPLE.png");
+    eulerCompletado = loadImage("./img/eulerPathCompleted2SAMPLE.png");
     
     cipherNoConcluido = loadImage("./img/cipher_no_completo.png");
     cipherConcluido = loadImage("./img/cipher_completo.png");

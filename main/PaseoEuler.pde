@@ -59,10 +59,10 @@ class PaseoEuler extends Microjuego{
 
         this.listaGraf = new ArrayList<Grafica>(NUM_GRAF);
         
-        this.colorRectas = color(0, 0, 0);
-        this.colorRectasUsuario = color(255, 255, 255);
-        this.colorPuntos = color(0, 0, 0);
-        this.colorFondo = color(127, 127, 127);
+        this.colorRectas = color(255, 255, 255); //blanco
+        this.colorRectasUsuario = color(0, 255, 0); //verde
+        this.colorPuntos = color(255, 255, 255); //blanco
+        this.colorFondo = color(0, 0, 0); //negro
 
        this.generarGrafica();
     }
@@ -258,6 +258,7 @@ class PaseoEuler extends Microjuego{
     {
 
         if(listaGraf.get(indiceGraf).obtenerPuntoActual() != null){
+            stroke(colorRectasUsuario);
             line(listaGraf.get(indiceGraf).obtenerPuntoActual().obtenerX(), listaGraf.get(indiceGraf).obtenerPuntoActual().obtenerY(),
                  mouseX, mouseY);
         }
