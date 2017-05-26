@@ -2,7 +2,7 @@ import java.lang.StringBuilder;
 /*
  * Este archivo contiene las funciones que despliegan el juego actual de KHANE.
  *
- * Autor: Iván A. Moreno Soto && Urias Paramo Jordan Joel.
+ * Autor: Spybots.
  * Ultima modificacion: 25/Mayo/2017.
  */
 
