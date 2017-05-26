@@ -65,6 +65,11 @@ void setup()
     
     discosNoConcluidos = loadImage("./img/discos_no_completo.png");
     discosConcluidos = loadImage("./img/discos_completo.png");
+    
+    //Segundo microjuego
+    abacoNoConcluido = loadImage("./img/portadaMetodosConteo.jpg");
+    abacoConcluido = loadImage("/img/portadaMetodosConteoTerminado.jpg");
+}
 }
 
 /*****************************************************/
