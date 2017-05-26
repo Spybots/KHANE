@@ -19,7 +19,7 @@ public enum CODIGO {
  * presenta una gráfica en la cual se debe de mostrar un posible paseo de euler.
  *
  * Autor: Sotomayor Samaniego Luis Fernando
- * Última modificación: 15/Mayo/2017
+ * Última modificación: 25/Mayo/2017
  */
 
 class PaseoEuler extends Microjuego{
@@ -176,12 +176,11 @@ class PaseoEuler extends Microjuego{
             this.dibujar();
             this.procesarArrastre();
         }else{
-            //si el juego termino, imprime un mensaje de victoria o derrota dependiendo de si el jugador fallo o no
-            text("El juego termino", width/2, 10);
-            if(!this.fallo){
-                text("Ganaste!", width/2, 20);
-            }else{
-                text("Perdiste...", width/2, 20);
+            if (!this.fallo) {
+                rect(width/2-150, height/2-50, 310, 60);
+                fill(0);
+                textFont(fuenteTextoDefault, MAGNITUD_TEXTO);
+                text("Presiona TAB", width/2, height/2 - 10); // -10 es para que quepa mejor el texto en el cuadro
             }
         }
     }
@@ -310,23 +309,7 @@ class PaseoEuler extends Microjuego{
         SetPunto puntos;
         SetRecta rectas;
         Punto puntoInicial;
-        /*
-        switch(indiceGraficaActual){
-            case GRAFICA_1:
-                this.indiceGraf = GRAFICA_1;
-                break;
-            case GRAFICA_2:
-                this.indiceGraf = GRAFICA_2;
-                break;
-                
-            case GRAFICA_3:
-                this.indiceGraf = GRAFICA_3;
-                break;
-                
-            default:
-                this.indiceGraf = GRAFICA_1;
-        }
-        */
+
         if(indiceGraficaActual  == GRAFICA_1){
             /**Inicializa parametros******************************/
     
@@ -639,6 +622,5 @@ class PaseoEuler extends Microjuego{
         }
         
         this.listaGraf.add(this.indiceGraf, new Grafica(puntos, rectas, puntoInicial));
-        println("ultimo digito bomba: " + ultimoDigitoBomba);
     }
 }

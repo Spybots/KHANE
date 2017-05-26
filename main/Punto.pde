@@ -4,7 +4,7 @@ import java.util.*;
  * Este archivo contiene la clase Punto, una clase auxiliar para el microjuego del paseo de euler.
  *
  * Autor: Sotomayor Samaniego Luis Fernando
- * Última modificación: 13/Mayo/2017
+ * Última modificación: 25/Mayo/2017
  */
 
 class Punto{
