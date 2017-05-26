@@ -124,6 +124,12 @@ void renderizarMaletinJuego()
     image(maletinJuego, 0, 0);
     
     // Despliega las imágenes que muestran el estado de cada microjuego.
+    if (microjuegos.get(1).obtenerTermino()) {
+         image(abacoConcluido, width/2, 0, width/2, height/2);
+    }else{
+         image(abacoNoConcluido, width/2, 0, width/2, height/2);
+    }
+    
     if (microjuegos.get(3).obtenerTermino()) {
         image(discosConcluidos, width/2, height/2, width/2, height/2);
     } else {
