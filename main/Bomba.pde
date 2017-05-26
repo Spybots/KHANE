@@ -91,8 +91,7 @@ void actualizarJuego()
             rect(width/2-150, height/2-50, 300, 60);
             fill(0);
             textFont(fuenteTextoDefault, 48);
-            //text("Ingresando", 680, 375);
-            text("Ingresando", width/2-150, height/2-50);
+            text("Ingresando", width/2, height/2 - 10); // -10 es para que quepa mejor el texto en el cuadro
             maletinJuego.background(intensidadFondo);
         } else {
             transicionBlanco();
@@ -100,8 +99,7 @@ void actualizarJuego()
             rect(width/2-150, height/2-50, 300, 60);
             fill(0);
             textFont(fuenteTextoDefault, 48);
-            //text("Regresando", 680, 375);
-            text("Regresando", width/2-150, height/2-50);
+            text("Regresando", width/2, height/2 - 10); // -10 es para que quepa mejor el texto en el cuadro
             maletinJuego.background(intensidadFondo);
         }
     }
