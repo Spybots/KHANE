@@ -52,13 +52,13 @@ class Cipher extends Microjuego
     int letra;
     
     //int fallos;
-    int recorrido=1;
+    int recorrido=int( ((serial%10)+1) * pow(-1, serial%2));
     //boolean fallo;
     //boolean termino;
     
     boolean run;
     
-    char[] letras = {'x', 'y', 'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','a', 'b', 'c'};
+    char[] letras = {'q', 'r', 's', 't', 'u', 'v', 'w','x', 'y', 'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
 
     char letraActual;
@@ -119,6 +119,7 @@ class Cipher extends Microjuego
             fill(255, 0, 0);
             textFont(this.font, this.tamanioLetra);
             text(this.letraMostrada, this.px, this.py);
+            text(this.letraActual, this.px +50, this.py +50);
             
             //if clock is zero, show the score
             if ( this.fallos > 2) {
@@ -303,7 +304,7 @@ class Cipher extends Microjuego
       //function for generate a letraAzar
       int letraAzar()
       {
-        return int(random(3, 29));
+        return int(random(10, 36));
       }
       
       //function for set the initial configuration

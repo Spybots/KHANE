@@ -65,8 +65,6 @@ void setup()
     
     discosNoConcluidos = loadImage("./img/discos_no_completo.png");
     discosConcluidos = loadImage("./img/discos_completo.png");
-    
-    serial =int(random(0, 99));
 }
 
 /*****************************************************/

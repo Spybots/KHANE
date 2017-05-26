@@ -61,6 +61,7 @@ void procesarClickMenu()
         if (mouseY >= height/2 - alturaBoton/2 && mouseY <= height/2 + alturaBoton/2) {
             muestraMenu = false;
             muestraJuego = true;
+            serial = int(random(0, 99));
             
             microjuegos = new ArrayList<Microjuego>();
             microjuegos.add(new Cipher());
