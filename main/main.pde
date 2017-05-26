@@ -1,8 +1,8 @@
 /*
  * Este archivo contiene las funciones principales de KHANE.
  *
- * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 23/Mayo/2017.
+ * Autor: Spybots.
+ * Ultima modificacion: 25/Mayo/2017.
  */
  
  /*****************************************************/
