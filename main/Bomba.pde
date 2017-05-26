@@ -2,8 +2,8 @@ import java.lang.StringBuilder;
 /*
  * Este archivo contiene las funciones que despliegan el juego actual de KHANE.
  *
- * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 19/Mayo/2017.
+ * Autor: Iván A. Moreno Soto && Urias Paramo Jordan Joel.
+ * Ultima modificacion: 25/Mayo/2017.
  */
 
 /*****************************************************/
@@ -22,7 +22,7 @@ boolean nomIngresado = false;
 PImage discosNoConcluidos, discosConcluidos;
 PImage abacoConcluido, abacoNoConcluido;
 PImage eulerNoCompletado, eulerCompletado;
-
+PImage cipherNoConcluido, cipherConcluido;
 /*****************************************************/
 
 /**
@@ -126,6 +126,12 @@ void renderizarMaletinJuego()
     maletinJuego.endDraw();
 
     image(maletinJuego, 0, 0);
+    
+    if (microjuegos.get(0).obtenerTermino()) {
+        image(cipherConcluido, 0,0, width/2, height/2);
+    } else {
+        image(cipherNoConcluido, 0, 0, width/2, height/2);
+    }
     
     if (microjuegos.get(2).obtenerTermino()) {
          image(abacoConcluido, width/2, 0, width/2, height/2);

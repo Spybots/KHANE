@@ -1,45 +1,11 @@
-//import ddf.minim.*;
-//Minim minim;
-
-//import Microjuego;
-//Three sounds for different situations
-//AudioSample bad;
-//AudioSample good;
-//AudioSample tada;
-//***********************************************************************************
 /*
-Cipher instancia;
-//PFont font;
-
-void setup()
-{
-    instancia = new Cipher();
-    size(1000, 600);
-    background(#2DB8ED);
-    //instancia.font = createFont("times", 16, true);
-    textFont(instancia.font, 60);
-    
-    //minim = new Minim(this);
-    //assign the sounds
-    //good = minim.loadSample("good.wav");
-    //bad = minim.loadSample("bad.wav");
-    //tada = minim.loadSample("tada.wav");
-    instancia.px = width / 2;
-    instancia.py = 400;
-    //reset is a function defined below
-    instancia.reset();
-}
-
-void draw()
-{
-    instancia.actualizar();
-}
-
-void keyPressed()
-{
-    instancia.teclaPresionada(key);
-}
-*/
+ * Este archivo contiene la implementación del microjuego del cipher,
+ * donde se solicitan letras en funcion de letras mostradas.
+ *
+ * Autor: Urias Paramo Jordan Joel.
+ * Última modificación: 25/Mayo/2017.
+ */
+//***********************************************************************************
 class Cipher extends Microjuego
 {
     int tiempoInicial = 100;
@@ -104,6 +70,7 @@ class Cipher extends Microjuego
     }
     void calcularPuntaje()
     {
+        puntaje = (puntaje - fallos) * nivel * 100;
     }
     
     void procesarClick()
@@ -165,9 +132,6 @@ class Cipher extends Microjuego
     {
         fill(0,0,0);
         rect(0, 0, width, height);
-          
-        //PImage img = loadImage("1.jpg");
-        //image(img, 400, 150, 374, 323);
         
         stroke(0);
         strokeWeight(5);

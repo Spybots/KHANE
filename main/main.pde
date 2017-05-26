@@ -72,6 +72,9 @@ void setup()
     
     eulerNoCompletado = loadImage("./img/eulerPathSAMPLE.png");
     eulerCompletado = loadImage("./img/eulerPathCompletedSAMPLE.png");
+    
+    cipherNoConcluido = loadImage("./img/cipher_no_completo.png");
+    cipherConcluido = loadImage("./img/cipher_completo.png");
 }
 
 /*****************************************************/
