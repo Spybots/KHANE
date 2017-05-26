@@ -48,6 +48,12 @@ void actualizarJuego()
         }
 
         text("Tu puntaje fue: " + puntaje, width/2, height/2 + 50);
+        
+        if(nomIngresado){  
+            procesarGameOver(exito);
+            muestraJuego = false;
+            muestraMenu = true;
+        }
     } else if (!fade) {
         if (mostrarMicrojuego) {
 
@@ -73,7 +79,7 @@ void actualizarJuego()
             text("Srl: " + serial, width/2, height/2 + 50);
         }
 
-        if (errores == NUMERO_ERRORES_FIN || relojPrincipal.obtenerTiempoMilis() >= 180000) {
+        if (errores == NUMERO_ERRORES_FIN || relojPrincipal.obtenerTiempoMilis() >= 300000) {
             exito = false;
             terminoJuego = true;
             procesarGameOver(exito);
@@ -84,9 +90,6 @@ void actualizarJuego()
             microjuegos.get(3).obtenerTermino()) {
             exito = true;
             terminoJuego = true;
-            if(nomIngresado){  
-                procesarGameOver(exito);
-            }
         }
     } else {
         if (mostrarMicrojuego) {
@@ -276,8 +279,6 @@ void transicionBlanco()
  */
 void procesarGameOver(boolean exito)
 {
-    //detenerReloj()
-
     if (exito) {
         int i = 0;
         

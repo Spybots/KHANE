@@ -84,7 +84,6 @@ class Cipher extends Microjuego
             fill(255, 0, 0);
             textFont(this.font, this.tamanioLetra);
             text(this.letraMostrada, this.px, this.py);
-            //text(this.letraActual, this.px +50, this.py +50);
             
             if ( this.fallos > 2) {
                 this.tiempo = 0;

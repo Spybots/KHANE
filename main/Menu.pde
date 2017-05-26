@@ -71,7 +71,6 @@ void procesarClickMenu()
             relojPrincipal = new Reloj();
             
             maletinJuego = createGraphics(width, height, P3D);
-            
         // Acerca de.
         } else if (mouseY >= height/2 + alturaBoton/2 + padding && 
                    mouseY < height/2 + 3*alturaBoton/2 + padding) {
