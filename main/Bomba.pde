@@ -73,7 +73,7 @@ void actualizarJuego()
             text("Srl: " + serial, width/2, height/2 + 50);
         }
 
-        if (errores == NUMERO_ERRORES_FIN) {
+        if (errores == NUMERO_ERRORES_FIN || relojPrincipal.obtenerTiempoMilis() >= 180000) {
             exito = false;
             terminoJuego = true;
             procesarGameOver(exito);

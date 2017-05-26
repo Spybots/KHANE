@@ -97,10 +97,6 @@ void draw()
     } else if (muestraAcerca) {
         desplegarAcercaDe();
     }
-    
-    // REMOVER DESPUES DE DEBUGUEAR.
-    textSize(16);
-    text("FPS: " + int(frameRate), 40, 20);
 }
 
 /*****************************************************/
