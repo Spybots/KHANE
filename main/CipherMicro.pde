@@ -37,7 +37,6 @@ class Cipher extends Microjuego
     
     Cipher()
     {
-        //modify this for change the max time
         tiempoInicial = 100;
         
         conta = 0;
@@ -53,10 +52,8 @@ class Cipher extends Microjuego
         
         run = false;
      
-        //initialize the letraActual
         letraActual = ' ';
         letraMostrada = ' ';
-        //position and size of the letter (those change respect the nivel)
   
         tamanioLetra = 250; 
     }
@@ -87,9 +84,8 @@ class Cipher extends Microjuego
             fill(255, 0, 0);
             textFont(this.font, this.tamanioLetra);
             text(this.letraMostrada, this.px, this.py);
-            text(this.letraActual, this.px +50, this.py +50);
+            //text(this.letraActual, this.px +50, this.py +50);
             
-            //if clock is zero, show the score
             if ( this.fallos > 2) {
                 this.tiempo = 0;
                 this.fallo = true;
@@ -227,27 +223,18 @@ class Cipher extends Microjuego
         
         if (run == true && key != ' '){
             if (key == letraActual) {
-                //if the keypress is good, play a sound
                 puntaje++;
-                //good.trigger();
             } else {
-                //if the keypress is bad, play a sound
                 puntaje--;
                 ++fallos;
-                /*if(fallos > 3){
-                    fallo = true;
-                    //reset();
-                }*/
-                background(#db1313);//efecto de fallo
-                //bad.trigger();
+                
+                background(#db1313);
             }
         
-            //generate a letraAzar (is defined below)
             letra = letraAzar();
             letraActual = letras[letra];
             letraMostrada = letras[letra+recorrido];
             
-            //select the nivel
             if (nivel == 1) {
                 px = width / 2;
                 py = 400;
@@ -265,17 +252,11 @@ class Cipher extends Microjuego
          }  
       }
       
-      
-      //function for generate a letraAzar
       int letraAzar()
       {
         return int(random(10, 36));
       }
       
-      //function for set the initial configuration
-      
-      
-      //function for print the score and play a tada
       void resultados()
       {
         fill(0,0,0);
@@ -284,6 +265,5 @@ class Cipher extends Microjuego
         textAlign(CENTER);
         fill(255, 0, 0);
         text(" Tu puntaje: \n" + str(puntaje), width / 2, 250);
-        //tada.trigger();
       }
 }
