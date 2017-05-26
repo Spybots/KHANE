@@ -20,6 +20,8 @@ boolean nomIngresado = false;
 /*****************************************************/
 
 PImage discosNoConcluidos, discosConcluidos;
+PImage abacoConcluido, abacoNoConcluido;
+PImage eulerNoCompletado, eulerCompletado;
 
 /*****************************************************/
 
@@ -86,7 +88,8 @@ void actualizarJuego()
             rect(width/2-150, height/2-50, 300, 60);
             fill(0);
             textFont(fuenteTextoDefault, 48);
-            text("Ingresando", 680, 375);
+            //text("Ingresando", 680, 375);
+            text("Ingresando", width/2-150, height/2-50);
             maletinJuego.background(intensidadFondo);
         } else {
             fadeToWhite();
@@ -94,7 +97,8 @@ void actualizarJuego()
             rect(width/2-150, height/2-50, 300, 60);
             fill(0);
             textFont(fuenteTextoDefault, 48);
-            text("Regresando", 680, 375);
+            //text("Regresando", 680, 375);
+            text("Regresando", width/2-150, height/2-50);
             maletinJuego.background(intensidadFondo);
         }
     }
@@ -123,13 +127,19 @@ void renderizarMaletinJuego()
 
     image(maletinJuego, 0, 0);
     
-    // Despliega las imágenes que muestran el estado de cada microjuego.
-    if (microjuegos.get(1).obtenerTermino()) {
+    if (microjuegos.get(2).obtenerTermino()) {
          image(abacoConcluido, width/2, 0, width/2, height/2);
     }else{
          image(abacoNoConcluido, width/2, 0, width/2, height/2);
     }
     
+    if (microjuegos.get(1).obtenerTermino()) {
+        image(eulerCompletado, 0, height/2, width/2, height/2);
+    } else {
+        image(eulerNoCompletado, 0, height/2, width/2, height/2);
+    }
+    
+    // Despliega las imágenes que muestran el estado de cada microjuego.
     if (microjuegos.get(3).obtenerTermino()) {
         image(discosConcluidos, width/2, height/2, width/2, height/2);
     } else {

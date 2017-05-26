@@ -294,12 +294,7 @@ class PaseoEuler extends Microjuego{
     */
     public void generarGrafica()
     {
-        
-        final int CODIGO_1 = 0;
-        final int CODIGO_2 = 1;
-        final int CODIGO_3 = 2;
-        
-        int codigoBomba = CODIGO_2;
+        int ultimoDigitoBomba = serial - serial/10 * 10; // obtiene el ultimo digito del serial
         
         
         final int GRAFICA_1 = 0;
@@ -396,14 +391,21 @@ class PaseoEuler extends Microjuego{
     
             /**Agrega las rectas**********************************/
             
-            switch(codigoBomba){
-                case CODIGO_1:
+            switch(ultimoDigitoBomba){
+                case 0:
+                case 3:
+                case 6:
+                case 9:
                     puntoInicial = punto1;     
                     break;
-                case CODIGO_2:
+                case 1:
+                case 4:
+                case 7:
                     puntoInicial = punto5; 
                     break;
-                case CODIGO_3:
+                case 2:
+                case 5:
+                case 8:
                     puntoInicial = punto1; 
                     break;
                 default:
@@ -490,14 +492,21 @@ class PaseoEuler extends Microjuego{
     
             /**Agrega las rectas**********************************/
             
-            switch(codigoBomba){
-                case CODIGO_1:
-                    puntoInicial = punto1;     
+            switch(ultimoDigitoBomba){
+                case 0:
+                case 3:
+                case 6:
+                case 9:
+                    puntoInicial = punto1;    
                     break;
-                case CODIGO_2:
+                case 1:
+                case 4:
+                case 7:
                     puntoInicial = punto2; 
                     break;
-                case CODIGO_3:
+                case 2:
+                case 5:
+                case 8:
                     puntoInicial = punto3; 
                     break;
                 default:
@@ -605,15 +614,22 @@ class PaseoEuler extends Microjuego{
     
             /**Agrega las rectas**********************************/
             
-            switch(codigoBomba){
-                case CODIGO_1:
-                    puntoInicial = punto2;     
+            switch(ultimoDigitoBomba){
+                case 0:
+                case 3:
+                case 6:
+                case 9:
+                    puntoInicial = punto2;   
                     break;
-                case CODIGO_2:
-                    puntoInicial = punto7; 
+                case 1:
+                case 4:
+                case 7:
+                    puntoInicial = punto7;
                     break;
-                case CODIGO_3:
-                    puntoInicial = punto2; 
+                case 2:
+                case 5:
+                case 8:
+                    puntoInicial = punto2;
                     break;
                 default:
                     puntoInicial = punto7;
@@ -623,5 +639,6 @@ class PaseoEuler extends Microjuego{
         }
         
         this.listaGraf.add(this.indiceGraf, new Grafica(puntos, rectas, puntoInicial));
+        println("ultimo digito bomba: " + ultimoDigitoBomba);
     }
 }

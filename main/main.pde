@@ -67,9 +67,11 @@ void setup()
     discosConcluidos = loadImage("./img/discos_completo.png");
     
     //Segundo microjuego
-    abacoNoConcluido = loadImage("./img/portadaMetodosConteo.jpg");
-    abacoConcluido = loadImage("/img/portadaMetodosConteoTerminado.jpg");
-}
+     abacoNoConcluido = loadImage("./img/portadaMetodosConteo.jpg");
+     abacoConcluido = loadImage("/img/portadaMetodosConteoTerminado.jpg");
+    
+    eulerNoCompletado = loadImage("./img/eulerPathSAMPLE.png");
+    eulerCompletado = loadImage("./img/eulerPathCompletedSAMPLE.png");
 }
 
 /*****************************************************/
