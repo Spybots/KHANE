@@ -1,10 +1,13 @@
-import java.lang.StringBuilder;
 /*
  * Este archivo contiene las funciones que despliegan el juego actual de KHANE.
  *
- * Autor: Iván A. Moreno Soto && Urias Paramo Jordan Joel.
+ * Autor: Iván A. Moreno Soto & Urías Páramo Jordan Joel.
  * Ultima modificacion: 25/Mayo/2017.
  */
+
+/*****************************************************/
+
+import java.lang.StringBuilder;
 
 /*****************************************************/
 
@@ -23,6 +26,7 @@ PImage discosNoConcluidos, discosConcluidos;
 PImage abacoConcluido, abacoNoConcluido;
 PImage eulerNoCompletado, eulerCompletado;
 PImage cipherNoConcluido, cipherConcluido;
+
 /*****************************************************/
 
 /**
@@ -40,7 +44,6 @@ void actualizarJuego()
             text("¡FELICIDADES!", width/2, height/2);
             text("Ingresa tu nombre: "+ valorIngresado, width/2, (height/2)+150);
         } else {
-            //reemplazar en caso de poner alguna animacion de explocion
             text("Perdiste...", width/2, height/2);
         }
 
@@ -49,7 +52,7 @@ void actualizarJuego()
         if (mostrarMicrojuego) {
 
             microjuegos.get(microjuegoActual).actualizar();
-            //Calcula y dibuja el tiempo
+            // Calcula y dibuja el tiempo.
             relojPrincipal.calcularTiempo();
             relojPrincipal.dibujarRelojDigital();
             
@@ -59,7 +62,7 @@ void actualizarJuego()
             }
         } else {
             renderizarMaletinJuego();
-            //Calcula y dibuja el tiempo
+            // Calcula y dibuja el tiempo.
             relojPrincipal.calcularTiempo();
             relojPrincipal.dibujarRelojAnalogico();
             fill(255,0,0);
@@ -83,7 +86,7 @@ void actualizarJuego()
         }
     } else {
         if (mostrarMicrojuego) {
-            fadeToBlack();
+            transicionNegro();
             fill(#B6D315);
             rect(width/2-150, height/2-50, 300, 60);
             fill(0);
@@ -92,7 +95,7 @@ void actualizarJuego()
             text("Ingresando", width/2-150, height/2-50);
             maletinJuego.background(intensidadFondo);
         } else {
-            fadeToWhite();
+            transicionBlanco();
             fill(#B6D315);
             rect(width/2-150, height/2-50, 300, 60);
             fill(0);
@@ -127,6 +130,7 @@ void renderizarMaletinJuego()
 
     image(maletinJuego, 0, 0);
     
+    // Despliega las imágenes que muestran el estado de cada microjuego.
     if (microjuegos.get(0).obtenerTermino()) {
         image(cipherConcluido, 0,0, width/2, height/2);
     } else {
@@ -145,7 +149,6 @@ void renderizarMaletinJuego()
         image(eulerNoCompletado, 0, height/2, width/2, height/2);
     }
     
-    // Despliega las imágenes que muestran el estado de cada microjuego.
     if (microjuegos.get(3).obtenerTermino()) {
         image(discosConcluidos, width/2, height/2, width/2, height/2);
     } else {
@@ -232,11 +235,12 @@ void procesarTeclasBomba()
 }
 
 /*****************************************************/
+
 /**
- * @brief Funcion que crea el efecto visual de transicion
- de malatin a microjuego
+ * @brief Función que crea el efecto visual de transición
+ * de maletín a microjuego.
  */
-void fadeToBlack()
+void transicionNegro()
 {
     if (intensidadFondo < 5) {
         intensidadFondo= 0;
@@ -246,11 +250,12 @@ void fadeToBlack()
     }
 }
 /*****************************************************/
+
 /**
- * @brief Funcion que crea el efecto visual de transicion
- de microjuego a maletin
+ * @brief Función que crea el efecto visual de transición
+ * de microjuego a maletín.
  */
-void fadeToWhite()
+void transicionBlanco()
 {
     if (intensidadFondo < 255) {
         intensidadFondo+=4;
@@ -263,21 +268,18 @@ void fadeToWhite()
 /*****************************************************/
 
 /**
- * @brief Funcion que procesa el fin del juego, por
- * victoria o derrota    
- * @param exito Variable booleana que indica si el jugador
- * desactivo exitosamente la bomba o no
+ * @brief Función que procesa el fin del juego, por victoria o derrota.    
+ * @param exito Variable booleana que indica si el jugador desactivó
+ * exitosamente la bomba o no.
  */
 void procesarGameOver(boolean exito)
 {
     //detenerReloj()
 
-    puntaje = (int)(obtenerPuntaje());
-    puntaje = 10000; //para prueba
-    //String nombre;
-
     if (exito) {
         int i = 0;
+        
+        // Revisa si el puntaje actual del usuario queda dentro de los 10 mejores.
         for (int punt : valoresPuntuaciones) {
             if (puntaje < punt) {
                 ++i;
@@ -285,8 +287,7 @@ void procesarGameOver(boolean exito)
         }
         
         if (i < valoresPuntuaciones.size()) {
-            
-          
+            // Se recorren los puntajes y nombres.
             for (int j = valoresPuntuaciones.size() - 1; j > i; --j) {
                 valoresPuntuaciones.set(j, valoresPuntuaciones.get(j - 1));
             }
@@ -295,7 +296,6 @@ void procesarGameOver(boolean exito)
                 nombresPuntuaciones.set(j, nombresPuntuaciones.get(j - 1));
             }
 
-            //nombre = valorIngresado;
             valoresPuntuaciones.set(i, (int)(puntaje));
             nombresPuntuaciones.set(i, valorIngresado);
             actualizarArchivoPuntuaciones();
@@ -306,28 +306,35 @@ void procesarGameOver(boolean exito)
 
 /*****************************************************/
 
+/**
+ * @brief Asigna valores predeterminados a todas las variables globales del juego para iniciar uno
+ * nuevo la siguiente vez que el usuario ingrese.
+ */
 void resetearJuego()
 {
-    
     mostrarMicrojuego = false;
     terminoJuego = false;
     exito = false;
+    fade = false;
+    nomIngresado = false;
+    
+    // Borra los microjuegos que acaba de ver el usuario.
     microjuegoActual = 0;
     errores = 0;
-    fade = false;
     puntaje = 0;
+    valorIngresado = "CF";
+    microjuegos.clear();
+    
+    // Regresa el usuario al menú principal.
     muestraJuego = false;
     muestraMenu = true;
-    valorIngresado = "CF";
-    nomIngresado = false;
-    microjuegos.clear();
 }
 
 /*****************************************************/
 
 /**
- * @brief Funcion que calcula la puntuacion de los microjuegos
- * @return El puntaje total
+ * @brief Función que calcula la puntuación de los microjuegos.
+ * @return El puntaje total del juego.
  */
 double obtenerPuntaje()
 {
@@ -338,14 +345,12 @@ double obtenerPuntaje()
 
     return puntaje;
 }
+
 /*****************************************************/
-String obtenerNombre()
-{
-    return valorIngresado;
-}
-/*****************************************************/
+
 /**
- * @brief resta el ultimo digito del valor que el usuario lleva acumulado presionando teclas. i.e. 123456 -> 12345
+ * @brief Resta el último dígito del valor que el usuario lleva acumulado
+ * presionando teclas. i.e. 123456 -> 12345.
  */
 void restarValor()
 {
@@ -356,8 +361,10 @@ void restarValor()
     }
 }
 /*******************************************************/
+
 /**
- * @brief suma la tecla presionada al valor que el usuario lleva acumulado presionando teclas.
+ * @brief Suma la tecla presionada al valor que el usuario lleva acumulado
+ * presionando teclas.
  */
 void sumarValorIngresado(char numAgregar)
 {

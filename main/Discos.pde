@@ -3,7 +3,7 @@
  * vectores bajo cierto campo finito.
  *
  * Autor: Iván A. Moreno Soto.
- * Última modificación: 15/Mayo/2017.
+ * Última modificación: 25/Mayo/2017.
  */
 
 /*****************************************************/
@@ -95,6 +95,11 @@ class Discos extends Microjuego {
             // Obtiene la suma que será desplegada al jugador.
             this.suma.numero = this.sumandoUno.numero.sumar(this.sumandoDos.numero);
         } while(this.suma.numero.esCero());
+        
+        this.dibujarIndicador();
+        this.sumandoUno.dibujarBanda(width/2, height/2, -150, 30, height/2, height/3, 200);
+        this.sumandoDos.dibujarBanda(width/2, height/2, -50, 30, height/3, height/6, 200);
+        this.suma.dibujarBanda(width/2, height/2, 0, 30, height/6, 0, 150);
     }
 
     /*****************************************************/
@@ -162,13 +167,13 @@ class Discos extends Microjuego {
             this.cambiarNivel = false;
         }
 
-        // Dibuja el indicador del módulo de los Numeros.
-        this.dibujarIndicador();
+        // Despliega el indicador del módulo de los Numeros.
+        image(this.indicador, 0, 0);
 
-        // Dibuja los discos con los Numeros y colores correspondientes.
-        this.sumandoUno.dibujarBanda(width/2, height/2, -150, 30, height/2, height/3, 200);
-        this.sumandoDos.dibujarBanda(width/2, height/2, -50, 30, height/3, height/6, 200);
-        this.suma.dibujarBanda(width/2, height/2, 0, 30, height/6, 0, 150);
+        // Despliega los discos con los Numeros y colores correspondientes.
+        image(this.sumandoUno.disco, 0, 0);
+        image(this.sumandoDos.disco, 0, 0);
+        image(this.suma.disco, 0, 0);
     }
 
     /*****************************************************/
@@ -309,8 +314,6 @@ class Discos extends Microjuego {
         this.indicador.endShape(CLOSE);
 
         this.indicador.endDraw();
-
-        image(this.indicador, 0, 0);
     }
     
     /*****************************************************/
@@ -406,8 +409,6 @@ class Banda {
         this.dibujarDiscoInterno(R, r, h);
         
         this.disco.endDraw();
-        
-        image(this.disco, 0, 0);
     }
 
     /*****************************************************/

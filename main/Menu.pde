@@ -3,7 +3,7 @@
  * usuario.
  *
  * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 15/Mayo/2017.
+ * Ultima modificacion: 25/Mayo/2017.
  */
 
 /*****************************************************/

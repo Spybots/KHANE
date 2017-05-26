@@ -2,7 +2,7 @@
  * Este archivo contiene las funciones que manejan a las puntuaciones de KHANE.
  *
  * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 23/Mayo/2017.
+ * Ultima modificacion: 25/Mayo/2017.
  */
 
 /*****************************************************/
@@ -20,6 +20,10 @@ PrintWriter escritorPuntuaciones;
 
 /*****************************************************/
 
+/**
+ * @brief Abre y lee los archivos que contienen los nombres y valores de la
+ * tabla de puntuaciones.
+ */
 void leerPuntuaciones()
 {
     String auxValores[];
@@ -34,14 +38,9 @@ void leerPuntuaciones()
         linea = lectorPuntuaciones.readLine();
         auxValores = split(linea, '*');
         
-        int i = 0;
         for (String nombre : auxValores) {
-            println("nombre: " + i + " " + nombre);
             nombresPuntuaciones.add(nombre);
-            ++i;
         }
-        
-        println("Tam nombre: " + i);
         
         lectorPuntuaciones.close();
     } 
@@ -56,21 +55,20 @@ void leerPuntuaciones()
         auxValores = split(linea, '*');
         lectorPuntuaciones.close();
 
-        int i = 0;
         for (String valor : auxValores) {
-            println("puntaje: " + i + " " + valor);
             valoresPuntuaciones.add(Integer.parseInt(valor));
-            ++i;
         }
-        
-         println("Tam num: " + i);
     } catch (Exception exc) {
-        println("7967789Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
+        println("Ha ocurrido un error. Algunos archivos de KHANE pueden estar perdidos.");
     }
 }
 
 /*****************************************************/
 
+/**
+ * @brief Sobreescribe la información contenida en los archivos .khane que guardan la
+ * tabla de puntuaciones.
+ */
 void actualizarArchivoPuntuaciones() {
     try {
         escritorPuntuaciones = createWriter("./data/puntuaciones_nombres.khane");
@@ -99,6 +97,9 @@ void actualizarArchivoPuntuaciones() {
 
 /*****************************************************/
 
+/**
+ * @brief Imprime en pantalla la tabla de puntuaciones y el botón para regresar al menú.
+ */
 void desplegarPuntuaciones()
 {
     int it;

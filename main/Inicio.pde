@@ -3,9 +3,6 @@
  * al usuario.
  *
  * Última modificación: 15/Mayo/2017.
- *
- * TODO:
- * - Agregar partículas en la animación.
  */
 
 /*****************************************************/
@@ -14,6 +11,8 @@ final int VALOR_MAX_COLOR = 255;
 PGraphics maletin, frenteMaletin, bomba, nombre, fondo;
 boolean mostrarAnimacionMenu = false;
 final float ROTACION_ESCENA_X = -PI/8.0;
+
+int mitad[]; // Variable auxiliar para dibujar el efecto visual de fondo.
 
 /*****************************************************/
 
@@ -110,11 +109,14 @@ void desplegarVentanaComienzo()
 
     dibujarFondo();
     dibujarNombre();
-    //dibujarMaletin();
+    
+    // Despliega el maletín.
     tint(VALOR_MAX_COLOR, 255);
     image(maletin, 0, 0);
+    
     dibujarBomba();
-    //dibujarFrenteMaletin();
+    
+    // Despliega el frente del maletín.
     tint(VALOR_MAX_COLOR, 255);
     image(frenteMaletin, 0, 0);
 
@@ -126,8 +128,6 @@ void desplegarVentanaComienzo()
 }
 
 /*****************************************************/
-
-int mitad[];
 
 /**
  * @brief Renderiza un efecto visual en el fondo de la escena.
@@ -180,7 +180,7 @@ void dibujarMaletin()
 
     maletin.rotateX(ROTACION_ESCENA_X);
 
-    // Suelo del maletin.
+    // Suelo del maletín.
     maletin.translate(width/2, height/2 + height/2.4 + height/12, -110 - width/3);
 
     maletin.beginShape();
@@ -194,7 +194,7 @@ void dibujarMaletin()
 
     maletin.endShape(CLOSE);
 
-    // Lados inferiores del maletin.
+    // Lados inferiores del maletín.
     // Lado izquiero.
     maletin.translate(-width/2 + width/14.0, -height/10, 0);
 
@@ -270,7 +270,7 @@ void dibujarMaletin()
 
     maletin.endShape(CLOSE);
 
-    // Dibuja la parte superior del maletin.
+    // Dibuja la parte superior del maletín.
     // Fondo.
     maletin.translate(10, -width/3 - width/17, -3 * width/35.0 - height/4);
 
@@ -361,9 +361,6 @@ void dibujarMaletin()
     maletin.endShape(CLOSE);
 
     maletin.endDraw();
-
-    //tint(VALOR_MAX_COLOR, 255);
-    //image(maletin, 0, 0);
 }
 
 /*****************************************************/
@@ -403,9 +400,6 @@ void dibujarFrenteMaletin()
     frenteMaletin.endShape(CLOSE);
 
     frenteMaletin.endDraw();
-
-    //tint(VALOR_MAX_COLOR, 255);
-    //image(maletin, 0, 0);
 }
 
 /*****************************************************/
@@ -420,7 +414,7 @@ void dibujarBomba()
     bomba.beginDraw();
     bomba.lights();
 
-    // Empieza la animacion para desplegar el menu principal.
+    // Empieza la animación para desplegar el menú principal.
     if (mostrarAnimacionMenu) {
         // Reduce la mecha.
         if (alturaMecha > 0) {

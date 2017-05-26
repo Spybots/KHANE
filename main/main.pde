@@ -2,7 +2,7 @@
  * Este archivo contiene las funciones principales de KHANE.
  *
  * Autor: Iván A. Moreno Soto.
- * Ultima modificacion: 23/Mayo/2017.
+ * Ultima modificacion: 25/Mayo/2017.
  */
  
  /*****************************************************/
@@ -43,7 +43,7 @@ void setup()
     
     //Carga el texto usado por la interfaz del juego.
     fuenteTextoDefault = loadFont("./data/SertoKharput-48.vlw");
-    textFont(fuenteTextoDefault, 48); //<>// //<>//
+    textFont(fuenteTextoDefault, 48); //<>//
     
     //Crea los modelos que seran usados en la pantalla de inicio.
     crearModelos();
@@ -65,10 +65,9 @@ void setup()
     
     discosNoConcluidos = loadImage("./img/discos_no_completo.png");
     discosConcluidos = loadImage("./img/discos_completo.png");
-    
-    //Segundo microjuego
-     abacoNoConcluido = loadImage("./img/portadaMetodosConteo.jpg");
-     abacoConcluido = loadImage("/img/portadaMetodosConteoTerminado.jpg");
+
+    abacoNoConcluido = loadImage("./img/portadaMetodosConteo.jpg");
+    abacoConcluido = loadImage("/img/portadaMetodosConteoTerminado.jpg");
     
     eulerNoCompletado = loadImage("./img/eulerPathSAMPLE.png");
     eulerCompletado = loadImage("./img/eulerPathCompletedSAMPLE.png");
@@ -84,8 +83,8 @@ void setup()
  */
 void draw()
 {
-    background(0, 0, 0); // Bien negro.
-    
+    // Fondo negro.
+    background(0, 0, 0);
     
     if (muestraInicio) {
         desplegarVentanaComienzo();
