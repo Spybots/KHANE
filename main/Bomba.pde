@@ -65,7 +65,11 @@ void actualizarJuego()
             // Calcula y dibuja el tiempo.
             relojPrincipal.calcularTiempo();
             relojPrincipal.dibujarRelojAnalogico();
-            fill(255,0,0);
+            if(serial > 50)
+                fill(255);
+            else
+                fill(0);
+            
             text("Srl: " + serial, width/2, height/2 + 50);
         }
 

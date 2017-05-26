@@ -18,7 +18,8 @@ class Cipher extends Microjuego
     int letra;
     
     //int fallos;
-    int recorrido=int( ((serial%10)+1) * pow(-1, serial%2));
+    int modulo = (serial>50) ? 7 : 10;
+    int recorrido=int( ((serial%modulo)+1) * pow(-1, serial%2));
     //boolean fallo;
     //boolean termino;
     
