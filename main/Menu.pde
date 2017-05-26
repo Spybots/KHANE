@@ -71,10 +71,6 @@ void procesarClickMenu()
             
             maletinJuego = createGraphics(width, height, P3D);
             
-            //para prueba.
-     exito = true;
-     terminoJuego = true;
-     procesarGameOver(exito);
         // Acerca de.
         } else if (mouseY >= height/2 + alturaBoton/2 + padding && 
                    mouseY < height/2 + 3*alturaBoton/2 + padding) {

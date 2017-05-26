@@ -50,6 +50,7 @@ void actualizarJuego()
             //Calcula y dibuja el tiempo
             relojPrincipal.calcularTiempo();
             relojPrincipal.dibujarRelojDigital();
+            
 
             if (microjuegos.get(microjuegoActual).obtenerFallo()) {
                 ++errores;
@@ -59,6 +60,8 @@ void actualizarJuego()
             //Calcula y dibuja el tiempo
             relojPrincipal.calcularTiempo();
             relojPrincipal.dibujarRelojAnalogico();
+            fill(255,0,0);
+            text("Srl: " + serial, width/2, height/2 + 50);
         }
 
         if (errores == NUMERO_ERRORES_FIN) {

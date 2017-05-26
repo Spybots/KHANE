@@ -23,6 +23,7 @@ boolean muestraAcerca = false;
 final int NUMERO_MICROJUEGOS = 4; 
 ArrayList<Microjuego> microjuegos;
 Reloj relojPrincipal;
+int serial;
 
 BufferedReader lector;
 String informacion[];
@@ -64,6 +65,8 @@ void setup()
     
     discosNoConcluidos = loadImage("./img/discos_no_completo.png");
     discosConcluidos = loadImage("./img/discos_completo.png");
+    
+    serial =int(random(0, 99));
 }
 
 /*****************************************************/
